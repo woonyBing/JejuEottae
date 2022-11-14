@@ -74,6 +74,7 @@
           <tbody>
             <tr>
               <th scope="row">1(review_num)</th>
+              <td>리뷰작성날짜</td>
               <td>213(booking num)</td>
               <td>(hotel name)</td>
               <td>(1~5)</td>
