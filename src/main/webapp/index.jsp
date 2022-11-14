@@ -159,11 +159,27 @@
 									</tbody>
 								</table>
                                 <!-- style="display: none;"  -->
-								<button id="rsvBtn" type="button" class="btn btn-primary">예약하기</button>
-								<div id="rsvAlert" class="alert alert-primary" role="alert" style="display: none;">
-								  <strong>예약 완료!</strong> 자세한 내용은 my page를 확인해주세요 :)
-								  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-								</div>
+								<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    예약하기
+                                </button>
+								<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">예약 완료!</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            자세한 내역은 my page에서 확인해주세요 :)
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary"
+                                                onclick="location.href='./mypage.jsp'">My page</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
 							</div>
 						</div>
 					</div>
@@ -220,17 +236,6 @@
 				</div>
 			</div>
 		</div>
-	<script>
-    	document.getElementById('rsvBtn').addEventListener('click', (e)=>{
-    		let showAlert = document.getElementById('rsvAlert');
-    		if(showAlert.style.display == 'none') {
-    			console.log(showAlert.style.display);
-    			showAlert.style.display = 'block';
-    		} else {
-    			showAlert.style.display = 'none';
-    		}
-        });
-	</script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
