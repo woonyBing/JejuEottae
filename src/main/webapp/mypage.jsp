@@ -17,14 +17,14 @@
         <!-- NavBar -->
         <nav class="navbar navbar-expand-lg bg-light">
           <div class="container-fluid">
-              <a class="navbar-brand" href="/JejuEottae/indext.html">제주어때🍊</a>
+              <a class="navbar-brand" href="/JejuEottae/index.jsp">제주어때🍊</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
-                  <a class="nav-link active" aria-current="page" href="/JejuEottae/indext.html">Home</a>
-                  <a class="nav-link" href="/JejuEottae/mypage/mypage.html">My page</a>
+                  <a class="nav-link active" aria-current="page" href="./index.jsp">Home</a>
+                  <a class="nav-link" href="./mypage.jsp">My page</a>
               </div>
               </div>
           </div>
@@ -39,7 +39,7 @@
           <!-- 카드 부분 -->
         <div class="row row-cols-1 row-cols-md-3" >
             <div class="col">
-              <a href="/JejuEottae/mypage/reservedCheck.jsp">
+              <a href="./reservedCheck.jsp">
               <div class="card" >
                 <!-- 링크작업 필요 -->
                 
@@ -53,7 +53,7 @@
               </div>
             </div>
             <div class="col">
-              <a href="/JejuEottae/mypage/myInfo.html">
+              <a href="./myInfo.jsp">
                 <div class="card">    
                 <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_960_720.png" 
                 class="card-img-top" width="200px" height="300px" >
@@ -64,7 +64,7 @@
               </div>
             </div>
             <div class="col">
-              <a href="/JejuEottae/mypage/reviewManage.html">
+              <a href="./reviewManage.jsp">
               <div class="card">
                 <img src="https://cdn.pixabay.com/photo/2022/01/11/21/48/talk-6931551_960_720.png"
                 class="card-img-top"  width="200px" height="300px">
