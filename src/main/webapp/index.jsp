@@ -42,7 +42,7 @@
             <p class="mainStr">JejuEottae</p>
         </div>
 	</header>
- 
+
     <!-- section 영역 -->
     <section>
         <form name="reservationForm">
