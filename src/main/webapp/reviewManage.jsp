@@ -71,3 +71,22 @@
           <tbody>
             <tr>
               <th scope="row">1(review_num)</th>
+              <td>213(booking num)</td>
+              <td>(hotel name)</td>
+              <td>(1~5)</td>
+              <td>
+              <div class="review_button">
+                <button type="button" class="btn btn-danger">삭제</button>
+              </div>
+              <div class="review_button">
+                <button type="button" class="btn btn-warning">수정</button>
+              </div>
+            </td>
+            </tr>
+          </tbody>
+          
+        </table>
+      <!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    </body>
+</html>
