@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% request.setCharacterEncoding("UTF-8"); %>
+<%@page import="dao.reviewDao"%>
+ <%@ page import="dto.Review" %>
+ <%@ page import="java.util.*" %>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,7 +15,15 @@
     <title>JejuEottae_reviewManage</title>
     <link rel="stylesheet" href="./mypage.css">
 </head>
+
 <body>
+<%
+		reviewDao rvDao = new reviewDao();
+		List<Review> reviewList = rvDao.selectReviewList();
+		%>
+		
+              
+
 	<header style="margin:0px">
         <!-- NavBar -->
         <nav class="navbar navbar-expand-lg bg-light">
@@ -59,25 +71,35 @@
         </div>
             
       </div> 
+		
         <!-- for문 필요 혹시 없으면 안뜨게도 가능한지... -->
-
+		
         <table class="reviewTable">
           <thead>
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">리뷰 작성일</th>
-              <th scope="col">예약 번호</th>
-              <th scope="col">호텔 이름</th>
-              <th scope="col">평점</th>
+              <th scope="col" style="width: 10%">#</th>
+              <th scope="col" style="width: 20%">리뷰 작성일</th>
+              <th scope="col" style="width: 10%">예약 번호</th>
+              <th scope="col" style="width: 30%">리뷰 내용</th>
+              <th scope="col" style="width: 10%">평점</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1(review_num)</th>
-              <td>리뷰작성날짜</td>
-              <td>213(booking num)</td>
-              <td>(hotel name)</td>
-              <td>(1~5)</td>
+
+    
+			
+            
+<%
+				if (reviewList != null && reviewList.size()>0) {					
+					for (Review rv : reviewList) {
+	%>
+	<tbody>
+          <tr>
+              <td><%=rv.getRevNum()%></td>
+              <td ><%=rv.getRevDate() %></td>
+              <td><%=rv.getBoNum() %></td>
+              <td><%=rv.getContent() %></td>
+              <td> <%=rv.getScore()%></td>
+              
               <td>
               <div class="review_button">
                 <button type="button" class="btn btn-danger">삭제</button>
@@ -85,12 +107,24 @@
               <div class="review_button">
                 <button type="button" class="btn btn-warning">수정</button>
               </div>
-            </td>
-            </tr>
-          </tbody>
+              </td>
+             </tr>  
+              </tbody> 
+              
+          <%
+					}
+				}
+			%>
+          
+           
           
         </table>
+        
+        
+        
       <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     </body>
 </html>
+              
+              
