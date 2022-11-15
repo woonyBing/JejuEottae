@@ -3,6 +3,13 @@
 <% request.setCharacterEncoding("UTF-8"); %>
 <!DOCTYPE html>
 <html>
+<<<<<<< HEAD
+=======
+
+<head>
+<meta charset="UTF-8">
+<title>JejuEottae</title>
+>>>>>>> dd596f8051ab9a69b1dc12d34dc3cae6e61e8403
 
 <head>
     <meta charset="UTF-8">
@@ -17,6 +24,7 @@
 </head>
 
 <body>
+<<<<<<< HEAD
     <!-- header 및 nav 영역-->
     <header>
         <%@ include file="navBar.jsp" %>
@@ -69,21 +77,35 @@
                 <button type="button" class="btn btn-primary gridItemBtn">검색</button>
             </div>
         </form>
+=======
+	<!-- header 및 nav 영역-->
+	<header>
+		<%@ include file="navBar.jsp"%>
 
-        <div class="container">
-            <!--지도 API 들어갈 자리-->
-            <div class="mapBox">지도 API 들어갈 자리</div>
+		<div class="mainImg">
+			<p class="mainStr">JejuEottae</p>
+		</div>
+	</header>
+
+	<!-- section 영역 -->
+	<section>
+		<!-- 검색 영역 -->
+		<%@ include file="formSearch.jsp"%>
+>>>>>>> dd596f8051ab9a69b1dc12d34dc3cae6e61e8403
+
+		<div class="container">
+
+			<!--지도 API 들어갈 자리-->
+			<div class="mapBox">지도 API 들어갈 자리</div>
 
 
-            <!--호텔리스트-->
-            <div class="gridItemHotelList">
-                <h2 style="margin-bottom: 30px; text-align: center;">숙소 검색 결과</h2>
-                <div class="divisionLine"></div>
-                <div class="accordion" id="accordionExample">
-                    <!--
-                        여기서부터
+			<!--호텔리스트-->
+			<%@include file="showHotelList.jsp"%>
 
+			<!--관광지 리스트-->
+			<%@include file="showTourList.jsp"%>
 
+<<<<<<< HEAD
                     -->
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingOne">
@@ -214,6 +236,15 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
     </script>
+=======
+		</div>
+	</section>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+		crossorigin="anonymous">
+			</script>
+>>>>>>> dd596f8051ab9a69b1dc12d34dc3cae6e61e8403
 </body>
 
 </html>
