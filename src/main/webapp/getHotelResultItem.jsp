@@ -7,7 +7,20 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<%
+// 	form 양식 가져오는 부분
+	String name = request.getParameter("location");
+	String name2 = request.getParameter("lodgingType");
+	String name3 = request.getParameter("startDate");
+	String name4 = request.getParameter("endDate");
+	String name5 = request.getParameter("personCnt");
+// 	out.println(name);
+// 	out.println(name2);
+// 	out.println(name3);
+// 	out.println(name4);
+// 	out.println(name5);
+	
+%>
 <%for (int i=1; i<=5; i++) {%>
 	<div class="accordion-item">
 		<h2 class="accordion-header" id="panels<%=i%>">
