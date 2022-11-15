@@ -10,7 +10,7 @@
 <%for(int i=0; i<6; i++) {%>
 	<div class="col">
 		<div class="card h-100">
-			<img src="..." class="card-img-top" alt="...">
+			<img src="https://www.newsje.com/news/photo/202111/247691_238275_81.png" class="card-img-top" alt="...">
 			<div class="card-body">
 				<h5 class="card-title">관광지명</h5>
 				<p class="card-text">주소</p>

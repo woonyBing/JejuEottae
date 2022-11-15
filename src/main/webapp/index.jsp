@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="dao.Tour"%>
 <% request.setCharacterEncoding("UTF-8"); %>
 <!DOCTYPE html>
 <html>
@@ -22,6 +23,13 @@
 </head>
 
 <body>
+<%--
+tour_list 테이블 만들고 insert 하는 dao
+ 	<% Tour tour = new Tour();
+	 	tour.create_data_table();
+	 	tour.all_data_to_table();
+	%>
+--%>
 	<!-- header 및 nav 영역-->
 	<header>
 		<%@ include file="navBar.jsp"%>
