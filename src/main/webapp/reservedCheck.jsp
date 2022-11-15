@@ -89,6 +89,16 @@
                       <th scope="col" style="width: 20%">userName</th>
                       <th scope="col" style="width: 20%">person</th>
                       <th scope="col" style="width: 20%">payment</th>
+                      
+                    
+                    </tr>
+                    
+                    <tr>
+                        <th scope="col" style="width: 20%">2hotelname</th>
+                      <th scope="col" style="width: 20%">2checkIn,checkOut</th>
+                      <th scope="col" style="width: 20%">2userName</th>
+                      <th scope="col" style="width: 20%">2person</th>
+                      <th scope="col" style="width: 20%">2payment</th>
                     </tr>
                   </thead>
                 </table>
@@ -118,16 +128,14 @@
             </div>
           <div class="modal-body">
         <!-- 코멘트 -->
-            <div class="form-floating2">
+           
+
+            <form name="myform" id="myform" method="post" >
               <legend>후기를 남겨주세요</legend>
-
-              <textarea class="form-control" placeholder="무분별한 비방, 폭력적인 욕설 사용은 통보없이 삭제될 수 있습니다." id="floatingTextarea"
+              <textarea class="form-control" placeholder="무분별한 비방, 폭력적인 욕설 사용은 통보없이 삭제될 수 있습니다." id="floatingTextarea" name="comment"
               style="height: 100px;"></textarea>
-              
-            </div>
-
-            <form name="myform" id="myform" method="post" action="./save">
               <fieldset>
+               
                   <legend>별점</legend>
                   <input type="radio" name="rating" value="5" id="rate1"><label for="rate1">⭐</label>
                   <input type="radio" name="rating" value="4" id="rate2"><label for="rate2">⭐</label>
@@ -140,8 +148,8 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary">평가하기</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">다음에 평가하기</button>
+          <button type="button" id="reserve_up" class="btn btn-primary" >평가하기</button>
+          <button type="button"  class="btn btn-secondary" data-bs-dismiss="modal">다음에 평가하기</button>
         </div>
       </div>
       </div>
@@ -154,6 +162,14 @@
 
     <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-
+<script>
+document.getElementById('reserve_up').addEventListener('click', (e)=>{
+	e.preventDefault();
+	let form = document.myform;
+	form.action="review_proc.jsp"
+	form.submit();
+	
+});
+</script>
 </body>
 </html>
