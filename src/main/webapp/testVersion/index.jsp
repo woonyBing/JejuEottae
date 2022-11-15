@@ -68,7 +68,86 @@
 
 		<div class="container">
 			<!--지도 API 들어갈 자리-->
-			<div class="mapBox">지도 API 들어갈 자리</div>
+			<div class="mapBox">
+				
+					<style type="text/css">
+#bound {
+	height: 100%;
+	width: 100%;
+}
+/* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+#map {
+	height: 100%;
+}
+
+/* Optional: Makes the sample page fill the window. */
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+</style>
+				<script
+					src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+				<script
+					src="https://maps.googleapis.com/maps/api/js?AIzaSyBjn-80evCQ7YDKFJR0fLXyBe-oKRhOWQw&callback=initMap&libraries=&v=weekly"
+					defer>
+					
+				</script>
+
+				<script>
+					function initMap() {
+						const myLatLng = { //기본 좌표 값: 한라산
+							lat : 33.360139,
+							lng : 126.534247
+						};
+
+						var locations = [ [
+										'<div>'
+										+ '<<h3>그랜드하얏트제주</h3>'
+										+ '<img src="https://cdn.pixabay.com/photo/2014/08/17/23/45/hotel-420260_960_720.jpg" width="40px" height="50%"></img>'
+										+ '</div>', 33.484759, 126.482115 ],
+										
+						];
+
+						var map = new google.maps.Map(document
+								.getElementById('map'), {
+							zoom : 11,
+							center : myLatLng,
+						});
+
+						var infowindow = new google.maps.InfoWindow();
+
+						var marker, i;
+
+						for (i = 0; i < locations.length; i++) {
+							marker = new google.maps.Marker({
+								position : new google.maps.LatLng(
+										locations[i][1], locations[i][2]),
+								map : map
+							});
+
+							google.maps.event
+									.addListener(
+											marker,
+											'click',
+											(function(marker, i) {
+												return function() {
+													infowindow
+															.setContent(locations[i][0]);
+													infowindow
+															.open(map, marker);
+												}
+											})(marker, i));
+						}
+					}
+				</script>
+
+				<div id="bound">
+					<div id="map"></div>
+				</div>
+			</div>
 
 
 			<!--호텔리스트-->
@@ -157,16 +236,16 @@
 										<div class="modal-dialog">
 											<div class="modal-content">
 												<div class="modal-header">
-													<h1 class="modal-title fs-5" id="exampleModalLabel">예약 완료!</h1>
+													<h1 class="modal-title fs-5" id="exampleModalLabel">예약 실패</h1>
 													<button type="button" class="btn-close" data-bs-dismiss="modal"
 														aria-label="Close"></button>
 												</div>
 												<div class="modal-body">
-													자세한 내역은 my page에서 확인해주세요 :)
+													로그인 후 이용해주세요.
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-primary"
-														onclick="location.href='./mypage.jsp'">My page</button>
+														onclick="location.href='./login.jsp'">Login 하러가기</button>
 													<button type="button" class="btn btn-secondary"
 														data-bs-dismiss="modal">Close</button>
 												</div>
