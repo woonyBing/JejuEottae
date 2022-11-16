@@ -61,10 +61,11 @@
       
       <!-- for문 필요 버튼 기능 필요-->
       <div class="accordion" id="accordionExample">
+      
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingOne">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              <div> 예약일자 </div>
+              <div> 호텔이름 </div>
             </button>
           </h2>
           <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
@@ -105,6 +106,7 @@
                 </div>
           </div>
           </div>
+        
         </div>
        
 
@@ -151,6 +153,9 @@
 
 
     </div>
+    
+     <!-- footer 부분 -->
+         <%@ include file="footer.jsp" %>
 
     <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>

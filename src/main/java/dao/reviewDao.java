@@ -162,6 +162,7 @@ public class reviewDao {
 		connect();
 		psmt = conn.prepareStatement(sql);
 		
+		psmt.setInt(1,revNum);
 		
 		result = psmt.executeUpdate();
 		

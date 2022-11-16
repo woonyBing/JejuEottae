@@ -78,8 +78,6 @@
           </div>
 
           <!-- footer 부분 -->
-          <div class="footer">
-            <h5>footer 부분입니당</h5>
-          </div>
+         <%@ include file="footer.jsp" %>
 </body>
 </html>

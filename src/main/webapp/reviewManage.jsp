@@ -101,9 +101,23 @@
               <td> <%=rv.getScore()%></td>
               
               <td>
-              <div class="review_button">
-                <button type="button" class="btn btn-danger">삭제</button>
-              </div>
+             
+               <div class="review_button">
+                <button id="deleteBtn" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">삭제</button>
+                
+  				</div>
+<script>
+		document.getElementById('deleteBtn').addEventListener('click', (e)=>{
+			e.preventDefault();
+			let form = document.personDetailForm;
+			if(confirm('정말로 삭제하시겠습니까?')){
+				form.action = "deleteReview.jsp";
+				form.submit();
+			}
+		});
+	</script>
+              
+              
               <div class="review_button">
                 <button type="button" class="btn btn-warning">수정</button>
               </div>
@@ -120,7 +134,8 @@
           
         </table>
         
-        
+         <!-- footer 부분 -->
+         <%@ include file="footer.jsp" %>
         
       <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>

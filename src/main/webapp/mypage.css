@@ -41,8 +41,24 @@
     background-color: lightgray;
     width: 100%;
     height: 300px;
+    margin-top:250px;
+    
 }
 
+.breadcrumb{
+	margin-left: 20px;
+    width: 30%;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.breadcrumb a{
+	
+	
+	text-decoration: none; /* 링크의 밑줄 제거 */
+	color: inherit; /* 링크의 색상 제거 */
+	
+}
 
 /* 예약관리& 리뷰관리 영역 */
 .choice{
@@ -90,12 +106,25 @@
 }
 
 .booking_button{
-    width: 100px;
+    
+    width:100%;
+    margin: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 5px;
+    align-content: center;
+    justify-items:center;
+    
+    
+}
+/* .booking_button{
+    width: 10%;
     margin: 5px;
     position: relative;
     display: inline-block;
     left: 65%;
 }
+ */
 
 
 #myform fieldset{
