@@ -7,18 +7,22 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-<%for (int i=1; i<=5; i++) {%>
+<%
+// 	form 양식 가져오는 부분
+	String name = request.getParameter("location");
+	String name2 = request.getParameter("lodgingType");
+	
+%>
 	<div class="accordion-item">
-		<h2 class="accordion-header" id="panels<%=i%>">
+		<h2 class="accordion-header" id="panels1">
 			<button class="accordion-button" type="button"
 				data-bs-toggle="collapse"
-				data-bs-target="#panelsStayOpen-collapse<%=i%>" aria-expanded="true"
-				aria-controls="panelsStayOpen-collapse<%=i%>">호텔 <%=i%></button>
+				data-bs-target="#panelsStayOpen-collapse1" aria-expanded="true"
+				aria-controls="panelsStayOpen-collapse1">호텔 1</button>
 		</h2>
-		<div id="panelsStayOpen-collapse<%=i%>"
+		<div id="panelsStayOpen-collapse1"
 			class="accordion-collapse collapse show"
-			aria-labelledby="panels<%=i%>">
+			aria-labelledby="panels1>">
 			<div class="accordion-body">
 				<div id="carouselExampleControls" class="carousel slide"
 					data-bs-ride="carousel">
@@ -26,12 +30,12 @@
 						<div class="carousel-item active">
 							<img
 								src="https://images.unsplash.com/photo-1595737335975-2160c924caf2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
-								class="d-block w-100" alt="...">
+								class="d-block w-100" alt="호텔이미지1">
 						</div>
 						<div class="carousel-item">
 							<img
 								src="https://images.unsplash.com/photo-1596941248238-0d49dcaa4263?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
-								class="d-block w-100" alt="...">
+								class="d-block w-100" alt="호텔이미지2">
 						</div>
 					</div>
 					<button class="carousel-control-prev" type="button"
@@ -64,9 +68,8 @@
 						</tr>
 					</tbody>
 				</table>
-
-
-				<table class="table">
+				
+				<table class="table"  style="margin-bottom:100px;">
 					<thead>
 						<tr>
 							<th scope="col" colspan="4">REVIEW</th>
@@ -80,6 +83,40 @@
 						</tr>
 					</tbody>
 				</table>
+				
+				
+
+	
+				<!--날짜선택-->
+				<div class="inputGrid">
+					<div class="inputDate">
+						<label for="reservationDate">체크인</label>
+						<input id="startDate"
+							type="date" class="form-control" name="startDate">
+					</div>
+					<div class="inputDate">
+						<label for="reservationDate">체크아웃</label>
+						<input id="endDate"
+							type="date" class="form-control" name="endDate">
+					</div>
+				</div>
+
+				<!--인원선택-->
+				<div class="gridItemPersonCnt" style="margin-bottom:100px;">
+					<label for="personCnt">인원</label>
+					<select class="form-select"
+						aria-label="Default select example" name="personCnt">
+						<%
+							for (int i = 1; i <= 10; i++) {
+						%>
+							<option id="<%=i%>" value="<%=i%>"><%=i%></option>
+						<%
+							};
+						%>
+					</select>
+				</div>
+				
+				
 				<button type="button" class="btn btn-primary" data-bs-toggle="modal"
 					data-bs-target="#exampleModal">예약하기</button>
 				<div class="modal fade" id="exampleModal" tabindex="-1"
@@ -104,6 +141,5 @@
 			</div>
 		</div>
 	</div>
-<%}; %>
 </body>
 </html>
