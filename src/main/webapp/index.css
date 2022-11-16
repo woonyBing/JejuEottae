@@ -32,7 +32,7 @@
     margin-bottom: 30px;
 }
 
-.container, .formgrid {
+.container, .formgrid, .inputGrid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
@@ -40,13 +40,11 @@
     justify-items:center;
 }
 
-.formgrid{
-    padding-left: 10%;
-    padding-right: 10%;
+.formgrid {
+	padding-left:10%;
+	padding-right:10%;
 }
-.gridItemPersonCnt{
-    grid-column: 1 / span 2;
-}
+
 .gridItemHotelList, .gridItemTourList, .gridItemBtn {
     grid-column: 1 / span 2;
     margin-bottom: 100px;
@@ -65,6 +63,3 @@
 .slide {
     margin-bottom: 100px;
 }
-/* #rsvAlert {
-    display: fixed;
-} */
