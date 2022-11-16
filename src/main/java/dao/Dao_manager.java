@@ -8,6 +8,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+<<<<<<< HEAD
+=======
+import dto.Review;
+
+>>>>>>> 31351c26aa52091d2522eb5e5b81b2e3a4975383
 
 public class Dao_manager {
 
@@ -133,7 +138,10 @@ public class Dao_manager {
 	
 	public void insert_tour_list(List<String> name_data,List<String> address_data)
 	{
+<<<<<<< HEAD
 		//////////// id 숫자로 추가하기
+=======
+>>>>>>> 31351c26aa52091d2522eb5e5b81b2e3a4975383
 		try {
 			// 연결하는 메소드
 			connect();
@@ -390,6 +398,127 @@ public class Dao_manager {
 		}
 	}
 	
+<<<<<<< HEAD
+=======
+	public List<Review> selectReviewList(){
+		String sql = "select * from review order by rev_num";
+		List<Review> reviewList=null;
+		
+		try {
+			connect();
+			
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			
+			reviewList = new ArrayList<Review>();
+			while(rs.next()) {
+				Review rv = new Review();
+				rv.setRevNum(rs.getInt("rev_num"));
+				rv.setContent(rs.getString("content"));
+				rv.setRevDate(rs.getDate("rev_date"));
+				rv.setUserEmail(rs.getString("user_email"));
+				rv.setBoNum(rs.getInt("bo_num"));
+				rv.setScore(rs.getInt("score"));
+				
+				reviewList.add(rv);
+				
+			}
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			disconnect();
+		}
+		return reviewList;
+		
+	}
+	
+	//날짜별 분류
+	public Review selectReviewInfoListByDate(String revDate){
+		String sql = "select * from Review Order by id";
+		Review rv=null;
+		
+		try {
+			connect();
+			
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, revDate);
+			rs = psmt.executeQuery();
+			
+			//수정필요
+			rv = new Review();
+			if(rs.next()) {
+				
+				rv.setRevNum(rs.getInt("rev_num"));
+				rv.setContent(rs.getString("content"));
+				rv.setRevDate(rs.getDate("rev_date"));
+				rv.setUserEmail(rs.getString("user_email"));
+				rv.setBoNum(rs.getInt("bo_num"));
+				rv.setScore(rs.getInt("score"));
+				
+				
+				
+			}
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			disconnect();
+		}
+		return rv;
+		
+	}
+
+	
+	public int updateReview(Review rv) {
+		String sql = "update review "
+				+ " set content= ? , score =?"
+				+ " where user_email = ?"; //앞에 띄어쓰기**
+	int result = 0;
+	
+	try {
+		connect();
+		psmt = conn.prepareStatement(sql);
+		psmt.setString(1,rv.content);
+		psmt.setInt(2, rv.score);
+		psmt.setString(3, rv.userEmail);
+		
+		result = psmt.executeUpdate();
+		
+	}catch(Exception e) {
+		e.printStackTrace();
+	}finally {
+		disconnect();
+	}
+	return result;
+	
+	}
+	
+	
+	public int deleteReview(int revNum) {
+		String sql = "delete from review where rev_num=?";
+	int result = 0;
+	
+	try {
+		connect();
+		psmt = conn.prepareStatement(sql);
+		
+		
+		result = psmt.executeUpdate();
+		
+	}catch(Exception e) {
+		e.printStackTrace();
+	}finally {
+		disconnect();
+	}
+	return result;
+	
+	}
+	
+	
+>>>>>>> 31351c26aa52091d2522eb5e5b81b2e3a4975383
 	//
 
 }

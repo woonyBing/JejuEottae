@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+   <%@ page import="dao.Dao_manager" %>
+       <%@ page import="java.sql.DriverManager" %>
+          <%@ page import="java.sql.Connection" %>
+   
+    <%@ page import="java.sql.ResultSet" %>
+        <%@ page import="java.sql.SQLException" %>
+                <%@ page import="java.sql.PreparedStatement" %>
+        
+    
+    
+    
 <% request.setCharacterEncoding("UTF-8"); %>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,19 +46,20 @@
         </div>
       </nav>
 
+
     <div class="choice"> 
       <div class="container text-center">
         <div class="row">
           <div class="col">
             
-             <select class="form-select" aria-label="Default select example">
+             <select class="form-select" aria-label="Default select example" name="category" >
                 <option selected>카테고리</option>
                 <option value="1">호텔</option>
                 <option value="2">리조트</option>
              </select>
           </div>
           <div class="col">
-             <select class="form-select" aria-label="Default select example">
+             <select class="form-select" aria-label="Default select example" name = "period">
                 <option selected>전체</option>
                 <option value="1">최근 3개월</option>
                 <option value="2">최근 6개월</option>
@@ -55,9 +67,19 @@
              </select>
     
             </div>
+            <div class="col">
+            
+             <select class="form-select" aria-label="Default select example" name="category" >
+                <option selected>카테고리</option>
+                <option value="1">호텔</option>
+                <option value="2">리조트</option>
+             </select>
+             <div class="col">
+            
+<!--  버튼 추가  -->
+          </div>
           </div>
       </div>
-          
       
       <!-- for문 필요 버튼 기능 필요-->
       <div class="accordion" id="accordionExample">
@@ -77,33 +99,133 @@
                   <thead>
                       <tr>
                           <th scope="col" style="width: 20%">예약호텔</th>
-                          <th scope="col" style="width: 20%">숙박기간</th>
+                          <th scope="col" style="width: 30%">숙박기간</th>
                           <th scope="col" style="width: 20%">예약자 성함</th>
-                          <th scope="col" style="width: 20%">인원</th>
-                          <th scope="col" style="width: 20%">결제수단</th>
+                          <th scope="col" style="width: 10%">인원</th>
+                          <th scope="col" style="width: 20%">결제금액</th>
                       </tr>
                   </thead>
                   <thead>
-                    <tr>
-                      <th scope="col" style="width: 20%">hotelname</th>
-                      <th scope="col" style="width: 20%">checkIn,checkOut</th>
-                      <th scope="col" style="width: 20%">userName</th>
-                      <th scope="col" style="width: 20%">person</th>
-                      <th scope="col" style="width: 20%">payment</th>
-                    </tr>
-                  </thead>
-                </table>
+                  
+                  <% 
+                  Dao_manager dm  = new Dao_manager();
+                  ResultSet rs = dm.get_booking_datas("test_id");
+                  //
+                  if(rs==null)
+                  {
+                	  out.println("<tr>");
+                	  
+                	  out.print("<th scope=\"col\" style=\"width: 20%\">");
+                	  out.print("없음");
+                	  out.println("</th>");
+               
+                	  out.print("<th scope=\"col\" style=\"width: 30%\">");
+                	  out.print("없음");
+
+                	  out.println("</th>");
+                	  
+ 					  out.print("<th scope=\"col\" style=\"width: 20%\">");
+                	  out.print("없음");
+                	  out.println("</th>");
+                	  
+ 					  out.print("<th scope=\"col\" style=\"width: 10%\">");
+                	  out.print("없음");
+                	  out.println("</th>");
+                	  
+ 					  out.print("<th scope=\"col\" style=\"width: 20%\">");
+                	  out.print("없음");
+                	  out.println("</th>");
+
+
+                	  out.println("</tr>");
+                  }
+                  else
+                  { 
+              		  int count =0;
+                	  while(rs.next())
+                      {
+                		  if(count>0)
+                		  {
+                    		  out.println("<table class=\"table\"><thead>");
+                		  }
+                		  count++;
+                		
+                    	  out.println("<tr>");
+                    	  
+                    	  out.print("<th scope=\"col\" style=\"width: 20%\">");
+                    	  out.print(rs.getString("HOTEL_NAME"));
+                    	  out.println("</th>");
+                   
+                    	  out.print("<th scope=\"col\" style=\"width: 30%\">");
+                    	  out.print(rs.getString("CHECKIN")+"~"+rs.getString("CHECKOUT"));
+                    	  out.println("</th>");
+                    	  
+     					  out.print("<th scope=\"col\" style=\"width: 20%\">");
+                    	  out.print(rs.getString("NAME"));
+                    	  out.println("</th>");
+                    	  
+     					  out.print("<th scope=\"col\" style=\"width: 10%\">");
+                    	  out.print(rs.getInt("PERSON")+"");
+                    	  out.println("</th>");
+                    	  
+     					  out.print("<th scope=\"col\" style=\"width: 20%\">");
+                    	  out.print(rs.getInt("PAYMENT")+"");
+                    	  out.println("</th>");
+                    	  
+                    	  out.println("</tr>");
+
+                    	   out.println("</thead></table><div class=\"booking_button\">"
+                                  +"<button type=\"button\" class=\"btn btn-danger\">예약취소</button>"
+                                  +"</div>"
+                                  +"<div class=\"booking_button\">"
+                                    +"<button type=\"button\" class=\"btn btn-warning\">예약문의</button>"
+                                  +"</div>"
+                                  +"<div class=\"booking_button\" data-bs-toggle=\"modal\" data-bs-target=\"#exampleModal\">"
+                                  +"<button type=\"button\" class=\"btn btn-primary\">숙소평가</button>"
+                                  +"</div>");
+                    	 
+                      }
+                      if(count ==0)
+                      {
+                    	  	
+                     	out.println("<tr>");
+         
+                  	 	out.print("<th scope=\"col\" style=\"width: 20%\">");
+                  	  	out.print("없음");
+                  	  	out.println("</th>");
+                 
+                  	  	out.print("<th scope=\"col\" style=\"width: 30%\">");
+                  	  	out.print("없음");
+
+                  	  	out.println("</th>");
+                  	  
+      					out.print("<th scope=\"col\" style=\"width: 20%\">");
+                  	  	out.print("없음");
+                  	  	out.println("</th>");
+                  	  
+      				  	out.print("<th scope=\"col\" style=\"width: 10%\">");
+                  	  	out.print("없음");
+                  	  	out.println("</th>");
+                  	  
+      			      	out.print("<th scope=\"col\" style=\"width: 20%\">");
+                  	  	out.print("없음");
+                  	  	out.println("</th>");
+
+
+                  	  out.println("</tr>");
+                      }
+
+                     
+                  }
+                  dm.disconnect();
+
+                  %>
+                    
+               
+                  
+                    	  
               </div>
               
-              <div class="booking_button">
-                <button type="button" class="btn btn-danger">예약취소</button>
-              </div>
-              <div class="booking_button">
-                <button type="button" class="btn btn-warning">예약문의</button>
-              </div>
-              <div class="booking_button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                <button type="button" class="btn btn-primary">숙소평가</button>
-                </div>
           </div>
           </div>
         
@@ -120,30 +242,31 @@
             </div>
           <div class="modal-body">
         <!-- 코멘트 -->
-            <div class="form-floating2">
+           
+
+            <form name="myform" id="myform" method="post" >
               <legend>후기를 남겨주세요</legend>
-
-              <textarea class="form-control" placeholder="무분별한 비방, 폭력적인 욕설 사용은 통보없이 삭제될 수 있습니다." id="floatingTextarea"
+              <textarea class="form-control" placeholder="무분별한 비방, 폭력적인 욕설 사용은 통보없이 삭제될 수 있습니다." id="floatingTextarea" name="comment"
               style="height: 100px;"></textarea>
-              
-            </div>
-
-            <form name="myform" id="myform" method="post" action="./save">
               <fieldset>
+               
                   <legend>별점</legend>
                   <input type="radio" name="rating" value="5" id="rate1"><label for="rate1">⭐</label>
                   <input type="radio" name="rating" value="4" id="rate2"><label for="rate2">⭐</label>
                   <input type="radio" name="rating" value="3" id="rate3"><label for="rate3">⭐</label>
                   <input type="radio" name="rating" value="2" id="rate4"><label for="rate4">⭐</label>
                   <input type="radio" name="rating" value="1" id="rate5"><label for="rate5">⭐</label>
+                  <input type="hidden" name="id" value="test_id">
+                  <input type="hidden" name="bo_num" value="1">
+                  
               </fieldset>
               <div>솔직한 평가 부탁드립니다.</div>
           </form>
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary">평가하기</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">다음에 평가하기</button>
+          <button type="button" id="reserve_up" class="btn btn-primary" >평가하기</button>
+          <button type="button"  class="btn btn-secondary" data-bs-dismiss="modal">다음에 평가하기</button>
         </div>
       </div>
       </div>
@@ -159,6 +282,14 @@
 
     <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<script>
+document.getElementById('reserve_up').addEventListener('click', (e)=>{
+	e.preventDefault();
+	let form = document.myform;
+	form.action="review_proc.jsp"
+	form.submit();
 
+});
+</script>
 </body>
 </html>

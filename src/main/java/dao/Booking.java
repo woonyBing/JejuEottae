@@ -14,13 +14,13 @@ public class Booking {
 	String checkin;
 	String checkout;
 	String user_email;
-	Reservation reservation =null;
+	Dao_manager dao_manager =null;
 	
 	public Booking()
 	{
-		if(this.reservation==null)
+		if(this.dao_manager==null)
 		{
-			this.reservation = new Reservation();
+			this.dao_manager = new Dao_manager();
 
 		}	
 	}
@@ -34,28 +34,26 @@ public class Booking {
 		 this.payment=payment;
 		 this.checkin=checkin;
 		 this.checkout=checkout;
-		 this.user_email=user_email;
 	}
-	
 	
 
 	public void create_data_table()
 	{
-		if(this.reservation==null)
+		if(this.dao_manager==null)
 		{
-			this.reservation = new Reservation();
+			this.dao_manager = new Dao_manager();
 
 		}	
-		reservation.create_Booking();
+		dao_manager.create_Booking();
 	}
 	
 	public void add_booking()
 	{
-		if(this.reservation==null)
+		if(this.dao_manager==null)
 		{
-			this.reservation = new Reservation();
+			this.dao_manager = new Dao_manager();
 
 		}		
-		reservation.insert_Booking(this);
+		dao_manager.insert_Booking(this);
 	}
 }
