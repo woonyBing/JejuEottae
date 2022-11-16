@@ -58,7 +58,7 @@ public class Reservation {
 		try {
 			// 연결하는 메소드
 			connect();
-			String sqlQuery = "CREATE TABLE tour_list(tour_name varchar(80),address varchar(150))";
+			String sqlQuery = "CREATE TABLE tour_list(id number, tour_name varchar(80),address varchar(150))";
 
 			psmt = conn.prepareStatement(sqlQuery);
 			int resultCnt = psmt.executeUpdate();
@@ -135,7 +135,7 @@ public class Reservation {
 		try {
 			// 연결하는 메소드
 			connect();
-			String sqlQuery = "INSERT INTO tour_list VALUES(?, ?)";
+			String sqlQuery = "INSERT INTO tour_list VALUES((SELECT NVL(MAX(id), 0)+1 FROM tour_list), ?, ?)";
 
 			int resultCnt =0;
 			for(int i=0;i<name_data.size();i++)	
