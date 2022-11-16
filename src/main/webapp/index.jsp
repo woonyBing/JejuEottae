@@ -37,6 +37,11 @@ tour.create_data_table();
 tour.all_data_to_table();
 %>
 --%>
+<%
+hotelDAO dao = new hotelDAO();
+hotelInfo HI = dao.selectHotelInfoListByaddNtype("제주시", "Hotel");
+
+%>
 	<!-- header 및 nav 영역-->
 	<header>
 		<%@ include file="navBar.jsp"%>
@@ -98,8 +103,12 @@ html, body {
 
 
 					<script>
-						locations = [...locations, ['<div><h3>'+'<%=info.getNAME()%>'+'</h3><p><%=info.getRATING()%> 성</p><p>주소: <%=info.getADDRESS()%></p><p>전화번호: <%=info.getTEL()%></p><p><button>자세히 알아보기</button></p></div>', <%=info.getX()%>, <%=info.getY()%>]];
+						locations = [...locations, ['<div><h3>'+'<%=info.getNAME()%>'+'</h3><p><%=info.getRATING()%> 성</p><p>주소: <%=info.getADDRESS()%></p><p>전화번호: <%=info.getTEL()%></p><p><button class="btn btn-secondary" onclick= "scrolltoId()">자세히 알아보기</button></p></div>', <%=info.getX()%>, <%=info.getY()%>]];
 					
+						function scrolltoId(){
+							var access = document.getElementById("id1");
+							access.scrollIntoView();
+							}
 				</script>
 
 
@@ -115,13 +124,16 @@ html, body {
 				</div>
 
 
-							<!--호텔리스트
+				<!--호텔리스트
 				 -->
-							<%@include file="showHotelList.jsp"%>
+				<div id="id1">
+					<%@include file="showHotelList.jsp"%>
+				</div>
 
-							<!--관광지 리스트
+				<!--관광지 리스트
 				 -->
-							<%@include file="showTourList.jsp"%>
+				<%@include file="showTourList.jsp"%>
+
 
 			</div>
 	</section>

@@ -8,21 +8,10 @@ public class hotelInfo {
 	private String TEL;
 	private String EMAIL;
 	private int RATING;
-	private int LATITUDE;
-	private int LONGITUDE;
-	private String Img_url;
+
 	
 	
 	
-	
-	
-	
-	public String getImg_url() {
-		return Img_url;
-	}
-	public void setImg_url(String img_url) {
-		Img_url = img_url;
-	}
 	private String X;
 	private String Y;
 	
@@ -81,20 +70,6 @@ public class hotelInfo {
 	public void setRATING(int rATING) {
 		RATING = rATING;
 	}
-	public int getLATITUDE() {
-		return LATITUDE;
-	}
-	public void setLATITUDE(int lATITUDE) {
-		LATITUDE = lATITUDE;
-	}
-	public int getLONGITUDE() {
-		return LONGITUDE;
-	}
-	public void setLONGITUDE(int lONGITUDE) {
-		LONGITUDE = lONGITUDE;
-	}
-	
-	
 	
 	
 

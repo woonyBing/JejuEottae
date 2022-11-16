@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dto.TourImgItem;
+
 
 public class hotelDAO {
 	Connection conn = null;
@@ -15,7 +17,7 @@ public class hotelDAO {
 	ResultSet rs = null;
 
 	public void connect() throws Exception {
-		String db_url = "jdbc:oracle:thin:@localhost:1521:orcl1"; // 접속 DB정보
+		String db_url = "jdbc:oracle:thin:@localhost:1521:orcl"; // 접속 DB정보
 		String db_id = "scott"; // 접속 아이디
 		String db_pw = "tiger"; // 접속 아이디의 비밀번호
 
@@ -82,7 +84,7 @@ public class hotelDAO {
 	
 	
 	public List<imgPath> selectImgPath(){
-		String sql = "select img_url from hotel_img";
+		String sql = "select * from hotel_img";
 		List<imgPath> imgPathList = null;
 		
 		try {
@@ -111,10 +113,41 @@ public class hotelDAO {
 		return imgPathList;
 	}
 	
-	
+	public hotelInfo selectHotelInfoListByaddNtype(String location, String type) {
+		String sql = "select * from hotel_info where address like ? AND type in (?)";
+		hotelInfo hotelInfoItem = null;
+
+		try {
+			connect();
+
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, location+"%");
+			psmt.setString(2, type);
+			
+			rs = psmt.executeQuery();
+
+			hotelInfoItem = new hotelInfo();
+
+			if (rs.next()) {
+				hotelInfoItem.setID(rs.getInt("ID"));
+				hotelInfoItem.setEMAIL(rs.getString("EMAIL"));
+				hotelInfoItem.setNAME(rs.getString("NAME"));
+				hotelInfoItem.setADDRESS(rs.getString("ADDRESS"));
+				hotelInfoItem.setTYPE(rs.getString("TYPE"));
+				hotelInfoItem.setTEL(rs.getString("TEL"));
+				hotelInfoItem.setRATING(rs.getInt("RATING"));
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+
+		return hotelInfoItem;
+	}
 }
-
-
 
 
 

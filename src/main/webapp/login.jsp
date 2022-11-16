@@ -32,7 +32,8 @@
                 </p>
             </form>
             <div id="create-account-wrap">
-                <p>Not a member? <a href="join.jsp">Create Account</a></p>
+                <p>회원이 아니신가요? <a href="join.jsp">회원가입하러 가기</a></p>
+                 <p><a href="index.jsp">메인화면 가기</a></p>
             </div>
         </div>
     </section>

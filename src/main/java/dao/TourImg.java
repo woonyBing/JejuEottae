@@ -18,7 +18,8 @@ public class TourImg {
 
 	/*
 	 * 연결 메소드
-	 * */
+	 * 
+	 */
 	public void connect() throws Exception {
 		String db_url = "jdbc:oracle:thin:@localhost:1521:orcl";
 		String db_id = "scott";
@@ -32,10 +33,10 @@ public class TourImg {
 		conn = DriverManager.getConnection(db_url, db_id, db_pw);
 	}
 
-
 	/*
 	 * 연결 종료
-	 * */
+	 * 
+	 */
 	public void disConnect() {
 		try {
 			if (rs != null) {
@@ -53,29 +54,29 @@ public class TourImg {
 		}
 	}
 
-
 	/*
 	 * tour_img SELECT
-	 * */
-	public List<TourImgItem> selectTourImgList () {
+	 * 
+	 */
+	public List<TourImgItem> selectTourImgList() {
 		String sql = "SELECT * FROM tour_img";
 		List<TourImgItem> tourImgList = null;
-		
+
 		try {
 			connect();
-			
+
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
-			
+
 			tourImgList = new ArrayList<TourImgItem>();
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				TourImgItem tourImgItem = new TourImgItem();
 				tourImgItem.setImg_no(rs.getInt("img_no"));
 				tourImgItem.setTour_name(rs.getString("tour_name"));
 				tourImgItem.setAddress(rs.getString("address"));
 				tourImgItem.setImg_url(rs.getString("img_url"));
-				
+
 				tourImgList.add(tourImgItem);
 			}
 		} catch (Exception e) {
@@ -84,7 +85,8 @@ public class TourImg {
 		} finally {
 			disConnect();
 		}
-		
+
 		return tourImgList;
 	}
+
 }
