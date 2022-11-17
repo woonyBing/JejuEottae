@@ -274,7 +274,7 @@
                   <input type="radio" name="rating" value="3" id="rate3"><label for="rate3">⭐</label>
                   <input type="radio" name="rating" value="2" id="rate4"><label for="rate4">⭐</label>
                   <input type="radio" name="rating" value="1" id="rate5"><label for="rate5">⭐</label>
-                  <input type="hidden" name="id" value="test_id">
+                  <input type="hidden" name="id" value=<%=id%>>
                   <input type="hidden" name="bo_num" value="1">
                   
               </fieldset>

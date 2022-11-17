@@ -19,7 +19,7 @@
 		if (result == 1){ // 로그인 정보가 맞으면 자바스크립트를 실행하여 페이지를 이동시킴
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("location.href ='Main.jsp'"); // main 페이지로 사용자를 보냄 
+			script.println("location.href ='Main.jsp?id="+user.getUserID()+"'"); // main 페이지로 사용자를 보냄 
 			script.println("</script>");
 		}
 		else if (result == 0){ 

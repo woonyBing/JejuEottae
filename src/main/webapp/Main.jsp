@@ -57,6 +57,7 @@ tour.all_data_to_table();
 			<div class="mapBox">
 				<div class="mapBox">
 					<%
+					request.getParameter("id");
 					Dao_manager hotelDao = new Dao_manager();
 					List<HotelInfo> hotelInfoList = hotelDao.selectHotelInfoList();
 					List<ImgPath> imgPathList = hotelDao.selectImgPath();
