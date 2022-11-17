@@ -43,7 +43,6 @@
 		                 id =cpi_divide[2];
 
 				  }
-				  out.println("id="+id);
 
 				  Dao_manager dm  = new Dao_manager();
                   ResultSet rs=null;
@@ -124,6 +123,7 @@
                   <%
                  
 						String bo_num ="";
+                  String hotel_name = "";
                   if(rs!=null)
                   { 
               		  int count =0;
@@ -139,7 +139,8 @@
                 		
                     	  out.println("<tr>");
                     	  out.print("<th scope=\"col\" style=\"width: 20%\">");
-                    	  out.print(rs.getString("HOTEL_NAME"));
+                    	  hotel_name=rs.getString("HOTEL_NAME");
+                    	  out.print(hotel_name);
                     	  out.println("</th>");
                    
                     	  out.print("<th scope=\"col\" style=\"width: 30%\">");
@@ -162,11 +163,31 @@
                     	  out.println("</tr> ");
 
                     	   out.println("</thead></table><div class=\"booking_button\">"
-                                  +"<button type=\"button\" class=\"btn btn-danger\" id=\"cancel\"> 예약취소</button>"
+                                  +"<button type=\"button\" class=\"btn btn-danger\" id=\"cancel"+count+"\"> 예약취소</button>"
                                   +"</div>"
                                   +"<div class=\"booking_button\">"
-                                    +"<button type=\"button\" class=\"btn btn-warning\">문의하기</button>"
+                                    +"<button type=\"button\" class=\"btn btn-warning\" data-bs-toggle=\"modal\"data-bs-target=\"#aModal"+count+"\">문의하기</button>"
+                    
                                   +"</div>"
+                                 +"<div class=\"modal fade\" id=\"aModal"+count+"\" tabindex=\"-1\"\r\n"
+                      			+ "								aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\r\n"
+                      			+ "								<div class=\"modal-dialog\">\r\n"
+                      			+ "									<div class=\"modal-content\">\r\n"
+                      			+ "										<div class=\"modal-header\">\r\n"
+                      			+ "											<h1 class=\"modal-title fs-5\" id=\"exampleModalLabel\">알림</h1>\r\n"
+                      			+ "											<button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\"\r\n"
+                      			+ "												aria-label=\"Close\"></button>\r\n"
+                      			+ "										</div>\r\n"
+                              	+ "										<div class=\"modal-body\">문의는 전화를 이용해 주세요<br>"
+                      			+hotel_name+": "+rs.getString("TEL")+"</div>\r\n"
+                      			+ "										<div class=\"modal-footer\">\r\n"
+                      			+ "											<button type=\"button\" class=\"btn btn-secondary\"\r\n"
+                      			+ "												data-bs-dismiss=\"modal\">Close</button>\r\n"
+                      			+ "										</div>\r\n"
+                      			+ "									</div>\r\n"
+                      			+ "								</div>\r\n"
+                      			+ "							</div>"
+                      			
                                   +"<div class=\"booking_button\" data-bs-toggle=\"modal\" data-bs-target=\"#Modal"+count+"\">"
                                   +"<button type=\"button\" class=\"btn btn-primary\">숙소평가</button>"
                                   +"</div></div> </div> </div>");
@@ -201,7 +222,13 @@
                     				+ "        </div>\r\n"
                     				+ "      </div>\r\n"
                     				+ "      </div>\r\n"
-                    				+ "      </div>");                	 
+                    				+ "      </div>"); 
+                    	  out.println("<script>\r\n"
+                    				+ "document.getElementById('cancel"+count+"').addEventListener('click', (e)=>{"
+                    				+ "	e.preventDefault();"
+                    				+ "	location.href='reservedDelete_proc.jsp?BI="+bo_num+"/"+id+"';"
+                    				+ "});"
+                    				+ "</script>");
                       }
                     
                      
@@ -240,11 +267,7 @@ document.getElementById('serch_reserved').addEventListener('click', (e)=>{
 	form.action="serch_reserved_proc.jsp"
 	form.submit();
 }); 
-document.getElementById('canael').addEventListener('click', (e)=>{
-	e.preventDefault();
-	location.href='reservedDelete_proc.jsp?BI=<%=bo_num+"/"+id%>'; 
 
-}); 
 </script>
 
 </body>

@@ -307,7 +307,7 @@ public class Dao_manager {
 		ResultSet return_val = null;
 		try {
 			connect();
-			String sqlQuery = "select * from booking,(select name,id from user_info) where user_id=id and user_id=?";
+			String sqlQuery = "select * from booking,(select name,id from user_info),(select TEL, name from hotel_info ) h where user_id=id and user_id=? and h.name=hotel_name";
 			
 			psmt = conn.prepareStatement(sqlQuery);
 			psmt.setString(1, id);

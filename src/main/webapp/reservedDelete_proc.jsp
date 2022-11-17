@@ -12,10 +12,10 @@
 <body>
 <% 
 String[] bi =request.getParameter("BI").split("/",2);
+
 int bo_num =Integer.parseInt(bi[0]);
 Dao_manager dm  = new Dao_manager();
 dm.delete_Booking(bo_num);
-
 %>
 
 <script>
