@@ -1,78 +1,33 @@
 package dao;
-public class hotelInfo {
-	
-	private int ID; 
-	private String NAME; 
-	private String ADDRESS;
-	private String TYPE;
-	private String TEL;
-	private String EMAIL;
-	private int RATING;
 
-	
-	
-	
-	private String X;
-	private String Y;
-	
-	
-	public String getY() {
-		return Y;
+public class HotelInfo {
+	private String Id;
+	private String Address;
+	private String Type;
+	private String Count;
+	public String getId() {
+		return Id;
 	}
-	public void setY(String y) {
-		Y = y;
+	public void setId(String id) {
+		Id = id;
 	}
-	public String getX() {
-		return X;
+	public String getAddress() {
+		return Address;
 	}
-	public void setX(String x) {
-		X = x;
+	public void setAddress(String address) {
+		Address = address;
 	}
-	public int getID() {
-		return ID;
+	public String getType() {
+		return Type;
 	}
-	public void setID(int iD) {
-		ID = iD;
+	public void setType(String type) {
+		Type = type;
 	}
-	public String getNAME() {
-		return NAME;
+	public String getCount() {
+		return Count;
 	}
-	public void setNAME(String nAME) {
-		NAME = nAME;
-	}
-	public String getADDRESS() {
-		return ADDRESS;
-	}
-	public void setADDRESS(String aDDRESS) {
-		ADDRESS = aDDRESS;
-	}
-	public String getTYPE() {
-		return TYPE;
-	}
-	public void setTYPE(String tYPE) {
-		TYPE = tYPE;
-	}
-	public String getTEL() {
-		return TEL;
-	}
-	public void setTEL(String tEL) {
-		TEL = tEL;
-	}
-	public String getEMAIL() {
-		return EMAIL;
-	}
-	public void setEMAIL(String eMAIL) {
-		EMAIL = eMAIL;
-	}
-	public int getRATING() {
-		return RATING;
-	}
-	public void setRATING(int rATING) {
-		RATING = rATING;
+	public void setCount(String count) {
+		Count = count;
 	}
 	
-	
-
 }
-
-
