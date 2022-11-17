@@ -444,21 +444,20 @@ public class Dao_manager {
 	}
 	
 	//날짜별 분류
-	public Review selectReviewInfoListByDate(String revDate){
-		String sql = "select * from Review Order by id";
-		Review rv=null;
+	public List<Review> selectReviewInfoListByUserEmail(String userEmail){
+		String sql = "select * from Review Order by id"
+				+ " where user_email=?";
+		List<Review> rvList=null;
 		
 		try {
 			connect();
 			
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, revDate);
 			rs = psmt.executeQuery();
 			
-			//수정필요
-			rv = new Review();
-			if(rs.next()) {
-				
+			rvList = new ArrayList<Review>();
+			while(rs.next()) {
+				Review rv = new Review();
 				rv.setRevNum(rs.getInt("rev_num"));
 				rv.setContent(rs.getString("content"));
 				rv.setRevDate(rs.getDate("rev_date"));
@@ -466,7 +465,7 @@ public class Dao_manager {
 				rv.setBoNum(rs.getInt("bo_num"));
 				rv.setScore(rs.getInt("score"));
 				
-				
+				rvList.add(rv);
 				
 			}
 			
@@ -476,9 +475,10 @@ public class Dao_manager {
 		}finally {
 			disconnect();
 		}
-		return rv;
+		return rvList;
 		
 	}
+	
 
 	//리뷰 수정
 	public int updateReview(Review rv) {
