@@ -11,7 +11,7 @@ import java.util.List;
 import dto.TourImgItem;
 
 
-public class hotelDAO {
+public class HotelDAO {
 	Connection conn = null;
 	PreparedStatement psmt = null;
 	ResultSet rs = null;
@@ -47,11 +47,11 @@ public class hotelDAO {
 	}
 	
 	
-	public List<hotelInfo> selectHotelInfoList(){
+	public List<HotelInfo> selectHotelInfoList(){
 		String sql = "select *"
 				+ " from hotel_info i, hotel_img ig"
 				+ " where i.id =ig.hotel_id";
-		List<hotelInfo> hotelInfoList = null;
+		List<HotelInfo> hotelInfoList = null;
 		
 		try {
 			connect();
@@ -59,9 +59,9 @@ public class hotelDAO {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			
-			hotelInfoList = new ArrayList<hotelInfo>();
+			hotelInfoList = new ArrayList<HotelInfo>();
 			while(rs.next()) {
-				hotelInfo hotelInfo = new hotelInfo();
+				HotelInfo hotelInfo = new HotelInfo();
 				hotelInfo.setNAME(rs.getString("name"));
 				hotelInfo.setADDRESS(rs.getString("address"));
 				hotelInfo.setTYPE(rs.getString("type"));
@@ -83,9 +83,9 @@ public class hotelDAO {
 	}
 	
 	
-	public List<imgPath> selectImgPath(){
+	public List<ImgPath> selectImgPath(){
 		String sql = "select * from hotel_img";
-		List<imgPath> imgPathList = null;
+		List<ImgPath> imgPathList = null;
 		
 		try {
 			connect();
@@ -93,9 +93,9 @@ public class hotelDAO {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			
-			imgPathList = new ArrayList<imgPath>();
+			imgPathList = new ArrayList<ImgPath>();
 			while(rs.next()) {
-				imgPath img = new imgPath();
+				ImgPath img = new ImgPath();
 				img.setImg_no(rs.getInt("img_no"));
 				img.setHotel_id(rs.getInt("hotel_id"));
 				img.setImg_url(rs.getString("img_url"));
@@ -113,9 +113,9 @@ public class hotelDAO {
 		return imgPathList;
 	}
 	
-	public hotelInfo selectHotelInfoListByaddNtype(String location, String type) {
+	public HotelInfo selectHotelInfoListByaddNtype(String location, String type) {
 		String sql = "select * from hotel_info where address like ? AND type in (?)";
-		hotelInfo hotelInfoItem = null;
+		HotelInfo hotelInfoItem = null;
 
 		try {
 			connect();
@@ -127,7 +127,7 @@ public class hotelDAO {
 			
 			rs = psmt.executeQuery();
 
-			hotelInfoItem = new hotelInfo();
+			hotelInfoItem = new HotelInfo();
 
 			if (rs.next()) {
 				hotelInfoItem.setID(rs.getInt("ID"));

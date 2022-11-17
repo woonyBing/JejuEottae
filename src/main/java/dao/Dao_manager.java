@@ -188,42 +188,7 @@ public class Dao_manager {
 	}
 	
 	
-	public int login(String userID, String userPassword) { // 어떤 계정에 대한 실제로 로그인을 시도하는 함수, 인자값으로 ID와 Password를 받아 login을 판단함.
-		String SQL = "SELECT passworld FROM user_info WHERE ID = ?"; // 실제로 DB에 입력될 명령어를 SQL 문장으로 만듬.
-		try {
-			psmt = conn.prepareStatement(SQL);
-			psmt.setString(1,  userID);
-			rs = psmt.executeQuery(); // 어떠한 결과를 받아오는 ResultSet 타입의 rs 변수에 쿼리문을 실행한 결과를 넣어줌 
-			if (rs.next()) {
-				if (rs.getString(1).contentEquals(userPassword)) {
-					return 1; // 로그인 성공
-				}
-				else {
-					return 0; // 비밀번호 불일치
-				}
-			}
-			return -1; // 아이디가 없음
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return -2; // DB 오류 
-	}
 	
-	public int join(User user) {
-		String SQL = "INSERT INTO user_info VALUES (?, ?, ?, ?, ?)";
-		try {
-			psmt = conn.prepareStatement(SQL);
-			psmt.setString(1, user.getUserID());
-			psmt.setString(2, user.getUserPassword());
-			psmt.setString(3, user.getUserEmail());
-			psmt.setString(4, user.getUserName());
-			psmt.setString(5, user.getUserTel());
-			return psmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return -1; // 데이터베이스 오류
-	}
 	
 	public int user_review_count(String id)
 	{
@@ -652,6 +617,62 @@ public class Dao_manager {
 		
 		return imgPathList;
 	}
+	
+	public int login(String userID, String userPassword) { // 어떤 계정에 대한 실제로 로그인을 시도하는 함수, 인자값으로 ID와 Password를 받아 login을 판단함.
+		String SQL = "SELECT passworld FROM user_info WHERE ID = ?"; // 실제로 DB에 입력될 명령어를 SQL 문장으로 만듬.
+		int val=-2;
+
+		try {
+			connect();
+			psmt = conn.prepareStatement(SQL);
+			psmt.setString(1,  userID);
+			rs = psmt.executeQuery(); // 어떠한 결과를 받아오는 ResultSet 타입의 rs 변수에 쿼리문을 실행한 결과를 넣어줌 
+			if (rs.next()) {
+				System.out.println(userPassword);
+				System.out.println(rs.getString(1));
+
+				if (rs.getString(1).contentEquals(userPassword)) {
+					
+					val= 1; // 로그인 성공
+				}
+				else {
+					val= 0; // 비밀번호 불일치
+				}
+			}
+			else
+			{
+				val=-1;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			disconnect();
+		}
+
+		return val; // DB 오류 
+	}
+	
+	public int join(User user) {
+		String SQL = "INSERT INTO user_info VALUES (?, ?, ?, ?, ?)";
+		int val=-1;
+		try {
+			connect();
+			psmt = conn.prepareStatement(SQL);
+			psmt.setString(1, user.getUserID());
+			psmt.setString(2, user.getUserPassword());
+			psmt.setString(3, user.getUserEmail());
+			psmt.setString(4, user.getUserName());
+			psmt.setString(5, user.getUserTel());
+			val =  psmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			disconnect();
+		}
+
+		return val; // 데이터베이스 오류
+	}
+	
 	
 	
 	

@@ -1,15 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<<<<<<< HEAD
-<%@ page import="dao.Dao_manager"%>
-<%@ page import="dao.HotelInfo"%>
-<%@ page import="dao.ImgPath"%>
 
-=======
 <%@ page import="dao.Dao_manager"%>
 <%@ page import="dao.HotelInfo"%>
 <%@ page import="dao.ImgPath"%>
->>>>>>> 2ca379f8f06bb4e5da96ab39bfb386bf918e9d1f
 <%@ page import="java.util.*"%>
 <%-- <%@ page import="dao.Tour"%> --%>
 <%
