@@ -495,7 +495,7 @@ public class Dao_manager {
 		psmt.setString(3, rv.userEmail);
 		
 		result = psmt.executeUpdate();
-		
+		System.out.println(result);
 	}catch(Exception e) {
 		e.printStackTrace();
 	}finally {

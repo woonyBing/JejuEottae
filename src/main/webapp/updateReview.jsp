@@ -12,13 +12,13 @@
 </head>
 <body>
 	<%
-		//addPerson.jsp -> Form 태그 양식 "name" 	-> submit ->
-		//action="addPerson_proc.jsp"
-		String content = request.getParameter("content");
-		int score = Integer.parseInt(request.getParameter("score"));
+		String content = request.getParameter("comment");
+		int score = Integer.parseInt(request.getParameter("rating"));
+		String email = request.getParameter("userEmail");
 		Review review = new Review();
 		review.setContent(content);
 		review.setScore(score);
+		review.setUserEmail(email);
 		
 		Dao_manager dao = new Dao_manager();
 		int result = dao.updateReview(review);

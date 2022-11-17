@@ -167,17 +167,15 @@
                   <input type="radio" name="rating" value="3" id="rate3"><label for="rate3">⭐</label>
                   <input type="radio" name="rating" value="2" id="rate4"><label for="rate4">⭐</label>
                   <input type="radio" name="rating" value="1" id="rate5"><label for="rate5">⭐</label>
-                  <input type="hidden" name="id" value="test">
-                 
-                  <input type="hidden" name="bo_num" value="test1">
-                  
+                  <input type="hidden" name="userEmail" value="ab@naver.com">
+
               </fieldset>
               <div>솔직한 평가 부탁드립니다.</div>
           </form>
 
         </div>
         <div class="modal-footer">
-          <button type="button" id="reserve_up" class="btn btn-primary" >평가하기</button>
+          <button type="button" id="updateBtn" class="btn btn-primary" >평가하기</button>
           <button type="button"  class="btn btn-secondary" data-bs-dismiss="modal">다음에 평가하기</button>
         </div>
       </div>
@@ -192,15 +190,15 @@
 	<script>
 		document.getElementById('updateBtn').addEventListener('click', (e)=>{
 			e.preventDefault();
-			alert("aaaa");
-			let form = document.reviewUpdateButton;
-			if(form.content.value == ""){ //이름이 없는 경우
+			let form = document.myform;
+			if(form.comment.value == ""){ //이름이 없는 경우
 				alert('내용은 필수입니다.');
-				form.personName.focus();
+				form.comment.focus();
 				return false;
-			} else { //이름이 있는 경우
+			}
+			else { //이름이 있는 경우
 				if(confirm('수정하시겠습니까?')){
-					form.action = "updateRiview.jsp";
+					form.action = "updateReview.jsp";
 					form.submit();
 				}
 			}
