@@ -3,7 +3,6 @@
 <%@ page import="dao.Dao_manager"%>
 <%@ page import="dao.HotelInfo"%>
 <%@ page import="dao.ImgPath"%>
-
 <%@ page import="java.util.*"%>
 <%-- <%@ page import="dao.Tour"%> --%>
 <%

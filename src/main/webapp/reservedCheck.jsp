@@ -9,7 +9,7 @@
                 <%@ page import="java.sql.PreparedStatement" %>
         
     
-    
+   
     
 <% request.setCharacterEncoding("UTF-8"); %>
 <!DOCTYPE html>
@@ -23,6 +23,41 @@
     <link rel="stylesheet" href="./mypage.css">
 </head>
 <body>
+<% 
+                  String cpi = request.getParameter("CPI");
+                  String[] cpi_divide = null;
+                  
+                  if(cpi != null)
+                  {
+                       cpi_divide = cpi.split("/");
+                  }
+				  String id = "test"; 
+				  if(request.getParameter("id")!=null)
+				  {
+
+					  id = request.getParameter("id");
+				  }
+				  else if(cpi!=null)
+				  {
+
+		                 id =cpi_divide[2];
+
+				  }
+
+				  Dao_manager dm  = new Dao_manager();
+                  ResultSet rs=null;
+                  if(cpi!=null)
+                  {
+               	   rs = dm.get_booking_datas_F(cpi_divide[0],cpi_divide[1],id);
+                  }
+                  else
+                  {
+                      rs = dm.get_booking_datas(id);// 카테고리랑 기간으로 필터링 기간 부등호 카테고리는 =
+
+                  }
+                  //
+                  %>
+
     <header style="margin:0px">
         <!-- NavBar -->
        <nav class="navbar navbar-expand-lg bg-light">
@@ -49,69 +84,50 @@
 
     <div class="choice"> 
       <div class="container text-center">
+      <form name="serch_reserved_form">
         <div class="row">
           <div class="col">
             
              <select class="form-select" aria-label="Default select example" name="category" >
-                <option selected>카테고리</option>
+                <option selected value="0">카테고리</option>
                 <option value="1">호텔</option>
                 <option value="2">리조트</option>
              </select>
           </div>
           <div class="col">
              <select class="form-select" aria-label="Default select example" name = "period">
-                <option selected>전체</option>
-                <option value="1">최근 3개월</option>
-                <option value="2">최근 6개월</option>
-                <option value="3">최근 9개월</option>
+                <option selected value="0">전체</option>
+                <option value="3">최근 3개월</option>
+                <option value="6">최근 6개월</option>
+                <option value="9">최근 9개월</option>
              </select>
     
             </div>
             <div class="col">
+                              <input type="hidden" name="id" value=<%=id%>>
             
-             <select class="form-select" aria-label="Default select example" name="category" >
-                <option selected>카테고리</option>
-                <option value="1">호텔</option>
-                <option value="2">리조트</option>
-             </select>
-             <div class="col">
+            			<button type="button" class="btn btn-success" id="serch_reserved">검색</button>
             
-<!--  버튼 추가  -->
+           
+             </div>
+             
+            
+<!--서브밋 추가 필요 -->
           </div>
-          </div>
+ 		   </form>
+           </div>
       </div>
       
-      <!-- for문 필요 버튼 기능 필요-->
       <div class="accordion" id="accordionExample">
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingOne">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              <div> 예약일자 </div>
-            </button>
-          </h2>
-          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-              <strong>예약일자</strong>
-              <br/>
-              <div class="review">
-                <table class="table">
-                  <thead>
-                      <tr>
-                          <th scope="col" style="width: 20%">예약호텔</th>
-                          <th scope="col" style="width: 30%">숙박기간</th>
-                          <th scope="col" style="width: 20%">예약자 성함</th>
-                          <th scope="col" style="width: 10%">인원</th>
-                          <th scope="col" style="width: 20%">결제금액</th>
-                      </tr>
-                  </thead>
-                  <thead>
+        
                   
-                  <% 
-                  Dao_manager dm  = new Dao_manager();
-                  ResultSet rs = dm.get_booking_datas("test_id");
-                  //
+                  <%
+                 
+                 
                   if(rs==null)
                   {
+            		  out.println("<div class=\"accordion-item\"><h2 class=\"accordion-header\" id=\"heading"+1+"\"><button class=\"accordion-button\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#collapseOne\" aria-expanded=\"true\" aria-controls=\"collapseOne\"><div> 예약일자 </div></button></h2><div id=\"collapseOne\" class=\"accordion-collapse collapse show\" aria-labelledby=\"heading"+1+"\" data-bs-parent=\"#accordionExample\"><div class=\"accordion-body\"><strong>예약일자</strong><br/><div class=\"review\"><table class=\"table\"><thead><tr><th scope=\"col\" style=\"width: 20%\">예약호텔</th><th scope=\"col\" style=\"width: 30%\">숙박기간</th><th scope=\"col\" style=\"width: 20%\">예약자 성함</th><th scope=\"col\" style=\"width: 10%\">인원</th><th scope=\"col\" style=\"width: 20%\">결제금액</th></tr></thead><thead>");
+
                 	  out.println("<tr>");
                 	  
                 	  out.print("<th scope=\"col\" style=\"width: 20%\">");
@@ -136,18 +152,21 @@
                 	  out.println("</th>");
 
 
-                	  out.println("</tr>");
+                	  out.println("</tr> </div> </div> </div>");
                   }
                   else
                   { 
+                	 
               		  int count =0;
                 	  while(rs.next())
                       {
+                		  count++;
+
+                		  out.println("<div class=\"accordion-item\"><h2 class=\"accordion-header\" id=\"heading"+count+"\"><button class=\"accordion-button\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#collapse"+ count +"\" aria-expanded=\"true\" aria-controls=\"collapse"+count+"\"><div> "+rs.getString("HOTEL_NAME")+" </div></button></h2><div id=\"collapse"+count+"\" class=\"accordion-collapse collapse show\" aria-labelledby=\"heading"+count+"\" data-bs-parent=\"#accordionExample\"><div class=\"accordion-body\"><strong>예약일자</strong><br/><div class=\"review\"><table class=\"table\"><thead><tr><th scope=\"col\" style=\"width: 20%\">예약호텔</th><th scope=\"col\" style=\"width: 30%\">숙박기간</th><th scope=\"col\" style=\"width: 20%\">예약자 성함</th><th scope=\"col\" style=\"width: 10%\">인원</th><th scope=\"col\" style=\"width: 20%\">결제금액</th></tr></thead><thead>");
                 		  if(count>0)
                 		  {
                     		  out.println("<table class=\"table\"><thead>");
                 		  }
-                		  count++;
                 		
                     	  out.println("<tr>");
                     	  
@@ -171,22 +190,23 @@
                     	  out.print(rs.getInt("PAYMENT")+"");
                     	  out.println("</th>");
                     	  
-                    	  out.println("</tr>");
+                    	  out.println("</tr> ");
 
                     	   out.println("</thead></table><div class=\"booking_button\">"
                                   +"<button type=\"button\" class=\"btn btn-danger\">예약취소</button>"
                                   +"</div>"
                                   +"<div class=\"booking_button\">"
-                                    +"<button type=\"button\" class=\"btn btn-warning\">예약문의</button>"
+                                    +"<button type=\"button\" class=\"btn btn-warning\">문의하기</button>"
                                   +"</div>"
                                   +"<div class=\"booking_button\" data-bs-toggle=\"modal\" data-bs-target=\"#exampleModal\">"
                                   +"<button type=\"button\" class=\"btn btn-primary\">숙소평가</button>"
-                                  +"</div>");
+                                  +"</div></div> </div> </div>");
                     	 
                       }
                       if(count ==0)
                       {
-                    	  	
+                		  out.println("<div class=\"accordion-item\"><h2 class=\"accordion-header\" id=\"heading"+count+"\"><button class=\"accordion-button\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#collapseOne\" aria-expanded=\"true\" aria-controls=\"collapseOne\"><div> 예약일자 </div></button></h2><div id=\"collapseOne\" class=\"accordion-collapse collapse show\" aria-labelledby=\"heading"+count+"\" data-bs-parent=\"#accordionExample\"><div class=\"accordion-body\"><strong>예약일자</strong><br/><div class=\"review\"><table class=\"table\"><thead><tr><th scope=\"col\" style=\"width: 20%\">예약호텔</th><th scope=\"col\" style=\"width: 30%\">숙박기간</th><th scope=\"col\" style=\"width: 20%\">예약자 성함</th><th scope=\"col\" style=\"width: 10%\">인원</th><th scope=\"col\" style=\"width: 20%\">결제금액</th></tr></thead><thead>");
+
                      	out.println("<tr>");
          
                   	 	out.print("<th scope=\"col\" style=\"width: 20%\">");
@@ -211,22 +231,22 @@
                   	  	out.println("</th>");
 
 
-                  	  out.println("</tr>");
+                  	  out.println("</tr> </div> </div> </div>");
                       }
 
                      
                   }
                   dm.disconnect();
-
                   %>
                     
                
                   
                     	  
-              </div>
+             
               
-          </div>
-          </div>
+         
+          
+          
         </div>
        
 
@@ -285,6 +305,15 @@ document.getElementById('reserve_up').addEventListener('click', (e)=>{
 	form.submit();
 
 });
+</script>
+
+<script>
+	document.getElementById('serch_reserved').addEventListener('click', (e)=>{
+	e.preventDefault();
+	let form = document.serch_reserved_form;
+	form.action="serch_reserved_proc.jsp"
+	form.submit();
+}); 
 </script>
 </body>
 </html>

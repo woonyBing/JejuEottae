@@ -1,5 +1,6 @@
 package dao;
-
+import java.util.Calendar;
+import java.util.Date;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -311,6 +312,7 @@ public class Dao_manager {
 	
 	public ResultSet get_booking_datas(String id)
 	{
+		//
 		ResultSet return_val = null;
 		try {
 			connect();
@@ -318,6 +320,83 @@ public class Dao_manager {
 			
 			psmt = conn.prepareStatement(sqlQuery);
 			psmt.setString(1, id);
+			return_val = psmt.executeQuery();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			// 연결 종료 메소드
+		}
+		return return_val;
+	}
+	
+	public ResultSet get_booking_datas_F(String category,String period,String id)
+	{
+		//
+		ResultSet return_val = null;
+		try {
+			connect();
+			int per = Integer.parseInt(period)*-1 ;
+			String sqlQuery = "select * from booking,(select name,id from user_info) where user_id=id and user_id=?";
+			if(per!=0&&!category.equals("0"))
+			{
+				
+				sqlQuery = "select * from booking,(select name,id from user_info) where (user_id=id and user_id=?)and(((select type from hotel_info where name = hotel_name)=?) and (checkin>=ADD_MONTHS(sysdate,?)))";
+			}
+			else if(per!=0&&category.equals("0"))
+			{
+				  System.out.println(per);
+
+				sqlQuery = "select * from booking,(select name,id from user_info) where (user_id=id and user_id=?)and(checkin>=ADD_MONTHS(sysdate,?))";
+
+			}
+			else if(per==0&&!category.equals("0"))
+			{
+				sqlQuery = "select * from booking,(select name,id from user_info) where (user_id=id and user_id=?)and((select type from hotel_info where name = hotel_name)=?)";
+
+
+			}
+			
+			///////////////////////////////////////////////////////////////////////
+			psmt = conn.prepareStatement(sqlQuery);
+			psmt.setString(1, id);
+			
+			
+			if(!category.equals("0"))
+			{
+				String category_val="";
+				switch(Integer.parseInt(category))
+				{
+				case 1:
+					category_val="Hotel";
+					break;
+				case 2:
+					category_val="Resort";
+					break;
+
+				}
+				psmt.setString(2, category_val);
+				
+				if(per!=0)
+				{
+
+					psmt.setInt(3, per);;
+				}
+			}
+			else
+			{
+				if(per!=0)
+				{
+
+					psmt.setInt(2, per);;
+				}
+			}
+			
+
+
 			return_val = psmt.executeQuery();
 
 		} catch (SQLException e) {
@@ -507,6 +586,73 @@ public class Dao_manager {
 	return result;
 	
 	}
+	
+	public List<HotelInfo> selectHotelInfoList(){
+		String sql = "select *"
+				+ " from hotel_info i, hotel_img ig"
+				+ " where i.id =ig.hotel_id";
+		List<HotelInfo> hotelInfoList = null;
+		
+		try {
+			connect();
+			
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			
+			hotelInfoList = new ArrayList<HotelInfo>();
+			while(rs.next()) {
+				HotelInfo hotelInfo = new HotelInfo();
+				hotelInfo.setNAME(rs.getString("name"));
+				hotelInfo.setADDRESS(rs.getString("address"));
+				hotelInfo.setTYPE(rs.getString("type"));
+				hotelInfo.setTEL(rs.getString("tel"));
+				hotelInfo.setX(rs.getString("x"));
+				hotelInfo.setY(rs.getString("y"));
+				hotelInfo.setRATING(rs.getInt("rating"));
+				
+				hotelInfoList.add(hotelInfo);
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		
+		return hotelInfoList;
+	}
+	
+	
+	public List<ImgPath> selectImgPath(){
+		String sql = "select img_url from hotel_img";
+		List<ImgPath> imgPathList = null;
+		
+		try {
+			connect();
+			
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			
+			imgPathList = new ArrayList<ImgPath>();
+			while(rs.next()) {
+				ImgPath img = new ImgPath();
+				img.setImg_no(rs.getInt("img_no"));
+				img.setHotel_id(rs.getInt("hotel_id"));
+				img.setImg_url(rs.getString("img_url"));
+				
+				
+				imgPathList.add(img);
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		
+		return imgPathList;
+	}
+	
 	
 	
 	//
