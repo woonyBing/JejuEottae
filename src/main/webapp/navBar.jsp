@@ -24,8 +24,7 @@
 	        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 	        <div class="navbar-nav">
 	            <a class="nav-link" href="./login.jsp" >Login</a>
-	            <!--링크 수정 필요-->
-	            <a class="nav-link" href="./mypage.jsp">Join</a>
+	            <a class="nav-link" href="./join.jsp">Join</a>
 	        </div>
 	        </div>
 	    </div>
