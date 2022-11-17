@@ -38,9 +38,12 @@ public class User {
 	public void setUserTel(String userTel) {
 		this.userTel = userTel;
 	}
+<<<<<<< HEAD
 	//Select count(user_id) from review where user_id = 'test_id'
 	
 	
+=======
+>>>>>>> 2ca379f8f06bb4e5da96ab39bfb386bf918e9d1f
 	
 
 }
