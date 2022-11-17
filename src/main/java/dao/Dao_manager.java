@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dto.Review;
+import dao.Review;
 
 
 public class Dao_manager {
@@ -507,13 +507,14 @@ public class Dao_manager {
 	
 	//리뷰 삭제
 	public int deleteReview(int revNum) {
-		String sql = "delete from review where rev_num=?";
+		String sql = "delete from review "
+				+ "where rev_num=?";
 	int result = 0;
 	
 	try {
 		connect();
 		psmt = conn.prepareStatement(sql);
-		
+		psmt.setInt(1,revNum);
 		
 		result = psmt.executeUpdate();
 		

@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <% request.setCharacterEncoding("UTF-8"); %>
 <%@page import="dao.Dao_manager"%>
- <%@ page import="dto.Review" %>
+ <%@ page import="dao.Review" %>
  <%@ page import="java.util.*" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,12 +18,11 @@
 
 <body>
 <%
-		Dao_manager rvDao = new Dao_manager();
-		List<Review> reviewList = rvDao.selectReviewList();
+		Dao_manager Dao = new Dao_manager();
+		List<Review> reviewList = Dao.selectReviewList();
+		
 		%>
 		
-              
-
 	<header style="margin:0px">
         <!-- NavBar -->
         <nav class="navbar navbar-expand-lg bg-light">
@@ -90,7 +89,10 @@
             
 <%
 				if (reviewList != null && reviewList.size()>0) {					
+					int i=0;
 					for (Review rv : reviewList) {
+						i++;
+						
 	%>
 	<tbody>
           <tr>
@@ -102,43 +104,118 @@
               
               <td>
              
+             <!-- 값이 안넘어감!, 삭제버튼이 첫번째것만 작동됨 -->
+<!--              <form name="reviewDeleteButton" id='reviewDeleteForm'> -->
                <div class="review_button">
-                <button id="deleteBtn" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">삭제</button>
-                
+<!--                 <button id="deleteBtn" type="submit" class="btn btn-danger" -->
+<%--                  name="rev_num" value=<%=rv.getRevNum()%>>삭제</button> --%>
+                 <button name="deleteBtn" class="btn btn-danger"
+                 	onclick="actionDeleteReview(<%=rv.getRevNum()%>)">삭제</button>
+<%--                   	value=<%=rv.getRevNum()%>>삭제</button> --%>
   				</div>
-<script>
-		document.getElementById('deleteBtn').addEventListener('click', (e)=>{
-			e.preventDefault();
-			let form = document.personDetailForm;
-			if(confirm('정말로 삭제하시겠습니까?')){
-				form.action = "deleteReview.jsp";
-				form.submit();
-			}
-		});
-	</script>
-              
-              
+  			
               <div class="review_button">
-                <button type="button" class="btn btn-warning">수정</button>
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#reviewModal">수정</button>
               </div>
-              </td>
-             </tr>  
-              </tbody> 
-              
+<!--               </form> -->
           <%
 					}
 				}
 			%>
+	<script>
+		function actionDeleteReview(rev_num){
+			if(confirm('정말로 삭제하시겠습니까?')){
+				location.href = 'deleteReview.jsp?rev_num='+rev_num;
+			}
+		}
+// 		document.getElementById('deleteBtn').addEventListener('click', (e)=>{
+// 			e.preventDefault();
+// 			let form = document.getElementById('reviewDeleteForm'); 
+// 				//document.reviewDeleteButton;
+// 			alert(document.getElementById('deleteBtn').value);
+// 			if(confirm('정말로 삭제하시겠습니까?')){
+// 				form.action = "deleteReview.jsp";
+// 				form.submit();
+// 			}
+// 		});
+	</script>
+              
+              
+              
+               <!-- Modal -->
+    <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">숙소는 어떠셨나요?</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+          <div class="modal-body">
+        <!-- 코멘트 -->
+            <div class="form-floating2">
+              <legend>후기를 남겨주세요</legend>
+
+              <textarea class="form-control" placeholder="무분별한 비방, 폭력적인 욕설 사용은 통보없이 삭제될 수 있습니다." id="floatingTextarea"
+              style="height: 100px;"></textarea>
+              
+            </div>
+
+            <form name="myform" id="myform" method="post" action="./save">
+              <fieldset>
+                  <legend>별점</legend>
+                  <input type="radio" name="rating" value="5" id="rate1"><label for="rate1">⭐</label>
+                  <input type="radio" name="rating" value="4" id="rate2"><label for="rate2">⭐</label>
+                  <input type="radio" name="rating" value="3" id="rate3"><label for="rate3">⭐</label>
+                  <input type="radio" name="rating" value="2" id="rate4"><label for="rate4">⭐</label>
+                  <input type="radio" name="rating" value="1" id="rate5"><label for="rate5">⭐</label>
+              </fieldset>
+              <div>솔직한 평가 부탁드립니다.</div>
+          </form>
+
+        </div>
+        <div class="modal-footer">
+        <form name="reviewUpdateButton">
+          <button type="button" class="btn btn-primary" id="updateBtn" >수정하기</button>
+          </form>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">다음에...</button>
+        </div>
+      </div>
+      </div>
+      </div>
+              </td>
+             </tr>  
+              </tbody> 
+              
           
            
           
         </table>
         
+	<script>
+		document.getElementById('updateBtn').addEventListener('click', (e)=>{
+			e.preventDefault();
+			let form = document.reviewUpdateButton;
+			if(form.personName.value == ""){ //이름이 없는 경우
+				alert('이름은 필수입니다.');
+				form.personName.focus();
+				return false;
+			} else { //이름이 있는 경우
+				if(confirm('수정하시겠습니까?')){
+					form.action = "updateRiview.jsp";
+					form.submit();
+				}
+			}
+		});
+	</script>
+	
+	
          <!-- footer 부분 -->
          <%@ include file="footer.jsp" %>
         
       <!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" 
+integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" 
+crossorigin="anonymous"></script>
     </body>
 </html>
               

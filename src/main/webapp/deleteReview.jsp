@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="dao.reviewDao" %>
-<%@ page import="dto.Review" %>
+<%@ page import="dao.Dao_manager" %>
+<%@ page import="dao.Review" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,9 +11,9 @@
 <body>
 <%
 	int revNum = Integer.parseInt(request.getParameter("rev_num"));
-	reviewDao dao = new reviewDao();
-	int result = dao.deleteReview(revNum);
 	
+	Dao_manager dao = new Dao_manager();
+	int result = dao.deleteReview(revNum);
 	if(result>0){
 %>
 	<script>
@@ -25,7 +25,8 @@
 	%>
 		<script>
 			alert('삭제에 실패하였습니다.');
-			location.href = 'reviewDelete.jsp?revNum=<%=revNum%>';
+			 location.href = 'reviewManage.jsp'; 
+			/* 로그인하면 아이디가 넘어오는 폼을 사용해야함 */
 		</script>
 	<%
 		}
