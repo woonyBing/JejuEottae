@@ -113,7 +113,6 @@
              </div>
              
             
-<!--서브밋 추가 필요 -->
           </div>
  		   </form>
            </div>
@@ -124,7 +123,7 @@
                   
                   <%
                  
-
+						String bo_num ="";
                   if(rs!=null)
                   { 
               		  int count =0;
@@ -158,11 +157,12 @@
      					  out.print("<th scope=\"col\" style=\"width: 20%\">");
                     	  out.print(rs.getInt("PAYMENT")+"");
                     	  out.println("</th>");
-                    	  
+                   	       bo_num =rs.getInt("BO_NUM")+"";
+
                     	  out.println("</tr> ");
 
                     	   out.println("</thead></table><div class=\"booking_button\">"
-                                  +"<button type=\"button\" class=\"btn btn-danger\">예약취소</button>"
+                                  +"<button type=\"button\" class=\"btn btn-danger\" id=\"cancel\"> 예약취소</button>"
                                   +"</div>"
                                   +"<div class=\"booking_button\">"
                                     +"<button type=\"button\" class=\"btn btn-warning\">문의하기</button>"
@@ -170,7 +170,6 @@
                                   +"<div class=\"booking_button\" data-bs-toggle=\"modal\" data-bs-target=\"#Modal"+count+"\">"
                                   +"<button type=\"button\" class=\"btn btn-primary\">숙소평가</button>"
                                   +"</div></div> </div> </div>");
-                    	   
                     	   out.println("   <div class=\"modal fade\" id=\"Modal"+count+"\" tabindex=\"-1\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\r\n"
                     				+ "        <div class=\"modal-dialog\">\r\n"
                     				+ "          <div class=\"modal-content\">\r\n"
@@ -179,15 +178,11 @@
                     				+ "              <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>\r\n"
                     				+ "            </div>\r\n"
                     				+ "          <div class=\"modal-body\">\r\n"
-                    				+ "        <!-- 코멘트 -->\r\n"
-                    				+ "           \r\n"
-                    				+ "\r\n"
                     				+ "            <form name=\"myform\" id=\"myform\" method=\"post\" >\r\n"
                     				+ "              <legend>후기를 남겨주세요</legend>\r\n"
                     				+ "              <textarea class=\"form-control\" placeholder=\"무분별한 비방, 폭력적인 욕설 사용은 통보없이 삭제될 수 있습니다.\" id=\"floatingTextarea\" name=\"comment\"\r\n"
                     				+ "              style=\"height: 100px;\"></textarea>\r\n"
                     				+ "              <fieldset>\r\n"
-                    				+ "               \r\n"
                     				+ "                  <legend>별점</legend>\r\n"
                     				+ "                  <input type=\"radio\" name=\"rating\" value=\"5\" id=\"rate1\"><label for=\"rate1\">⭐</label>\r\n"
                     				+ "                  <input type=\"radio\" name=\"rating\" value=\"4\" id=\"rate2\"><label for=\"rate2\">⭐</label>\r\n"
@@ -195,13 +190,10 @@
                     				+ "                  <input type=\"radio\" name=\"rating\" value=\"2\" id=\"rate4\"><label for=\"rate4\">⭐</label>\r\n"
                     				+ "                  <input type=\"radio\" name=\"rating\" value=\"1\" id=\"rate5\"><label for=\"rate5\">⭐</label>\r\n"
                     				+ "                  <input type=\"hidden\" name=\"id\" value="+id+">\r\n"
-                    				+ "                 \r\n"
-                    				+ "                  <input type=\"hidden\" name=\"bo_num\" value="+rs.getString("BO_NUM")+">\r\n"
-                    				+ "                  \r\n"
+                    				+ "                  <input type=\"hidden\" name=\"bo_num\" value="+bo_num+">\r\n"
                     				+ "              </fieldset>\r\n"
                     				+ "              <div>솔직한 평가 부탁드립니다.</div>\r\n"
                     				+ "          </form>\r\n"
-                    				+ "\r\n"
                     				+ "        </div>\r\n"
                     				+ "        <div class=\"modal-footer\">\r\n"
                     				+ "          <button type=\"button\" id=\"reserve_up\" class=\"btn btn-primary\" >평가하기</button>\r\n"
@@ -240,17 +232,20 @@ document.getElementById('reserve_up').addEventListener('click', (e)=>{
 	let form = document.myform;
 	form.action="review_proc.jsp"
 	form.submit();
-
+	
 });
-</script>
-
-<script>
-	document.getElementById('serch_reserved').addEventListener('click', (e)=>{
+document.getElementById('serch_reserved').addEventListener('click', (e)=>{
 	e.preventDefault();
 	let form = document.serch_reserved_form;
 	form.action="serch_reserved_proc.jsp"
 	form.submit();
 }); 
+document.getElementById('canael').addEventListener('click', (e)=>{
+	e.preventDefault();
+	location.href='reservedDelete_proc.jsp?BI=<%=bo_num+"/"+id%>'; 
+
+}); 
 </script>
+
 </body>
 </html>

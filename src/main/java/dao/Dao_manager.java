@@ -134,6 +134,32 @@ public class Dao_manager {
 
 	}
 	
+	public void delete_Booking(int bo_num)
+	{
+		try {
+			// 연결하는 메소드
+			connect();
+			String sqlQuery = "DELETE Booking where BO_NUM = ?";
+
+			int resultCnt =0;
+			
+			psmt = conn.prepareStatement(sqlQuery);
+			psmt.setInt(1,bo_num);
+			
+			resultCnt = psmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			// 연결 종료 메소드
+			disconnect();
+		}
+
+	}
+	
 	public void insert_tour_list(List<String> name_data,List<String> address_data)
 	{
 		try {
@@ -671,6 +697,42 @@ public class Dao_manager {
 		}
 
 		return val; // 데이터베이스 오류
+	}
+	
+	
+	public HotelInfo selectHotelInfoListByaddNtype(String location, String type) {
+		String sql = "select * from hotel_info where address like ? AND type in (?)";
+		HotelInfo hotelInfoItem = null;
+
+		try {
+			connect();
+
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, location+"%");
+			psmt.setString(2, type);
+			
+			rs = psmt.executeQuery();
+
+			hotelInfoItem = new HotelInfo();
+
+			if (rs.next()) {
+				hotelInfoItem.setID(rs.getInt("ID"));
+				hotelInfoItem.setEMAIL(rs.getString("EMAIL"));
+				hotelInfoItem.setNAME(rs.getString("NAME"));
+				hotelInfoItem.setADDRESS(rs.getString("ADDRESS"));
+				hotelInfoItem.setTYPE(rs.getString("TYPE"));
+				hotelInfoItem.setTEL(rs.getString("TEL"));
+				hotelInfoItem.setRATING(rs.getInt("RATING"));
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+
+		return hotelInfoItem;
 	}
 	
 	
