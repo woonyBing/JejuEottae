@@ -8,11 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< HEAD
-=======
 import dto.Review;
 
->>>>>>> 31351c26aa52091d2522eb5e5b81b2e3a4975383
 
 public class Dao_manager {
 
@@ -22,6 +19,7 @@ public class Dao_manager {
 
 	
 
+	//연결부분
 	public void connect() throws Exception
 	{
 		String db_url = "jdbc:oracle:thin:@localhost:1521:orcl"; // 접속 DB정보
@@ -60,6 +58,8 @@ public class Dao_manager {
 
 
 
+
+	//관광 테이블 생성
 	public void create_tour_list() {
 		try {
 			// 연결하는 메소드
@@ -82,6 +82,8 @@ public class Dao_manager {
 
 	}
 	
+	
+	//예약 테이블 생성
 	public void create_Booking() {
 		try {
 			// 연결하는 메소드
@@ -104,6 +106,7 @@ public class Dao_manager {
 
 	}
 	
+	//예약 테이블 추가
 	public void insert_Booking(Booking target)
 	{
 		try {
@@ -136,12 +139,10 @@ public class Dao_manager {
 
 	}
 	
+	
+	//관광지 리스트 추가
 	public void insert_tour_list(List<String> name_data,List<String> address_data)
 	{
-<<<<<<< HEAD
-		//////////// id 숫자로 추가하기
-=======
->>>>>>> 31351c26aa52091d2522eb5e5b81b2e3a4975383
 		try {
 			// 연결하는 메소드
 			connect();
@@ -166,6 +167,7 @@ public class Dao_manager {
 		}
 	}
 	
+	//이미지 테이블 불러오기
 	public String find_match_IMGlink(String img_table,int val)
 	{
 		String return_val = "";
@@ -194,6 +196,7 @@ public class Dao_manager {
 	}
 	
 	
+	//로그인 서비스
 	public int login(String userID, String userPassword) { // 어떤 계정에 대한 실제로 로그인을 시도하는 함수, 인자값으로 ID와 Password를 받아 login을 판단함.
 		String SQL = "SELECT passworld FROM user_info WHERE ID = ?"; // 실제로 DB에 입력될 명령어를 SQL 문장으로 만듬.
 		try {
@@ -215,6 +218,8 @@ public class Dao_manager {
 		return -2; // DB 오류 
 	}
 	
+	
+	//회원가입, 유저테이블에 정보 추가
 	public int join(User user) {
 		String SQL = "INSERT INTO user_info VALUES (?, ?, ?, ?, ?)";
 		try {
@@ -231,6 +236,7 @@ public class Dao_manager {
 		return -1; // 데이터베이스 오류
 	}
 	
+	//리뷰 가져오기
 	public int user_review_count(String id)
 	{
 		int return_val =0;
@@ -258,6 +264,7 @@ public class Dao_manager {
 		return return_val;
 	}
 	
+	//유저 예약 확인
 	public int user_booking_size(String id)
 	{
 		int return_val =0;
@@ -286,8 +293,7 @@ public class Dao_manager {
 	}
 	
 	
-	
-	
+	//호텔에 대한 평점 평균구하기
 	public int score_avg_by_hotelname(String hotelname)
 	{
 		int return_val = 0;
@@ -316,6 +322,7 @@ public class Dao_manager {
 		return return_val;
 	}
 	
+	//예약 테이블 정보 가져오기
 	public ResultSet get_booking_datas(String id)
 	{
 		ResultSet return_val = null;
@@ -341,6 +348,7 @@ public class Dao_manager {
 	//booking datas
 	//ResultSet
 	
+	//호텔에 리뷰남기기
 	public List<String> comments_by_hotelname(String hotelname)
 	{
 		List<String> return_val = new ArrayList<String>();
@@ -370,6 +378,8 @@ public class Dao_manager {
 		return null;
 	}
 	
+	
+	//리뷰 저장
 	public void save_review(String user_id,int bo_num,String content,int score)
 	{
 		try {
@@ -398,8 +408,7 @@ public class Dao_manager {
 		}
 	}
 	
-<<<<<<< HEAD
-=======
+	//리뷰보기
 	public List<Review> selectReviewList(){
 		String sql = "select * from review order by rev_num";
 		List<Review> reviewList=null;
@@ -471,7 +480,7 @@ public class Dao_manager {
 		
 	}
 
-	
+	//리뷰 수정
 	public int updateReview(Review rv) {
 		String sql = "update review "
 				+ " set content= ? , score =?"
@@ -496,7 +505,7 @@ public class Dao_manager {
 	
 	}
 	
-	
+	//리뷰 삭제
 	public int deleteReview(int revNum) {
 		String sql = "delete from review where rev_num=?";
 	int result = 0;
@@ -518,7 +527,6 @@ public class Dao_manager {
 	}
 	
 	
->>>>>>> 31351c26aa52091d2522eb5e5b81b2e3a4975383
 	//
 
 }

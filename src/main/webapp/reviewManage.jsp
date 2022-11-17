@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% request.setCharacterEncoding("UTF-8"); %>
-<%@page import="dao.reviewDao"%>
+<%@page import="dao.Dao_manager"%>
  <%@ page import="dto.Review" %>
  <%@ page import="java.util.*" %>
 <!DOCTYPE html>
@@ -18,7 +18,7 @@
 
 <body>
 <%
-		reviewDao rvDao = new reviewDao();
+		Dao_manager rvDao = new Dao_manager();
 		List<Review> reviewList = rvDao.selectReviewList();
 		%>
 		
