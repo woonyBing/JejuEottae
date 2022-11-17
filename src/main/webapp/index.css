@@ -52,7 +52,7 @@
 .mapBox {
     grid-column: 1 / span 2;
     background-color:lightgray;
-    height:400px;
+    height:600px;
     margin-bottom: 100px;
 }
 .hotelImg {

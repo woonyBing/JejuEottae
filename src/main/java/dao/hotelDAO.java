@@ -62,6 +62,7 @@ public class hotelDAO {
 			hotelInfoList = new ArrayList<hotelInfo>();
 			while(rs.next()) {
 				hotelInfo hotelInfo = new hotelInfo();
+				hotelInfo.setID(rs.getInt("id"));
 				hotelInfo.setNAME(rs.getString("name"));
 				hotelInfo.setADDRESS(rs.getString("address"));
 				hotelInfo.setTYPE(rs.getString("type"));
@@ -113,9 +114,10 @@ public class hotelDAO {
 		return imgPathList;
 	}
 	
-	public hotelInfo selectHotelInfoListByaddNtype(String location, String type) {
+	public List<hotelInfo> selectHotelInfoListByaddNtype(String location, String type) {
 		String sql = "select * from hotel_info where address like ? AND type in (?)";
-		hotelInfo hotelInfoItem = null;
+		
+		List<hotelInfo> hotelInfoList = null;
 
 		try {
 			connect();
@@ -127,16 +129,21 @@ public class hotelDAO {
 			
 			rs = psmt.executeQuery();
 
-			hotelInfoItem = new hotelInfo();
+			hotelInfoList = new ArrayList<hotelInfo>();
 
-			if (rs.next()) {
-				hotelInfoItem.setID(rs.getInt("ID"));
-				hotelInfoItem.setEMAIL(rs.getString("EMAIL"));
-				hotelInfoItem.setNAME(rs.getString("NAME"));
-				hotelInfoItem.setADDRESS(rs.getString("ADDRESS"));
-				hotelInfoItem.setTYPE(rs.getString("TYPE"));
-				hotelInfoItem.setTEL(rs.getString("TEL"));
-				hotelInfoItem.setRATING(rs.getInt("RATING"));
+			while (rs.next()) {
+				hotelInfo infoItem = new hotelInfo();
+				infoItem.setID(rs.getInt("ID"));
+				infoItem.setEMAIL(rs.getString("EMAIL"));
+				infoItem.setNAME(rs.getString("NAME"));
+				infoItem.setADDRESS(rs.getString("ADDRESS"));
+				infoItem.setTYPE(rs.getString("TYPE"));
+				infoItem.setTEL(rs.getString("TEL"));
+				infoItem.setRATING(rs.getInt("RATING"));
+				infoItem.setX(rs.getString("X"));
+				infoItem.setY(rs.getString("Y"));
+				
+				hotelInfoList.add(infoItem);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -145,7 +152,7 @@ public class hotelDAO {
 			disConnect();
 		}
 
-		return hotelInfoItem;
+		return hotelInfoList;
 	}
 }
 

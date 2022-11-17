@@ -37,11 +37,11 @@ tour.create_data_table();
 tour.all_data_to_table();
 %>
 --%>
-<%
-hotelDAO dao = new hotelDAO();
-hotelInfo HI = dao.selectHotelInfoListByaddNtype("제주시", "Hotel");
 
-%>
+
+
+
+
 	<!-- header 및 nav 영역-->
 	<header>
 		<%@ include file="navBar.jsp"%>
@@ -62,58 +62,61 @@ hotelInfo HI = dao.selectHotelInfoListByaddNtype("제주시", "Hotel");
 			<div class="mapBox">
 				<div class="mapBox">
 					<%
-					hotelDAO hotelDao = new hotelDAO();
-					List<hotelInfo> hotelInfoList = hotelDao.selectHotelInfoList();
-					List<imgPath> imgPathList = hotelDao.selectImgPath();
+						//action으로 주소, 숙소타입 받아서 리스트에 저장하는 부분
+						String hAddress = request.getParameter("location");
+						String hType = request.getParameter("lodgingType");
+						hotelDAO hotelDao = new hotelDAO();
+						List<hotelInfo> searchHotelInfoList = hotelDao.selectHotelInfoListByaddNtype(hAddress, hType);
+						List<imgPath> imgPathList = hotelDao.selectImgPath();
 					%>
 					<style type="text/css">
-#bound {
-	height: 100%;
-	width: 100%;
-}
-/* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-#map {
-	height: 100%;
-}
-
-/* Optional: Makes the sample page fill the window. */
-html, body {
-	height: 100%;
-	margin: 0;
-	padding: 0;
-}
-</style>
+						#bound {
+							height: 100%;
+							width: 100%;
+						}
+						/* Always set the map height explicitly to define the size of the div
+						       * element that contains the map. */
+						#map {
+							height: 100%;
+						}
+						
+						/* Optional: Makes the sample page fill the window. */
+						html, body {
+							height: 100%;
+							margin: 0;
+							padding: 0;
+						}
+					</style>
 					<script
 						src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 					<script
 						src="https://maps.googleapis.com/maps/api/js?AIzaSyBjn-80evCQ7YDKFJR0fLXyBe-oKRhOWQw&callback=initMap&libraries=&v=weekly"
 						defer>
 					
-				</script>
+					</script>
 
 					<script>							
 						var locations = [];
-				</script>
+					</script>
+
+
+
 
 					<%
-					if (hotelInfoList != null && hotelInfoList.size() > 0) {
-						for (hotelInfo info : hotelInfoList) {
+						if (searchHotelInfoList != null && searchHotelInfoList.size() > 0) {
+							for (hotelInfo searchInfo : searchHotelInfoList) {
 					%>
-
-
 					<script>
-						locations = [...locations, ['<div><h3>'+'<%=info.getNAME()%>'+'</h3><p><%=info.getRATING()%> 성</p><p>주소: <%=info.getADDRESS()%></p><p>전화번호: <%=info.getTEL()%></p><p><button class="btn btn-secondary" onclick= "scrolltoId()">자세히 알아보기</button></p></div>', <%=info.getX()%>, <%=info.getY()%>]];
+						locations = [...locations, ['<div><h3>'+'<%=searchInfo.getNAME()%>'+'</h3><p><%=searchInfo.getRATING()%> 성</p><p>주소: <%=searchInfo.getADDRESS()%></p><p>전화번호: <%=searchInfo.getTEL()%></p><p><button class="btn btn-secondary" onclick= "scrolltoId()">자세히 알아보기</button></p></div>', <%=searchInfo.getX()%>, <%=searchInfo.getY()%>]];
 					
 						function scrolltoId(){
 							var access = document.getElementById("id1");
 							access.scrollIntoView();
 							}
-				</script>
-
+					</script>
 
 					<%
-					}
+						}
 					}
 					%>
 					<div id="bound">

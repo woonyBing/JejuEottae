@@ -14,8 +14,8 @@
 				<label for="location">지역</label>
 				<select class="form-select"
 					aria-label="Default select example" name="location">
-					<option value="Jeju" selected>제주시</option>
-					<option value="Seogwipo">서귀포시</option>
+					<option value="제주시" selected>제주시</option>
+					<option value="서귀포시">서귀포시</option>
 				</select>
 			</div>
 			<!--숙소선택-->

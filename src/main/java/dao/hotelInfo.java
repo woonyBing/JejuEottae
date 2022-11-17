@@ -70,6 +70,11 @@ public class hotelInfo {
 	public void setRATING(int rATING) {
 		RATING = rATING;
 	}
+	@Override
+	public String toString() {
+		return "hotelInfo [ID=" + ID + ", NAME=" + NAME + ", ADDRESS=" + ADDRESS + ", TYPE=" + TYPE + ", TEL=" + TEL
+				+ ", EMAIL=" + EMAIL + ", RATING=" + RATING + ", X=" + X + ", Y=" + Y + "]";
+	}
 	
 	
 
