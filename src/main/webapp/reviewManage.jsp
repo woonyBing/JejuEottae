@@ -113,10 +113,10 @@
                  	onclick="actionDeleteReview(<%=rv.getRevNum()%>)">삭제</button>
 <%--                   	value=<%=rv.getRevNum()%>>삭제</button> --%>
   				</div>
-  			
               <div class="review_button">
                 <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#reviewModal">수정</button>
               </div>
+              
 <!--               </form> -->
           <%
 					}
@@ -143,7 +143,7 @@
               
               
                <!-- Modal -->
-    <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+     <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -152,32 +152,33 @@
             </div>
           <div class="modal-body">
         <!-- 코멘트 -->
-            <div class="form-floating2">
+           
+
+            <form name="myform" id="myform" method="post" >
               <legend>후기를 남겨주세요</legend>
-
-              <textarea class="form-control" placeholder="무분별한 비방, 폭력적인 욕설 사용은 통보없이 삭제될 수 있습니다." id="floatingTextarea"
+              <textarea class="form-control" placeholder="무분별한 비방, 폭력적인 욕설 사용은 통보없이 삭제될 수 있습니다." 
+              id="floatingTextarea" name="comment"
               style="height: 100px;"></textarea>
-              
-            </div>
-
-            <form name="myform" id="myform" method="post" action="./save">
               <fieldset>
+               
                   <legend>별점</legend>
                   <input type="radio" name="rating" value="5" id="rate1"><label for="rate1">⭐</label>
                   <input type="radio" name="rating" value="4" id="rate2"><label for="rate2">⭐</label>
                   <input type="radio" name="rating" value="3" id="rate3"><label for="rate3">⭐</label>
                   <input type="radio" name="rating" value="2" id="rate4"><label for="rate4">⭐</label>
                   <input type="radio" name="rating" value="1" id="rate5"><label for="rate5">⭐</label>
+                  <input type="hidden" name="id" value="test">
+                 
+                  <input type="hidden" name="bo_num" value="test1">
+                  
               </fieldset>
               <div>솔직한 평가 부탁드립니다.</div>
           </form>
 
         </div>
         <div class="modal-footer">
-        <form name="reviewUpdateButton">
-          <button type="button" class="btn btn-primary" id="updateBtn" >수정하기</button>
-          </form>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">다음에...</button>
+          <button type="button" id="reserve_up" class="btn btn-primary" >평가하기</button>
+          <button type="button"  class="btn btn-secondary" data-bs-dismiss="modal">다음에 평가하기</button>
         </div>
       </div>
       </div>
@@ -185,18 +186,16 @@
               </td>
              </tr>  
               </tbody> 
-              
-          
-           
-          
+
         </table>
         
 	<script>
 		document.getElementById('updateBtn').addEventListener('click', (e)=>{
 			e.preventDefault();
+			alert("aaaa");
 			let form = document.reviewUpdateButton;
-			if(form.personName.value == ""){ //이름이 없는 경우
-				alert('이름은 필수입니다.');
+			if(form.content.value == ""){ //이름이 없는 경우
+				alert('내용은 필수입니다.');
 				form.personName.focus();
 				return false;
 			} else { //이름이 있는 경우

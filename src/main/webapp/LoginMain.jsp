@@ -39,7 +39,7 @@ tour.all_data_to_table();
 --%>
 	<!-- header 및 nav 영역-->
 	<header>
-		<%@ include file="navBar.jsp"%>
+		<%@ include file="navBarLogined.jsp"%>
 
 		<div class="mainImg">
 			<p class="mainStr">JejuEottae</p>
