@@ -12,7 +12,9 @@
     <link rel="stylesheet" href="./mypage.css">
 </head>
 <body>
-		<%String id = request.getParameter("id");%>
+		<%String id = request.getParameter("id");
+		
+		%>
 
      <!-- header 및 nav 영역-->
 	<header style="margin:0px">

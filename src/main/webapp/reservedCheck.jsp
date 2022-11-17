@@ -43,6 +43,7 @@
 		                 id =cpi_divide[2];
 
 				  }
+				  out.println("id="+id);
 
 				  Dao_manager dm  = new Dao_manager();
                   ResultSet rs=null;
@@ -275,7 +276,7 @@
                   <input type="radio" name="rating" value="1" id="rate5"><label for="rate5">⭐</label>
                   <input type="hidden" name="id" value=<%=id%>>
                  
-                  <input type="hidden" name="bo_num" value=<%= %>>
+                  <input type="hidden" name="bo_num" value="1">
                   
               </fieldset>
               <div>솔직한 평가 부탁드립니다.</div>
