@@ -45,7 +45,7 @@
           <span class="navbar-brand mb-0 h1">REVIEW</span>
         </div>
       </nav>
-
+<!-- 
       <div class="choice"> 
         <div class="container text-center">
           <div class="row">
@@ -69,11 +69,11 @@
             </div>
         </div>
             
-      </div> 
+      </div>  -->
 		
         <!-- for문 필요 혹시 없으면 안뜨게도 가능한지... -->
-		
-        <table class="reviewTable">
+		<div class="reviewTable">
+        <table class="table">
           <thead>
             <tr>
               <th scope="col" style="width: 10%">#</th>
@@ -81,6 +81,7 @@
               <th scope="col" style="width: 10%">예약 번호</th>
               <th scope="col" style="width: 30%">리뷰 내용</th>
               <th scope="col" style="width: 10%">평점</th>
+              <th scope="col" style="width: 20%"></th>
             </tr>
           </thead>
 
@@ -116,7 +117,6 @@
               <div class="review_button">
                 <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#reviewModal">수정</button>
               </div>
-              
 <!--               </form> -->
           <%
 					}
@@ -186,6 +186,7 @@
               </tbody> 
 
         </table>
+            </div>  
         
 	<script>
 		document.getElementById('updateBtn').addEventListener('click', (e)=>{
