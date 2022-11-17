@@ -125,39 +125,8 @@
                   <%
                  
                  
-                  if(rs==null)
-                  {
-            		  out.println("<div class=\"accordion-item\"><h2 class=\"accordion-header\" id=\"heading"+1+"\"><button class=\"accordion-button\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#collapseOne\" aria-expanded=\"true\" aria-controls=\"collapseOne\"><div> 예약일자 </div></button></h2><div id=\"collapseOne\" class=\"accordion-collapse collapse show\" aria-labelledby=\"heading"+1+"\" data-bs-parent=\"#accordionExample\"><div class=\"accordion-body\"><strong>예약일자</strong><br/><div class=\"review\"><table class=\"table\"><thead><tr><th scope=\"col\" style=\"width: 20%\">예약호텔</th><th scope=\"col\" style=\"width: 30%\">숙박기간</th><th scope=\"col\" style=\"width: 20%\">예약자 성함</th><th scope=\"col\" style=\"width: 10%\">인원</th><th scope=\"col\" style=\"width: 20%\">결제금액</th></tr></thead><thead>");
-
-                	  out.println("<tr>");
-                	  
-                	  out.print("<th scope=\"col\" style=\"width: 20%\">");
-                	  out.print("없음");
-                	  out.println("</th>");
-               
-                	  out.print("<th scope=\"col\" style=\"width: 30%\">");
-                	  out.print("없음");
-
-                	  out.println("</th>");
-                	  
- 					  out.print("<th scope=\"col\" style=\"width: 20%\">");
-                	  out.print("없음");
-                	  out.println("</th>");
-                	  
- 					  out.print("<th scope=\"col\" style=\"width: 10%\">");
-                	  out.print("없음");
-                	  out.println("</th>");
-                	  
- 					  out.print("<th scope=\"col\" style=\"width: 20%\">");
-                	  out.print("없음");
-                	  out.println("</th>");
-
-
-                	  out.println("</tr> </div> </div> </div>");
-                  }
-                  else
+                  if(rs!=null)
                   { 
-                	 
               		  int count =0;
                 	  while(rs.next())
                       {
@@ -191,7 +160,7 @@
                     	  out.print(rs.getInt("PAYMENT")+"");
                     	  out.println("</th>");
                     	  
-                    	  out.println("</tr> ");
+                    	  out.println("</tr> </div> </div> </div>");
 
                     	   out.println("</thead></table><div class=\"booking_button\">"
                                   +"<button type=\"button\" class=\"btn btn-danger\">예약취소</button>"
@@ -201,40 +170,10 @@
                                   +"</div>"
                                   +"<div class=\"booking_button\" data-bs-toggle=\"modal\" data-bs-target=\"#exampleModal\">"
                                   +"<button type=\"button\" class=\"btn btn-primary\">숙소평가</button>"
-                                  +"</div></div> </div> </div>");
+                                  +"</div>");
                     	 
                       }
-                      if(count ==0)
-                      {
-                		  out.println("<div class=\"accordion-item\"><h2 class=\"accordion-header\" id=\"heading"+count+"\"><button class=\"accordion-button\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#collapseOne\" aria-expanded=\"true\" aria-controls=\"collapseOne\"><div> 예약일자 </div></button></h2><div id=\"collapseOne\" class=\"accordion-collapse collapse show\" aria-labelledby=\"heading"+count+"\" data-bs-parent=\"#accordionExample\"><div class=\"accordion-body\"><strong>예약일자</strong><br/><div class=\"review\"><table class=\"table\"><thead><tr><th scope=\"col\" style=\"width: 20%\">예약호텔</th><th scope=\"col\" style=\"width: 30%\">숙박기간</th><th scope=\"col\" style=\"width: 20%\">예약자 성함</th><th scope=\"col\" style=\"width: 10%\">인원</th><th scope=\"col\" style=\"width: 20%\">결제금액</th></tr></thead><thead>");
-
-                     	out.println("<tr>");
-         
-                  	 	out.print("<th scope=\"col\" style=\"width: 20%\">");
-                  	  	out.print("없음");
-                  	  	out.println("</th>");
-                 
-                  	  	out.print("<th scope=\"col\" style=\"width: 30%\">");
-                  	  	out.print("없음");
-
-                  	  	out.println("</th>");
-                  	  
-      					out.print("<th scope=\"col\" style=\"width: 20%\">");
-                  	  	out.print("없음");
-                  	  	out.println("</th>");
-                  	  
-      				  	out.print("<th scope=\"col\" style=\"width: 10%\">");
-                  	  	out.print("없음");
-                  	  	out.println("</th>");
-                  	  
-      			      	out.print("<th scope=\"col\" style=\"width: 20%\">");
-                  	  	out.print("없음");
-                  	  	out.println("</th>");
-
-
-                  	  out.println("</tr> </div> </div> </div>");
-                      }
-
+                    
                      
                   }
                   dm.disconnect();
@@ -243,7 +182,6 @@
                
                   
                     	  
-             <% %>
          
           
           
