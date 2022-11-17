@@ -196,7 +196,7 @@
                     				+ "                  <input type=\"radio\" name=\"rating\" value=\"1\" id=\"rate5\"><label for=\"rate5\">⭐</label>\r\n"
                     				+ "                  <input type=\"hidden\" name=\"id\" value="+id+">\r\n"
                     				+ "                 \r\n"
-                    				+ "                  <input type=\"hidden\" name=\"bo_num\" value=\"1\">\r\n"
+                    				+ "                  <input type=\"hidden\" name=\"bo_num\" value="+rs.getString("BO_NUM")+">\r\n"
                     				+ "                  \r\n"
                     				+ "              </fieldset>\r\n"
                     				+ "              <div>솔직한 평가 부탁드립니다.</div>\r\n"
