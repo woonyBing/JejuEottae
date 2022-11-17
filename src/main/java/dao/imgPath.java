@@ -1,6 +1,6 @@
 package dao;
 
-public class imgPath {
+public class ImgPath {
 	private int Img_no;
 	private int Hotel_id;
 	private String Img_url;

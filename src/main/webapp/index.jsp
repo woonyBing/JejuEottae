@@ -6,9 +6,9 @@
 <%@ page import="dao.ImgPath"%>
 
 =======
-<%@ page import="dao.hotelDAO"%>
-<%@ page import="dao.hotelInfo"%>
-<%@ page import="dao.imgPath"%>
+<%@ page import="dao.Dao_manager"%>
+<%@ page import="dao.HotelInfo"%>
+<%@ page import="dao.ImgPath"%>
 >>>>>>> 2ca379f8f06bb4e5da96ab39bfb386bf918e9d1f
 <%@ page import="java.util.*"%>
 <%-- <%@ page import="dao.Tour"%> --%>
@@ -44,11 +44,7 @@ tour.create_data_table();
 tour.all_data_to_table();
 %>
 --%>
-<%
-hotelDAO dao = new hotelDAO();
-hotelInfo HI = dao.selectHotelInfoListByaddNtype("제주시", "Hotel");
 
-%>
 	<!-- header 및 nav 영역-->
 	<header>
 		<%@ include file="navBar.jsp"%>

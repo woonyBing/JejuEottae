@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="./mypage.css">
 </head>
 <body>
+		<%String id = request.getParameter("id");%>
+
      <!-- header 및 nav 영역-->
 	<header style="margin:0px">
         <!-- NavBar -->
@@ -39,7 +41,7 @@
           <!-- 카드 부분 -->
         <div class="row row-cols-1 row-cols-md-3" >
             <div class="col">
-              <a href="./reservedCheck.jsp">
+              <a href="./reservedCheck.jsp?id=<%=id%>">
               <div class="card" >
                 <!-- 링크작업 필요 -->
                 
@@ -53,7 +55,7 @@
               </div>
             </div>
             <div class="col">
-              <a href="./myInfo.jsp">
+              <a href="./myInfo.jsp?id=<%=id%>">
                 <div class="card">    
                 <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_960_720.png" 
                 class="card-img-top" width="200px" height="300px" >
@@ -64,7 +66,7 @@
               </div>
             </div>
             <div class="col">
-              <a href="./reviewManage.jsp">
+              <a href="./reviewManage.jsp?id=<%=id%>">
               <div class="card">
                 <img src="https://cdn.pixabay.com/photo/2022/01/11/21/48/talk-6931551_960_720.png"
                 class="card-img-top"  width="200px" height="300px">

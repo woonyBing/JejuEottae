@@ -1,5 +1,5 @@
 package dao;
-public class hotelInfo {
+public class HotelInfo {
 	
 	private int ID; 
 	private String NAME; 

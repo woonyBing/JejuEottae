@@ -38,8 +38,25 @@ tour.all_data_to_table();
 %>
 --%>
 	<!-- header 및 nav 영역-->
-	<header>
-		<%@ include file="navBarLogined.jsp"%>
+	<header style="margin:0px">
+		<%String id = request.getParameter("id");%>
+	
+	<nav class="navbar navbar-expand-lg bg-light">
+          <div class="container-fluid">
+              <a class="navbar-brand" href="Main.jsp">제주어때🍊</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav">
+                  <a class="nav-link active" aria-current="page" href="./index.jsp">Logout</a>
+                  <a class="nav-link " href="./mypage.jsp?id=<%=id%>">My page</a>
+              </div>
+              </div>
+          </div>
+      </nav>
+
+
 
 		<div class="mainImg">
 			<p class="mainStr">JejuEottae</p>
@@ -57,7 +74,6 @@ tour.all_data_to_table();
 			<div class="mapBox">
 				<div class="mapBox">
 					<%
-					request.getParameter("id");
 					Dao_manager hotelDao = new Dao_manager();
 					List<HotelInfo> hotelInfoList = hotelDao.selectHotelInfoList();
 					List<ImgPath> imgPathList = hotelDao.selectImgPath();
