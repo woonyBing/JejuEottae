@@ -124,7 +124,7 @@
                   
                   <%
                  
-                 
+
                   if(rs!=null)
                   { 
               		  int count =0;
@@ -139,7 +139,6 @@
                 		  }
                 		
                     	  out.println("<tr>");
-                    	  
                     	  out.print("<th scope=\"col\" style=\"width: 20%\">");
                     	  out.print(rs.getString("HOTEL_NAME"));
                     	  out.println("</th>");
@@ -160,7 +159,7 @@
                     	  out.print(rs.getInt("PAYMENT")+"");
                     	  out.println("</th>");
                     	  
-                    	  out.println("</tr> </div> </div> </div>");
+                    	  out.println("</tr> ");
 
                     	   out.println("</thead></table><div class=\"booking_button\">"
                                   +"<button type=\"button\" class=\"btn btn-danger\">예약취소</button>"
@@ -168,10 +167,49 @@
                                   +"<div class=\"booking_button\">"
                                     +"<button type=\"button\" class=\"btn btn-warning\">문의하기</button>"
                                   +"</div>"
-                                  +"<div class=\"booking_button\" data-bs-toggle=\"modal\" data-bs-target=\"#exampleModal\">"
+                                  +"<div class=\"booking_button\" data-bs-toggle=\"modal\" data-bs-target=\"#Modal"+count+"\">"
                                   +"<button type=\"button\" class=\"btn btn-primary\">숙소평가</button>"
-                                  +"</div>");
-                    	 
+                                  +"</div></div> </div> </div>");
+                    	   
+                    	   out.println("   <div class=\"modal fade\" id=\"Modal"+count+"\" tabindex=\"-1\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\r\n"
+                    				+ "        <div class=\"modal-dialog\">\r\n"
+                    				+ "          <div class=\"modal-content\">\r\n"
+                    				+ "            <div class=\"modal-header\">\r\n"
+                    				+ "              <h1 class=\"modal-title fs-5\" id=\"exampleModalLabel\">숙소는 어떠셨나요?</h1>\r\n"
+                    				+ "              <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>\r\n"
+                    				+ "            </div>\r\n"
+                    				+ "          <div class=\"modal-body\">\r\n"
+                    				+ "        <!-- 코멘트 -->\r\n"
+                    				+ "           \r\n"
+                    				+ "\r\n"
+                    				+ "            <form name=\"myform\" id=\"myform\" method=\"post\" >\r\n"
+                    				+ "              <legend>후기를 남겨주세요</legend>\r\n"
+                    				+ "              <textarea class=\"form-control\" placeholder=\"무분별한 비방, 폭력적인 욕설 사용은 통보없이 삭제될 수 있습니다.\" id=\"floatingTextarea\" name=\"comment\"\r\n"
+                    				+ "              style=\"height: 100px;\"></textarea>\r\n"
+                    				+ "              <fieldset>\r\n"
+                    				+ "               \r\n"
+                    				+ "                  <legend>별점</legend>\r\n"
+                    				+ "                  <input type=\"radio\" name=\"rating\" value=\"5\" id=\"rate1\"><label for=\"rate1\">⭐</label>\r\n"
+                    				+ "                  <input type=\"radio\" name=\"rating\" value=\"4\" id=\"rate2\"><label for=\"rate2\">⭐</label>\r\n"
+                    				+ "                  <input type=\"radio\" name=\"rating\" value=\"3\" id=\"rate3\"><label for=\"rate3\">⭐</label>\r\n"
+                    				+ "                  <input type=\"radio\" name=\"rating\" value=\"2\" id=\"rate4\"><label for=\"rate4\">⭐</label>\r\n"
+                    				+ "                  <input type=\"radio\" name=\"rating\" value=\"1\" id=\"rate5\"><label for=\"rate5\">⭐</label>\r\n"
+                    				+ "                  <input type=\"hidden\" name=\"id\" value="+id+">\r\n"
+                    				+ "                 \r\n"
+                    				+ "                  <input type=\"hidden\" name=\"bo_num\" value=\"1\">\r\n"
+                    				+ "                  \r\n"
+                    				+ "              </fieldset>\r\n"
+                    				+ "              <div>솔직한 평가 부탁드립니다.</div>\r\n"
+                    				+ "          </form>\r\n"
+                    				+ "\r\n"
+                    				+ "        </div>\r\n"
+                    				+ "        <div class=\"modal-footer\">\r\n"
+                    				+ "          <button type=\"button\" id=\"reserve_up\" class=\"btn btn-primary\" >평가하기</button>\r\n"
+                    				+ "          <button type=\"button\"  class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">다음에 평가하기</button>\r\n"
+                    				+ "        </div>\r\n"
+                    				+ "      </div>\r\n"
+                    				+ "      </div>\r\n"
+                    				+ "      </div>");                	 
                       }
                     
                      
@@ -189,45 +227,7 @@
        
 
         <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">숙소는 어떠셨나요?</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-          <div class="modal-body">
-        <!-- 코멘트 -->
-           
-
-            <form name="myform" id="myform" method="post" >
-              <legend>후기를 남겨주세요</legend>
-              <textarea class="form-control" placeholder="무분별한 비방, 폭력적인 욕설 사용은 통보없이 삭제될 수 있습니다." id="floatingTextarea" name="comment"
-              style="height: 100px;"></textarea>
-              <fieldset>
-               
-                  <legend>별점</legend>
-                  <input type="radio" name="rating" value="5" id="rate1"><label for="rate1">⭐</label>
-                  <input type="radio" name="rating" value="4" id="rate2"><label for="rate2">⭐</label>
-                  <input type="radio" name="rating" value="3" id="rate3"><label for="rate3">⭐</label>
-                  <input type="radio" name="rating" value="2" id="rate4"><label for="rate4">⭐</label>
-                  <input type="radio" name="rating" value="1" id="rate5"><label for="rate5">⭐</label>
-                  <input type="hidden" name="id" value=<%=id%>>
-                 
-                  <input type="hidden" name="bo_num" value="1">
-                  
-              </fieldset>
-              <div>솔직한 평가 부탁드립니다.</div>
-          </form>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" id="reserve_up" class="btn btn-primary" >평가하기</button>
-          <button type="button"  class="btn btn-secondary" data-bs-dismiss="modal">다음에 평가하기</button>
-        </div>
-      </div>
-      </div>
-      </div>
+   
       
       
     
