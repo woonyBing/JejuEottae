@@ -14,7 +14,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 public class Tour {
-	Reservation reservation =null;
+	Dao_manager dao_manager =null;
 
 	String type = "";
 	int index =0;
@@ -23,20 +23,20 @@ public class Tour {
 	
 	public Tour()
 	{
-		if(this.reservation==null)
+		if(this.dao_manager==null)
 		{
-			this.reservation = new Reservation();
+			this.dao_manager = new Dao_manager();
 		}	
 	}
 	
 	public void create_data_table()
 	{
-		if(this.reservation==null)
+		if(this.dao_manager==null)
 		{
-			this.reservation = new Reservation();
+			this.dao_manager = new Dao_manager();
 
 		}	
-		reservation.create_tour_list();
+		dao_manager.create_tour_list();
 	}
 
 	
@@ -139,12 +139,12 @@ public class Tour {
 			
 		
 			// 데이터 테이블에 넣어 주기
-			if(this.reservation==null)
+			if(this.dao_manager==null)
 			{
-				this.reservation = new Reservation();
+				this.dao_manager = new Dao_manager();
 
 			}	
-			reservation.insert_tour_list(name_data,address_data);
+			dao_manager.insert_tour_list(name_data,address_data);
 			return true;
 
 

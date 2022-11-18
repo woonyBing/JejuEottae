@@ -1,6 +1,6 @@
-package dao;
+package dto;
 
-public class imgPath {
+public class ImgPath {
 	private int Img_no;
 	private int Hotel_id;
 	private String Img_url;
@@ -22,8 +22,8 @@ public class imgPath {
 	public void setImg_url(String img_url) {
 		Img_url = img_url;
 	}
-	
-	
-	
-	
+	@Override
+	public String toString() {
+		return "imgPath [Img_no=" + Img_no + ", Hotel_id=" + Hotel_id + ", Img_url=" + Img_url + "]";
+	}
 }

@@ -8,9 +8,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dto.TourImgItem;
+import dto.TourImg;
 
-public class TourImg {
+public class TourImgDao {
 
 	Connection conn = null;
 	PreparedStatement psmt = null;
@@ -58,9 +58,9 @@ public class TourImg {
 	 * tour_img SELECT
 	 * 
 	 */
-	public List<TourImgItem> selectTourImgList() {
+	public List<TourImg> selectTourImgList() {
 		String sql = "SELECT * FROM tour_img";
-		List<TourImgItem> tourImgList = null;
+		List<TourImg> tourImgList = null;
 
 		try {
 			connect();
@@ -68,10 +68,10 @@ public class TourImg {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 
-			tourImgList = new ArrayList<TourImgItem>();
+			tourImgList = new ArrayList<TourImg>();
 
 			while (rs.next()) {
-				TourImgItem tourImgItem = new TourImgItem();
+				TourImg tourImgItem = new TourImg();
 				tourImgItem.setImg_no(rs.getInt("img_no"));
 				tourImgItem.setTour_name(rs.getString("tour_name"));
 				tourImgItem.setAddress(rs.getString("address"));
@@ -89,4 +89,35 @@ public class TourImg {
 		return tourImgList;
 	}
 
+	
+	public List<TourImg> selectTourImgListByAddress(String address) {
+		String sql = "SELECT * FROM tour_img WHERE address LIKE ?";
+		List<TourImg> tourImgList = null;
+
+		try {
+			connect();
+
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, address+"%");
+			rs = psmt.executeQuery();
+			tourImgList = new ArrayList<TourImg>();
+
+			while (rs.next()) {
+				TourImg tourImgItem = new TourImg();
+				tourImgItem.setImg_no(rs.getInt("img_no"));
+				tourImgItem.setTour_name(rs.getString("tour_name"));
+				tourImgItem.setAddress(rs.getString("address"));
+				tourImgItem.setImg_url(rs.getString("img_url"));
+
+				tourImgList.add(tourImgItem);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+
+		return tourImgList;
+	}
 }

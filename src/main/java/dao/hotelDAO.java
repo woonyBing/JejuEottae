@@ -8,7 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dto.TourImgItem;
+import dto.HotelInfo;
+import dto.ImgPath;
 
 
 public class hotelDAO {
@@ -47,11 +48,11 @@ public class hotelDAO {
 	}
 	
 	
-	public List<hotelInfo> selectHotelInfoList(){
+	public List<HotelInfo> selectHotelInfoList(){
 		String sql = "select *"
 				+ " from hotel_info i, hotel_img ig"
 				+ " where i.id =ig.hotel_id";
-		List<hotelInfo> hotelInfoList = null;
+		List<HotelInfo> hotelInfoList = null;
 		
 		try {
 			connect();
@@ -59,9 +60,9 @@ public class hotelDAO {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			
-			hotelInfoList = new ArrayList<hotelInfo>();
+			hotelInfoList = new ArrayList<HotelInfo>();
 			while(rs.next()) {
-				hotelInfo hotelInfo = new hotelInfo();
+				HotelInfo hotelInfo = new HotelInfo();
 				hotelInfo.setID(rs.getInt("id"));
 				hotelInfo.setNAME(rs.getString("name"));
 				hotelInfo.setADDRESS(rs.getString("address"));
@@ -84,9 +85,9 @@ public class hotelDAO {
 	}
 	
 	
-	public List<imgPath> selectImgPath(){
+	public List<ImgPath> selectImgPath(){
 		String sql = "select * from hotel_img";
-		List<imgPath> imgPathList = null;
+		List<ImgPath> imgPathList = null;
 		
 		try {
 			connect();
@@ -94,9 +95,9 @@ public class hotelDAO {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			
-			imgPathList = new ArrayList<imgPath>();
+			imgPathList = new ArrayList<ImgPath>();
 			while(rs.next()) {
-				imgPath img = new imgPath();
+				ImgPath img = new ImgPath();
 				img.setImg_no(rs.getInt("img_no"));
 				img.setHotel_id(rs.getInt("hotel_id"));
 				img.setImg_url(rs.getString("img_url"));
@@ -114,10 +115,10 @@ public class hotelDAO {
 		return imgPathList;
 	}
 	
-	public List<hotelInfo> selectHotelInfoListByaddNtype(String location, String type) {
+	public List<HotelInfo> selectHotelInfoListByaddNtype(String location, String type) {
 		String sql = "select * from hotel_info where address like ? AND type in (?)";
 		
-		List<hotelInfo> hotelInfoList = null;
+		List<HotelInfo> hotelInfoList = null;
 
 		try {
 			connect();
@@ -129,10 +130,10 @@ public class hotelDAO {
 			
 			rs = psmt.executeQuery();
 
-			hotelInfoList = new ArrayList<hotelInfo>();
+			hotelInfoList = new ArrayList<HotelInfo>();
 
 			while (rs.next()) {
-				hotelInfo infoItem = new hotelInfo();
+				HotelInfo infoItem = new HotelInfo();
 				infoItem.setID(rs.getInt("ID"));
 				infoItem.setEMAIL(rs.getString("EMAIL"));
 				infoItem.setNAME(rs.getString("NAME"));
@@ -154,6 +155,9 @@ public class hotelDAO {
 
 		return hotelInfoList;
 	}
+	
+
+
 }
 
 

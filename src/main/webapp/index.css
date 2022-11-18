@@ -63,3 +63,6 @@
 .slide {
     margin-bottom: 100px;
 }
+#getSearchHotelInfo input{
+	border:0 solid black;
+}
