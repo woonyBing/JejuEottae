@@ -6,7 +6,7 @@ import java.util.Date;
 public class Review {
 
 	public int revNum; //리뷰번호
-	public String userEmail; //리뷰 제목? -> 이메일
+	public String userId; //리뷰 제목? -> 이메일
 	public int boNum; //예약번호
 	public String content; //리뷰 본문
 	public Date revDate; // 리뷰작성날짜
@@ -22,11 +22,11 @@ public class Review {
 	}
 	
 	public String getUserEmail() {
-		return userEmail;
+		return userId;
 	}
 	
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	
 	public int getBoNum() {
@@ -59,7 +59,7 @@ public class Review {
 	
 	@Override
 	public String toString() {
-		return "Review [revNum=" + revNum + ", userEmail=" + userEmail + ", boNum=" + boNum + ", content=" + content
+		return "Review [revNum=" + revNum + ", userId=" + userId + ", boNum=" + boNum + ", content=" + content
 				+ ", revDate=" + revDate + ", score=" + score + "]";
 	}
 	public void setScore(int score) {

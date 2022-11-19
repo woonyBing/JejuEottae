@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="dao.reviewDao" %>
+<%@ page import="dao.Dao_manager" %>
 <%@ page import="dto.Review" %>
 <!DOCTYPE html>
 <html>
@@ -11,7 +11,7 @@
 <body>
 <%
 	int revNum = Integer.parseInt(request.getParameter("rev_num"));
-	reviewDao dao = new reviewDao();
+Dao_manager dao = new Dao_manager();
 	int result = dao.deleteReview(revNum);
 	
 	if(result>0){
