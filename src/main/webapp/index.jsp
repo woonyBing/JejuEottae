@@ -33,7 +33,7 @@ request.setCharacterEncoding("UTF-8");
 <body>
 
 
-<%
+	<%
 // Tour tour = new Tour();
 // tour.create_data_table();
 // tour.all_data_to_table();
@@ -50,7 +50,7 @@ request.setCharacterEncoding("UTF-8");
 		</div>
 	</header>
 
-	<!-- section 영역 -->
+	<!-- section1 영역 -->
 	<section>
 		<!-- 검색 영역 -->
 		<%@ include file="formSearch.jsp"%>
@@ -58,7 +58,7 @@ request.setCharacterEncoding("UTF-8");
 		<div class="container">
 
 			<!--지도 API 들어갈 자리-->
-			<div class="mapBox">
+			<div id="mapBox" class="mapBox">
 				<div class="mapBox">
 					<%
 						//action으로 주소, 숙소타입 받아서 리스트에 저장하는 부분
@@ -67,6 +67,7 @@ request.setCharacterEncoding("UTF-8");
 						
 						hotelDAO hotelDao = new hotelDAO();
 						List<HotelInfo> searchHotelInfoList = hotelDao.selectHotelInfoListByaddNtype(hAddress, hType);
+// 						List<ImgPath> imgPathList = hotelDao.selectImgPath();
 						
 					%>
 					<style type="text/css">
@@ -81,11 +82,11 @@ request.setCharacterEncoding("UTF-8");
 }
 
 /* Optional: Makes the sample page fill the window. */
-html, body {
-	height: 100%;
-	margin: 0;
-	padding: 0;
-}
+/* html, body { */
+/* 	height: 100%; */
+/* 	margin: 0; */
+/* 	padding: 0; */
+/* } */
 </style>
 					<script
 						src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
@@ -98,72 +99,65 @@ html, body {
 					<script>							
 						var locations = [];
 					</script>
-
-
-<!-- 검색하기 버튼 눌러서 넘어온 호텔리스트 -->
-<!-- 그 호텔 리스트의 아이디와 이미지 테이블 아이디를 비교해서 이미지를 띄워야함 -->
-<!-- 그거 띄워지는 거 확인한 후에 -->
-<!-- 핀 눌렀을 때 그거에 맞는 것만 출력하면 됨 -->
-
+					<!-- FOR문 돌리고 index 0번째만 지도가 그려지게 -->
 					<%
 						if (searchHotelInfoList != null && searchHotelInfoList.size() > 0) {
-							for (HotelInfo searchInfo : searchHotelInfoList) {
+							for (HotelInfo hotelInfo : searchHotelInfoList) {
 					%>
+
 					<script>
-<%-- 					locations = [...locations, ['<div><h3 id="searchInfoName">'+'<%=searchInfo.getNAME()%>'+'</h3><p><%=searchInfo.getRATING()%> 성</p><p>주소: <%=searchInfo.getADDRESS()%></p><p>전화번호: <%=searchInfo.getTEL()%></p><p><button id= "mapBtn" class="btn btn-secondary" type="button" Onclick="showHotelResult()">자세히 알아보기</button></p></div>', <%=searchInfo.getX()%>, <%=searchInfo.getY()%>]]; --%>
-					locations = [...locations, ['<form id="getSearchHotelInfo"><h3><input type="text" name="<%=searchInfo.getNAME()%>" value="<%=searchInfo.getNAME()%>" readonly>'+'</h3><p><input type="text" name="HotelName" value="<%=searchInfo.getRATING()%> 성" readonly></p><p><input type="text" name="HotelName" value="주소: <%=searchInfo.getADDRESS()%>" readonly></p><p><input type="text" name="HotelName" value="전화번호: <%=searchInfo.getTEL()%>" readonly></p><p><button id= "mapBtn" class="btn btn-secondary" type="button">자세히 알아보기</button></p></div>', <%=searchInfo.getX()%>, <%=searchInfo.getY()%>]];
+					locations = [...locations, ['<div><h3>'+'<%=hotelInfo.getNAME()%>'+'</h3><p><%=hotelInfo.getRATING()%> 성</p><p>주소: <%=hotelInfo.getADDRESS()%></p><p>전화번호: <%=hotelInfo.getTEL()%></p><p><button id= "mapBtn" class="btn btn-secondary" type="button" onClick="showLodging(<%=hotelInfo.getID()%>)">자세히 알아보기</button></p></div>', <%=hotelInfo.getX()%>, <%=hotelInfo.getY()%>]];
+
 					
-// 						function scrolltoId(){
-// 							var access = document.getElementById("id1");
-// 							access.scrollIntoView(); 
-// 						}
+					
+					function showLodging(hotelInfoId){
+						var access = document.getElementById(hotelInfoId);
+						access.scrollIntoView(); 
+					}
 					</script>
 
-					<%
-						}
-					}
-					%>
+					<!-- map 그려지는 부분 -->
 					<div id="bound">
 						<div id="map"></div>
 					</div>
+
+
+					<%
+					}
+					}
+					%>
 				</div>
+			</div>
 
-
-				<!--호텔리스트
-				 -->
-				 <%
-					if (searchHotelInfoList != null && searchHotelInfoList.size() > 0) {
-						for (HotelInfo searchInfo : searchHotelInfoList) {
-							List<ImgPath> imgPathList = hotelDao.selectImgPath();
-								for(ImgPath img : imgPathList) {
-									if (searchInfo.getID() == img.getHotel_id()){
+			<div id="resultsLodging" class="gridItemHotelList">
+				<h2 id="titleHotel">숙소 검색 결과</h2>
+				<%
+				for (HotelInfo hotelInfo : searchHotelInfoList) {
+					List<ImgPath> imgPathList = hotelDao.selectHotelInfoListByHotelId(hotelInfo.getID());
 				%>
-				<div id="id1">
-					<%--<%@include file="showHotelList.jsp"%> --%>
-					<div id = "showHotel" class="gridItemHotelList">
-						<h2 style="margin-bottom: 30px; text-align: center;">숙소 검색 결과</h2>
-
+				<!--호텔리스트
+				 	-->
+				<div id="<%=hotelInfo.getID()%>">
+					<div id="showHotel">
 						<div class="accordion" id="accordionPanelsStayOpenExample">
-							<%--<%@ include file="getHotelResultItem.jsp"%> --%>
-
 							<div class="accordion-item">
-								<h2 class="accordion-header" id="panels1">
+								<h2 class="accordion-header" id="panels<%=hotelInfo.getID()%>">
 									<button id="wrapButton" class="accordion-button" type="button"
 										data-bs-toggle="collapse"
-										data-bs-target="#panelsStayOpen-collapse1"
-										aria-expanded="true" aria-controls="panelsStayOpen-collapse1">
-										<%=searchInfo.getNAME()%></button>
+										data-bs-target="#panelsStayOpen-collapse<%=hotelInfo.getID()%>"
+										aria-expanded="true"
+										aria-controls="panelsStayOpen-collapse<%=hotelInfo.getID()%>">
+										<%=hotelInfo.getNAME()%></button>
 								</h2>
-								<div id="panelsStayOpen-collapse1"
+								<div id="panelsStayOpen-collapse<%=hotelInfo.getID()%>"
 									class="accordion-collapse collapse show"
-									aria-labelledby="panels1>">
+									aria-labelledby="panels<%=hotelInfo.getID()%>">
 									<div class="accordion-body">
 										<div id="carouselExampleControls" class="carousel slide"
 											data-bs-ride="carousel">
 											<div class="carousel-inner">
 												<div class="carousel-item active">
-													<img
-														src="<%=img.getImg_url()%>"
+													<img src=<%=imgPathList.get(0).getImg_url()%>"
 														class="d-block w-100" alt="호텔외관이미지">
 												</div>
 												<div class="carousel-item">
@@ -207,10 +201,10 @@ html, body {
 											<tbody>
 												<tr id="tableValue">
 													<!--여기 들어갈 내용은 db에서 가져와 넣기-->
-													<th scope="row" style="width: 20%"><%=searchInfo.getNAME()%></th>
-													<td style="width: 40%"><%=searchInfo.getADDRESS()%></td>
-													<td style="width: 20%"><%=searchInfo.getTEL()%></td>
-													<td style="width: 20%"><%=searchInfo.getRATING()%></td>
+													<th scope="row" style="width: 20%"><%=hotelInfo.getNAME()%></th>
+													<td style="width: 40%"><%=hotelInfo.getADDRESS()%></td>
+													<td style="width: 20%"><%=hotelInfo.getTEL()%></td>
+													<td style="width: 20%"><%=hotelInfo.getRATING()%></td>
 												</tr>
 											</tbody>
 										</table>
@@ -252,11 +246,11 @@ html, body {
 											<label for="personCnt">인원</label> <select class="form-select"
 												aria-label="Default select example" name="personCnt">
 												<%
-													for (int i = 1; i <= 10; i++) {
+												for (int i = 1; i < 11; i++) {
 												%>
 												<option id="<%=i%>" value="<%=i%>"><%=i%></option>
 												<%
-													};
+												}
 												%>
 											</select>
 										</div>
@@ -291,41 +285,54 @@ html, body {
 					</div>
 				</div>
 				<%
-							}
-						}
-					}
 				}
 				%>
-				<!--관광지 리스트
-				 -->
-					<div id="recommendTour" class="gridItemTourList">
-						<h2 style="margin-bottom: 30px; text-align: center;">추천 관광지</h2>
-						<div class="row row-cols-1 row-cols-md-3 g-4">
-							<%
-							TourImgDao tourImgDao = new TourImgDao();
-						 	List<TourImg> tourImgList = tourImgDao.selectTourImgListByAddress(hAddress);
-						 	for(TourImg tImg : tourImgList) {
-							%>
-								<div class="col">
-									<div class="card h-100">
-										<img
-											src="<%= tImg.getImg_url()%>"
-											class="card-img-top" alt="...">
-										<div class="card-body">
-											<h5 class="card-title"><%= tImg.getTour_name()%></h5>
-											<p class="card-text"><%= tImg.getAddress()%></p>
-										</div>
-									</div>
-								</div>
-							<%
-					 		}%>
+			</div>
+			<!--관광지 리스트
+						 -->
+			<div id="resultsTour" class="gridItemTourList">
+				<h2 id="titleTour">추천 관광지</h2>
+				<div class="row row-cols-1 row-cols-md-3 g-4">
+
+					<%
+					TourImgDao tourImgDao = new TourImgDao();
+					List<TourImg> tourImgList = tourImgDao.selectTourImgListByAddress(hAddress);
+					for (TourImg tImg : tourImgList) {
+					%>
+					<div class="col">
+						<div class="card h-100">
+							<img src="<%=tImg.getImg_url()%>" class="card-img-top" alt="...">
+							<div class="card-body">
+								<h5 class="card-title"><%=tImg.getTour_name()%></h5>
+								<p class="card-text"><%=tImg.getAddress()%></p>
+							</div>
 						</div>
 					</div>
+					<%
+					}
+					%>
+				</div>
 			</div>
+		</div>
 	</section>
+
+
+
+
 	<script>
-	let test = document.getElementsId('recommendTour');
-	test.style.display = "none";
+	let mapBox = document.getElementById('mapBox');
+	let resultsLodging = document.getElementById('resultsLodging');
+	let resultsTour = document.getElementById('resultsTour');
+	<%
+		if (searchHotelInfoList != null && searchHotelInfoList.size() > 0) {
+	%>
+
+	mapBox.style.display = 'block';
+	resultsLodging.style.display = 'block';
+	resultsTour.style.display = 'block';
+	<%
+	}
+	%>
 	function initMap() {
 		const myLatLng = { //기본 좌표 값: 한라산
 			lat : 33.360139,

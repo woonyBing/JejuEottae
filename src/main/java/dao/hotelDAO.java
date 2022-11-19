@@ -157,6 +157,38 @@ public class hotelDAO {
 	}
 	
 
+	public List<ImgPath> selectHotelInfoListByHotelId(int hotelId) {
+		String sql = "select img_url from hotel_img where hotel_id = ?";
+		
+		List<ImgPath> hotelImgList = null;
+
+		try {
+			connect();
+
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, hotelId);
+			
+			rs = psmt.executeQuery();
+
+			hotelImgList = new ArrayList<ImgPath>();
+
+			while (rs.next()) {
+				ImgPath ImgPath = new ImgPath();
+				ImgPath.setImg_url(rs.getString("IMG_URL"));
+				
+				hotelImgList.add(ImgPath);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+
+		return hotelImgList;
+	}
+	
+
 
 }
 

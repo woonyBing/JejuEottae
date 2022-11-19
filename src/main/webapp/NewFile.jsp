@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="dao.hotelDAO"%>
-<%@ page import="dto.HotelInfo"%>
-<%@ page import="dto.ImgPath"%>
+<%@ page import="testDAO.hotelDAO"%>
+<%@ page import="testDAO.hotelInfo"%>
+<%@ page import="testDAO.imgPath"%>
 <%@ page import="java.util.*"%>
 <%-- <%@ page import="dao.Tour"%> --%>
 <%
@@ -39,7 +39,7 @@ tour.all_data_to_table();
 --%>
 	<!-- header 및 nav 영역-->
 	<header>
-		<%@ include file="navBarLogined.jsp"%>
+		<%@ include file="navBar.jsp"%>
 
 		<div class="mainImg">
 			<p class="mainStr">JejuEottae</p>
@@ -58,8 +58,8 @@ tour.all_data_to_table();
 				<div class="mapBox">
 					<%
 					hotelDAO hotelDao = new hotelDAO();
-					List<HotelInfo> hotelInfoList = hotelDao.selectHotelInfoList();
-					List<ImgPath> imgPathList = hotelDao.selectImgPath();
+					List<hotelInfo> hotelInfoList = hotelDao.selectHotelInfoList();
+					List<imgPath> imgPathList = hotelDao.selectImgPath();
 					%>
 					<style type="text/css">
 #bound {
@@ -93,7 +93,7 @@ html, body {
 
 					<%
 					if (hotelInfoList != null && hotelInfoList.size() > 0) {
-						for (HotelInfo info : hotelInfoList) {
+						for (hotelInfo info : hotelInfoList) {
 					%>
 
 

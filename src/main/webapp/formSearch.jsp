@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>fromSearch</title>
 </head>
 <body>
 	<form name="searchForm" action="index.jsp">
@@ -28,7 +28,7 @@
 				</select>
 			</div>
 			<!--검색버튼-->
-			<button type="submit" class="btn btn-primary gridItemBtn">검색</button>
+			<button id="Search" type="submit" class="btn btn-primary gridItemBtn">검색</button>
 		</div>
 	</form>
 </body>
