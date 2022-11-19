@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>fromSearch</title>
 </head>
 <body>
 	<form name="searchForm" action="index.jsp">
@@ -14,8 +14,8 @@
 				<label for="location">지역</label>
 				<select class="form-select"
 					aria-label="Default select example" name="location">
-					<option value="Jeju" selected>제주시</option>
-					<option value="Seogwipo">서귀포시</option>
+					<option value="제주시" selected>제주시</option>
+					<option value="서귀포시">서귀포시</option>
 				</select>
 			</div>
 			<!--숙소선택-->
@@ -28,7 +28,7 @@
 				</select>
 			</div>
 			<!--검색버튼-->
-			<button type="submit" class="btn btn-primary gridItemBtn">검색</button>
+			<button id="Search" type="submit" class="btn btn-primary gridItemBtn">검색</button>
 		</div>
 	</form>
 </body>
