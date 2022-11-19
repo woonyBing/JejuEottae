@@ -71,6 +71,8 @@
 .slide {
     margin-bottom: 100px;
 }
+	
 img {
-	object-fit	
+  height: 500px;
+  object-fit: cover;
 }
