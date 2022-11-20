@@ -136,7 +136,7 @@ request.setCharacterEncoding("UTF-8");
 				<%
 				for (HotelInfo hotelInfo : searchHotelInfoList) {
 					List<ImgPath> imgPathList = hotelDao.selectHotelInfoListByHotelId(hotelInfo.getID());
-				%>
+									%>
 				<!--호텔리스트
 				 	-->
 				<div id="<%=hotelInfo.getID()%>">
@@ -260,8 +260,10 @@ request.setCharacterEncoding("UTF-8");
 										</div>
 
 
-										<button type="button" class="btn btn-primary"
-											data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="booking(<%=hotelInfo.getID()%>)">예약하기</button>
+<!-- 										<button type="button" class="btn btn-primary" -->
+<%-- 											data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="booking(<%=hotelInfo.getID()%>)">예약하기</button> --%>
+										<button type="submit" class="btn btn-primary"
+										data-bs-toggle="modal" data-bs-target="#exampleModal">예약하기</button>
 										<div class="modal fade" id="exampleModal" tabindex="-1"
 											aria-labelledby="exampleModalLabel" aria-hidden="true">
 											<div class="modal-dialog">
@@ -336,6 +338,7 @@ request.setCharacterEncoding("UTF-8");
 		
 		//예약 버튼 클릭 시 
 		//가격이,, 호텔인포에 있어야,, id값 받아서 찾을 때,,, 맞지 않을까,,,
+		//근데 왜 클릭 안 했는데 실행이 되는가,,?
 		function booking(hotelId){
 			<%
 			Booking booking = new Booking();
