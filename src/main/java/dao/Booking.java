@@ -11,6 +11,7 @@ public class Booking {
 	String checkout;
 	String user_email;
 	Dao_manager dao_manager =null;
+	int person;
 	
 	public Booking()
 	{
@@ -30,9 +31,7 @@ public class Booking {
 		 this.payment=payment;
 		 this.checkin=checkin;
 		 this.checkout=checkout;
-		 this.user_email=user_email;
 	}
-	
 	
 
 	public void create_data_table()

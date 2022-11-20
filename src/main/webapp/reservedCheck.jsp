@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+   <%@ page import="dao.Dao_manager" %>
+       <%@ page import="java.sql.DriverManager" %>
+          <%@ page import="java.sql.Connection" %>
+   
+    <%@ page import="java.sql.ResultSet" %>
+        <%@ page import="java.sql.SQLException" %>
+                <%@ page import="java.sql.PreparedStatement" %>
+        
+    
+   
+    
 <% request.setCharacterEncoding("UTF-8"); %>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,6 +23,41 @@
     <link rel="stylesheet" href="./mypage.css">
 </head>
 <body>
+<% 
+                  String cpi = request.getParameter("CPI");
+                  String[] cpi_divide = null;
+                  
+                  if(cpi != null)
+                  {
+                       cpi_divide = cpi.split("/");
+                  }
+				  String id = "test"; 
+				  if(request.getParameter("id")!=null)
+				  {
+
+					  id = request.getParameter("id");
+				  }
+				  else if(cpi!=null)
+				  {
+
+		                 id =cpi_divide[2];
+
+				  }
+
+				  Dao_manager dm  = new Dao_manager();
+                  ResultSet rs=null;
+                  if(cpi!=null)
+                  {
+               	   rs = dm.get_booking_datas_F(cpi_divide[0],cpi_divide[1],id);
+                  }
+                  else
+                  {
+                      rs = dm.get_booking_datas(id);// 카테고리랑 기간으로 필터링 기간 부등호 카테고리는 =
+
+                  }
+                  //
+                  %>
+
     <header style="margin:0px">
         <!-- NavBar -->
        <nav class="navbar navbar-expand-lg bg-light">
@@ -22,8 +68,8 @@
               </button>
               <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
-                  <a class="nav-link active" aria-current="page" href="./index.jsp">Home</a>
-                  <a class="nav-link" href="./mypage.jsp">My page</a>
+                  <a class="nav-link active" aria-current="page" href="./Main.jsp?id=<%=id%>">Home</a>
+                  <a class="nav-link" href="./mypage.jsp?id=<%=id%>">My page</a>
               </div>
               </div>
           </div>
@@ -35,125 +81,199 @@
         </div>
       </nav>
 
+
     <div class="choice"> 
       <div class="container text-center">
+      <form name="serch_reserved_form">
         <div class="row">
           <div class="col">
             
-             <select class="form-select" aria-label="Default select example">
-                <option selected>카테고리</option>
+             <select class="form-select" aria-label="Default select example" name="category" >
+                <option selected value="0">카테고리</option>
                 <option value="1">호텔</option>
                 <option value="2">리조트</option>
              </select>
           </div>
           <div class="col">
-             <select class="form-select" aria-label="Default select example">
-                <option selected>전체</option>
-                <option value="1">최근 3개월</option>
-                <option value="2">최근 6개월</option>
-                <option value="3">최근 9개월</option>
+             <select class="form-select" aria-label="Default select example" name = "period">
+                <option selected value="0">전체</option>
+                <option value="3">최근 3개월</option>
+                <option value="6">최근 6개월</option>
+                <option value="9">최근 9개월</option>
              </select>
     
             </div>
+            <div class="col">
+                              <input type="hidden" name="id" value=<%=id%>>
+            
+            			<button type="button" class="btn btn-success" id="serch_reserved">검색</button>
+            
+           
+             </div>
+             
+            
           </div>
+ 		   </form>
+           </div>
       </div>
-          
       
-      <!-- for문 필요 버튼 기능 필요-->
       <div class="accordion" id="accordionExample">
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingOne">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              <div> 예약일자 </div>
-            </button>
-          </h2>
-          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-              <strong>예약일자</strong>
-              <br/>
-              <div class="review">
-                <table class="table">
-                  <thead>
-                      <tr>
-                          <th scope="col" style="width: 20%">예약호텔</th>
-                          <th scope="col" style="width: 20%">숙박기간</th>
-                          <th scope="col" style="width: 20%">예약자 성함</th>
-                          <th scope="col" style="width: 20%">인원</th>
-                          <th scope="col" style="width: 20%">결제수단</th>
-                      </tr>
-                  </thead>
-                  <thead>
-                    <tr>
-                      <th scope="col" style="width: 20%">hotelname</th>
-                      <th scope="col" style="width: 20%">checkIn,checkOut</th>
-                      <th scope="col" style="width: 20%">userName</th>
-                      <th scope="col" style="width: 20%">person</th>
-                      <th scope="col" style="width: 20%">payment</th>
-                    </tr>
-                  </thead>
-                </table>
-              </div>
-              
-              <div class="booking_button">
-                <button type="button" class="btn btn-danger">예약취소</button>
-              </div>
-              <div class="booking_button">
-                <button type="button" class="btn btn-warning">예약문의</button>
-              </div>
-              <div class="booking_button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                <button type="button" class="btn btn-primary">숙소평가</button>
-                </div>
-          </div>
-          </div>
+        
+                  
+                  <%
+                 
+						String bo_num ="";
+                  String hotel_name = "";
+                  if(rs!=null)
+                  { 
+              		  int count =0;
+                	  while(rs.next())
+                      {
+                		  count++;
+
+                		  out.println("<div class=\"accordion-item\"><h2 class=\"accordion-header\" id=\"heading"+count+"\"><button class=\"accordion-button\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#collapse"+ count +"\" aria-expanded=\"true\" aria-controls=\"collapse"+count+"\"><div> "+rs.getString("HOTEL_NAME")+" </div></button></h2><div id=\"collapse"+count+"\" class=\"accordion-collapse collapse show\" aria-labelledby=\"heading"+count+"\" data-bs-parent=\"#accordionExample\"><div class=\"accordion-body\"><strong>예약일자</strong><br/><div class=\"review\"><table class=\"table\"><thead><tr><th scope=\"col\" style=\"width: 20%\">예약호텔</th><th scope=\"col\" style=\"width: 30%\">숙박기간</th><th scope=\"col\" style=\"width: 20%\">예약자 성함</th><th scope=\"col\" style=\"width: 10%\">인원</th><th scope=\"col\" style=\"width: 20%\">결제금액</th></tr></thead><thead>");
+                		  if(count>0)
+                		  {
+                    		  out.println("<table class=\"table\"><thead>");
+                		  }
+                		
+                    	  out.println("<tr>");
+                    	  out.print("<th scope=\"col\" style=\"width: 20%\">");
+                    	  hotel_name=rs.getString("HOTEL_NAME");
+                    	  out.print(hotel_name);
+                    	  out.println("</th>");
+                   
+                    	  out.print("<th scope=\"col\" style=\"width: 30%\">");
+                    	  out.print(rs.getString("CHECKIN")+"~"+rs.getString("CHECKOUT"));
+                    	  out.println("</th>");
+                    	  
+     					  out.print("<th scope=\"col\" style=\"width: 20%\">");
+                    	  out.print(rs.getString("NAME"));
+                    	  out.println("</th>");
+                    	  
+     					  out.print("<th scope=\"col\" style=\"width: 10%\">");
+                    	  out.print(rs.getInt("PERSON")+"");
+                    	  out.println("</th>");
+                    	  
+     					  out.print("<th scope=\"col\" style=\"width: 20%\">");
+                    	  out.print(rs.getInt("PAYMENT")+"");
+                    	  out.println("</th>");
+                   	       bo_num =rs.getInt("BO_NUM")+"";
+
+                    	  out.println("</tr> ");
+
+                    	   out.println("</thead></table><div class=\"booking_button\">"
+                                  +"<button type=\"button\" class=\"btn btn-danger\" id=\"cancel"+count+"\"> 예약취소</button>"
+                                  +"</div>"
+                                  +"<div class=\"booking_button\">"
+                                    +"<button type=\"button\" class=\"btn btn-warning\" data-bs-toggle=\"modal\"data-bs-target=\"#aModal"+count+"\">문의하기</button>"
+                    
+                                  +"</div>"
+                                 +"<div class=\"modal fade\" id=\"aModal"+count+"\" tabindex=\"-1\"\r\n"
+                      			+ "								aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\r\n"
+                      			+ "								<div class=\"modal-dialog\">\r\n"
+                      			+ "									<div class=\"modal-content\">\r\n"
+                      			+ "										<div class=\"modal-header\">\r\n"
+                      			+ "											<h1 class=\"modal-title fs-5\" id=\"exampleModalLabel\">알림</h1>\r\n"
+                      			+ "											<button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\"\r\n"
+                      			+ "												aria-label=\"Close\"></button>\r\n"
+                      			+ "										</div>\r\n"
+                              	+ "										<div class=\"modal-body\">문의는 전화를 이용해 주세요<br>"
+                      			+hotel_name+": "+rs.getString("TEL")+"</div>\r\n"
+                      			+ "										<div class=\"modal-footer\">\r\n"
+                      			+ "											<button type=\"button\" class=\"btn btn-secondary\"\r\n"
+                      			+ "												data-bs-dismiss=\"modal\">Close</button>\r\n"
+                      			+ "										</div>\r\n"
+                      			+ "									</div>\r\n"
+                      			+ "								</div>\r\n"
+                      			+ "							</div>"
+                      			
+                                  +"<div class=\"booking_button\" data-bs-toggle=\"modal\" data-bs-target=\"#Modal"+count+"\">"
+                                  +"<button type=\"button\" class=\"btn btn-primary\">숙소평가</button>"
+                                  +"</div></div> </div> </div>");
+                    	   out.println("   <div class=\"modal fade\" id=\"Modal"+count+"\" tabindex=\"-1\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\r\n"
+                    				+ "        <div class=\"modal-dialog\">\r\n"
+                    				+ "          <div class=\"modal-content\">\r\n"
+                    				+ "            <div class=\"modal-header\">\r\n"
+                    				+ "              <h1 class=\"modal-title fs-5\" id=\"exampleModalLabel\">숙소는 어떠셨나요?</h1>\r\n"
+                    				+ "              <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>\r\n"
+                    				+ "            </div>\r\n"
+                    				+ "          <div class=\"modal-body\">\r\n"
+                    				+ "            <form name=\"myform"+count+"\" id=\"myform\" method=\"post\" >\r\n"
+                    				+ Integer.parseInt(bo_num)
+                    				+ "test_val:"+dm.search_review_count_by_bo_num(Integer.parseInt(bo_num)) 
+                    				+				"<legend>후기를 남겨주세요</legend>\r\n"
+                    				+ "              <textarea class=\"form-control\" placeholder=\"무분별한 비방, 폭력적인 욕설 사용은 통보없이 삭제될 수 있습니다.\" id=\"floatingTextarea\" name=\"comment\"\r\n"
+                    				+ "              style=\"height: 100px;\"></textarea>\r\n"
+                    				+ "              <fieldset>\r\n"
+                    				+ "                  <legend>별점</legend>\r\n"
+                    				+ "                  <input type=\"radio\" name=\"rating\" value=\"5\" id=\"rate1\"><label for=\"rate1\">⭐</label>\r\n"
+                    				+ "                  <input type=\"radio\" name=\"rating\" value=\"4\" id=\"rate2\"><label for=\"rate2\">⭐</label>\r\n"
+                    				+ "                  <input type=\"radio\" name=\"rating\" value=\"3\" id=\"rate3\"><label for=\"rate3\">⭐</label>\r\n"
+                    				+ "                  <input type=\"radio\" name=\"rating\" value=\"2\" id=\"rate4\"><label for=\"rate4\">⭐</label>\r\n"
+                    				+ "                  <input type=\"radio\" name=\"rating\" value=\"1\" id=\"rate5\"><label for=\"rate5\">⭐</label>\r\n"
+                    				+ "                  <input type=\"hidden\" name=\"id\" value="+id+">\r\n"
+                    				+ "                  <input type=\"hidden\" name=\"bo_num\" value="+bo_num+">\r\n"
+                    				+ "              </fieldset>\r\n"
+                    				+ "              <div>솔직한 평가 부탁드립니다.</div>\r\n"
+                    				+ "          </form>\r\n"
+                    				+ "        </div>\r\n"
+                    				+ "        <div class=\"modal-footer\">\r\n"
+                    				+ "          <button type=\"button\" id=\"reserve_up"+count+"\" class=\"btn btn-primary\" >평가하기</button>\r\n"
+                    				+ "          <button type=\"button\"  class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">다음에 평가하기</button>\r\n"
+                    				+ "        </div>\r\n"
+                    				+ "      </div>\r\n"
+                    				+ "      </div>\r\n"
+                    				+ "      </div></div>"); 
+                    	  out.println("<script>\r\n"
+                    				+ "document.getElementById('cancel"+count+"').addEventListener('click', (e)=>{"
+                    				+ "	e.preventDefault();"
+                    				+ "	location.href='reservedDelete_proc.jsp?BI="+bo_num+"/"+id+"';"
+                    				+ "});"
+                    				+"document.getElementById('reserve_up"+count+"').addEventListener('click', (e)=>{\r\n"
+                    				+ "e.preventDefault();\r\n"
+                    				+ "if("+dm.search_review_count_by_bo_num(Integer.parseInt(bo_num))+"==0){"
+                    				+ "	let form = document.myform"+count+";\r\n"
+                    				+ "	form.action=\"review_proc.jsp\"\r\n"
+                    				+ "	form.submit();\r\n"
+                    				+ "	\r\n"
+                    				+ "}"
+                    				+"else{alert('이미 리뷰가 작성 되어 있습니다 리뷰 관리창을 이용해 주세요');}});"
+                    				+ "</script>");
+                      }
+                    
+                     
+                  }
+                  dm.disconnect();
+                  %>
+                    
+               
+                  
+                    	  
+         
+          
+          
         </div>
        
 
         <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">숙소는 어떠셨나요?</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-          <div class="modal-body">
-        <!-- 코멘트 -->
-            <div class="form-floating2">
-              <legend>후기를 남겨주세요</legend>
-
-              <textarea class="form-control" placeholder="무분별한 비방, 폭력적인 욕설 사용은 통보없이 삭제될 수 있습니다." id="floatingTextarea"
-              style="height: 100px;"></textarea>
-              
-            </div>
-
-            <form name="myform" id="myform" method="post" action="./save">
-              <fieldset>
-                  <legend>별점</legend>
-                  <input type="radio" name="rating" value="5" id="rate1"><label for="rate1">⭐</label>
-                  <input type="radio" name="rating" value="4" id="rate2"><label for="rate2">⭐</label>
-                  <input type="radio" name="rating" value="3" id="rate3"><label for="rate3">⭐</label>
-                  <input type="radio" name="rating" value="2" id="rate4"><label for="rate4">⭐</label>
-                  <input type="radio" name="rating" value="1" id="rate5"><label for="rate5">⭐</label>
-              </fieldset>
-              <div>솔직한 평가 부탁드립니다.</div>
-          </form>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">평가하기</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">다음에 평가하기</button>
-        </div>
-      </div>
-      </div>
-      </div>
-         </div>
-        </div>
-
-
-    </div>
+   
+      
+      
+    
 
     <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<script>
+
+document.getElementById('serch_reserved').addEventListener('click', (e)=>{
+	e.preventDefault();
+	let form = document.serch_reserved_form;
+	form.action="serch_reserved_proc.jsp"
+	form.submit();
+}); 
+
+</script>
 
 </body>
 </html>

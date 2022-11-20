@@ -10,9 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dto.Review;
+<<<<<<< HEAD
 import dto.User;
 import dto.ImgPath;
 import dto.HotelInfo;
+=======
+>>>>>>> develop
 
 
 public class Dao_manager {
@@ -87,7 +90,11 @@ public class Dao_manager {
 		try {
 			// 연결하는 메소드
 			connect();
+<<<<<<< HEAD
 			String sqlQuery = "CREATE TABLE Booking(bo_num NUMBER(2),ro_num NUMBER(2),ro_name VARCHAR2(60),hotel_namero_name VARCHAR2(60),payment NUMBER(8),checkin DATE,checkout DATE,user_email ro_name VARCHAR2(60))";
+=======
+			String sqlQuery = "CREATE TABLE Booking(bo_num NUMBER(2),ro_num NUMBER(2),ro_name VARCHAR2(60),hotel_namero_name VARCHAR2(60),payment NUMBER(8),checkin DATE,checkout DATE,user_email ro_name VARCHAR2(60),person number)";
+>>>>>>> develop
 
 			psmt = conn.prepareStatement(sqlQuery);
 			int resultCnt = psmt.executeUpdate();
@@ -110,7 +117,11 @@ public class Dao_manager {
 		try {
 			// 연결하는 메소드
 			connect();
+<<<<<<< HEAD
 			String sqlQuery = "INSERT INTO Booking VALUES(?,?,?,?,?,?,?,?)";
+=======
+			String sqlQuery = "INSERT INTO Booking VALUES(?,?,?,?,?,?,?,?,?)";
+>>>>>>> develop
 
 			int resultCnt =0;
 			
@@ -123,6 +134,11 @@ public class Dao_manager {
 			psmt.setString(6,target.checkin);
 			psmt.setString(7,target.checkout);
 			psmt.setString(8,target.user_email);
+<<<<<<< HEAD
+=======
+			psmt.setInt(9,target.person);
+
+>>>>>>> develop
 			resultCnt = psmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -334,22 +350,254 @@ public class Dao_manager {
 		try {
 			connect();
 			int per = Integer.parseInt(period)*-1 ;
+<<<<<<< HEAD
 			String sqlQuery = "select * from booking,(select name,id from user_info) where user_id=id and user_id=?";
 			if(per!=0&&!category.equals("0"))
 			{
 				
 				sqlQuery = "select * from booking,(select name,id from user_info) where (user_id=id and user_id=?)and(((select type from hotel_info where name = hotel_name)=?) and (checkin>=ADD_MONTHS(sysdate,?)))";
+=======
+			String sqlQuery = "select * from booking,(select name,id from user_info),(select TEL, name from hotel_info ) h where user_id=id and user_id=?and h.name=hotel_name";
+			if(per!=0&&!category.equals("0"))
+			{
+				
+				sqlQuery = "select * from booking,(select name,id from user_info),(select TEL, name from hotel_info ) h where (user_id=id and user_id=?)and(((select type from hotel_info where name = hotel_name)=?) and (checkin>=ADD_MONTHS(sysdate,?)))and h.name=hotel_name";
+>>>>>>> develop
 			}
 			else if(per!=0&&category.equals("0"))
 			{
 				  System.out.println(per);
 
+<<<<<<< HEAD
 				sqlQuery = "select * from booking,(select name,id from user_info) where (user_id=id and user_id=?)and(checkin>=ADD_MONTHS(sysdate,?))";
+=======
+				sqlQuery = "select * from booking,(select name,id from user_info),(select TEL, name from hotel_info ) h where (user_id=id and user_id=?)and(checkin>=ADD_MONTHS(sysdate,?))and h.name=hotel_name";
+>>>>>>> develop
 
 			}
 			else if(per==0&&!category.equals("0"))
 			{
+<<<<<<< HEAD
 				sqlQuery = "select * from booking,(select name,id from user_info) where (user_id=id and user_id=?)and((select type from hotel_info where name = hotel_name)=?)";
+=======
+				sqlQuery = "select * from booking,(select name,id from user_info),(select TEL, name from hotel_info ) h where (user_id=id and user_id=?)and((select type from hotel_info where name = hotel_name)=?)and h.name=hotel_name";
+
+
+			}
+			
+			///////////////////////////////////////////////////////////////////////
+			psmt = conn.prepareStatement(sqlQuery);
+			psmt.setString(1, id);
+			
+			
+			if(!category.equals("0"))
+			{
+				String category_val="";
+				switch(Integer.parseInt(category))
+				{
+				case 1:
+					category_val="Hotel";
+					break;
+				case 2:
+					category_val="Resort";
+					break;
+
+				}
+				psmt.setString(2, category_val);
+				
+				if(per!=0)
+				{
+
+					psmt.setInt(3, per);
+				}
+			}
+			else
+			{
+				if(per!=0)
+				{
+
+					psmt.setInt(2, per);
+				}
+			}
+			
+
+
+			return_val = psmt.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			// 연결 종료 메소드
+		}
+		return return_val;
+	}
+	
+	//booking datas
+	//ResultSet
+	
+	public List<String> comments_by_hotelname(String hotelname)
+	{
+		List<String> return_val = new ArrayList<String>();
+		try {
+			connect();
+			String sqlQuery = "select CONTENT from review where bo_num in"+"("+"Select bo_num from booking where hotel_name ="+"\'"+hotelname+"\'"+")";
+			
+			psmt = conn.prepareStatement(sqlQuery);
+			
+			rs = psmt.executeQuery();
+			while (rs.next()) 
+			{	
+				return_val.add(rs.getString("CONTENT"));
+			}
+			return return_val;
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			// 연결 종료 메소드
+			disconnect();
+		}
+		return null;
+	}
+	
+	public List<String> comments_by_bo_num(int bo_num)
+	{
+		List<String> return_val = new ArrayList<String>();
+		try {
+			connect();
+			String sqlQuery = "select CONTENT from review where bo_num in"+"("+"Select bo_num from booking where bo_num ="+bo_num+")";
+			
+			psmt = conn.prepareStatement(sqlQuery);
+			
+			rs = psmt.executeQuery();
+			while (rs.next()) 
+			{	
+				return_val.add(rs.getString("CONTENT"));
+			}
+			return return_val;
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			// 연결 종료 메소드
+			disconnect();
+		}
+		return null;
+	}
+	
+	public int search_review_count_by_bo_num(int bo_num)
+	{
+		int val =0;
+		
+			String sql = "select NVL(count(bo_num),0) from review where bo_num = ?";
+		
+		try {
+			
+			PreparedStatement psmt2 = conn.prepareStatement(sql);
+			psmt2.setInt(1, bo_num);
+			ResultSet rs2 = psmt2.executeQuery();
+			
+			if(rs2.next())
+			{
+				val =rs2.getInt(1);
+
+			}
+			
+
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+
+		}
+		
+		System.out.print(val);
+		return val;
+	}
+	
+	public void save_review(String user_id,int bo_num,String content,int score)
+	{
+		try {
+			// 연결하는 메소드
+			connect();
+			String sqlQuery = "insert into review values((select NVL(max(rev_num),0)+1 from review),?,?,?,sysdate,?)";
+
+			int resultCnt =0;
+			
+			psmt = conn.prepareStatement(sqlQuery);
+			psmt.setString(1,user_id);
+			psmt.setInt(2,bo_num);
+			psmt.setString(3,content);
+			psmt.setInt(4,score);
+
+			resultCnt = psmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			// 연결 종료 메소드
+			disconnect();
+		}
+	}
+	
+	public ResultSet selectReviewList(String id){
+		String sql = "select * from review where user_id = ? order by rev_num ";
+		
+		try {
+			connect();
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
+
+			rs = psmt.executeQuery();
+			
+			
+			return rs;
+
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+		}
+		return null;
+		
+	}
+	
+	
+	public ResultSet selectReviewList_F(String category,String period,String id){
+		ResultSet return_val = null;
+		try {
+			connect();
+			int per = Integer.parseInt(period)*-1 ;
+			String sqlQuery = "select * from review,(select id from user_info) where user_id=id and user_id=?";
+			if(per!=0&&!category.equals("0"))
+			{
+				
+				sqlQuery = "select * from review r,(select id from user_info) where (user_id=id and user_id=?)and(((select type from hotel_info where name = (select hotel_name from booking b,review r where r.bo_num=b.bo_num  AND rownum = 1))=?) and (rev_date>=ADD_MONTHS(sysdate,?)))";
+			}
+			else if(per!=0&&category.equals("0"))
+			{
+				  System.out.println(per);
+
+				sqlQuery = "select * from review ,(select id from user_info) where (user_id=id and user_id=?)and(rev_date>=ADD_MONTHS(sysdate,?))";
+
+			}
+			else if(per==0&&!category.equals("0"))
+			{
+				sqlQuery = "select * from review r,(select id from user_info) where (user_id=id and user_id=?)and((select type from hotel_info where name = (select hotel_name from booking b,review r where r.bo_num=b.bo_num AND rownum = 1))=?)";
+>>>>>>> develop
 
 
 			}
@@ -402,6 +650,7 @@ public class Dao_manager {
 			// 연결 종료 메소드
 		}
 		return return_val;
+<<<<<<< HEAD
 	}
 	
 	//booking datas
@@ -495,6 +744,8 @@ public class Dao_manager {
 			disconnect();
 		}
 		return reviewList;
+=======
+>>>>>>> develop
 		
 	}
 	
@@ -517,7 +768,11 @@ public class Dao_manager {
 				rv.setRevNum(rs.getInt("rev_num"));
 				rv.setContent(rs.getString("content"));
 				rv.setRevDate(rs.getDate("rev_date"));
+<<<<<<< HEAD
 				rv.setUserEmail(rs.getString("user_email"));
+=======
+				rv.setUserId(rs.getString("user_id"));
+>>>>>>> develop
 				rv.setBoNum(rs.getInt("bo_num"));
 				rv.setScore(rs.getInt("score"));
 				
@@ -536,18 +791,31 @@ public class Dao_manager {
 	}
 
 	
+<<<<<<< HEAD
 	public int updateReview(Review rv) {
 		String sql = "update review "
 				+ " set content= ? , score =?"
 				+ " where user_email = ?"; //앞에 띄어쓰기**
+=======
+	public void updateReview(int rev_num,int score,String content ) {
+		String sql = "update review "
+				+ " set content= ? , score =?"
+				+ " where rev_num = ?"; //앞에 띄어쓰기**
+>>>>>>> develop
 	int result = 0;
 	
 	try {
 		connect();
 		psmt = conn.prepareStatement(sql);
+<<<<<<< HEAD
 		psmt.setString(1,rv.content);
 		psmt.setInt(2, rv.score);
 		psmt.setString(3, rv.userEmail);
+=======
+		psmt.setString(1,content);
+		psmt.setInt(2, score);
+		psmt.setInt(3, rev_num);
+>>>>>>> develop
 		
 		result = psmt.executeUpdate();
 		
@@ -555,9 +823,13 @@ public class Dao_manager {
 		e.printStackTrace();
 	}finally {
 		disconnect();
+<<<<<<< HEAD
 	}
 	return result;
 	
+=======
+	}	
+>>>>>>> develop
 	}
 	
 	
@@ -699,7 +971,33 @@ public class Dao_manager {
 			disconnect();
 		}
 
+<<<<<<< HEAD
 		return val; // 데이터베이스 오류
+=======
+		return val;
+	}
+	
+	public void delete_review(int rev_num)
+	{
+		System.out.println(rev_num);
+		String SQL = "delete from review where rev_num = ?";
+		try {
+
+			connect();
+
+			psmt = conn.prepareStatement(SQL);
+
+			psmt.setInt(1, rev_num);
+			psmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			disconnect();
+		}
+
+		
+>>>>>>> develop
 	}
 	
 	

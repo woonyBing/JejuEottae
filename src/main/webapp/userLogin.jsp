@@ -32,7 +32,12 @@
                 </p>
             </form>
             <div id="create-account-wrap">
+<<<<<<< HEAD:src/main/webapp/userLogin.jsp
                 <p>회원이 아니신가요? <a href="userJoin.jsp">회원가입하러 가기</a></p>
+=======
+
+                <p>회원이 아니신가요? <a href="join.jsp">회원가입하러 가기</a></p>
+>>>>>>> develop:src/main/webapp/login.jsp
                  <p><a href="index.jsp">메인화면 가기</a></p>
             </div>
         </div>

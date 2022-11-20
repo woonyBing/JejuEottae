@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="dao.UserDAO" %>
+<%@ page import="dao.Dao_manager" %>
 <%@ page import="java.io.PrintWriter" %>
 <% request.setCharacterEncoding("UTF-8"); %>
 <jsp:useBean id="user" class="dto.User" scope="page" />
@@ -25,7 +25,7 @@
 			script.println("history.back()");
 			script.println("</script>");
 		} else {  // ---> 3.
-			UserDAO userDAO = new UserDAO();
+			Dao_manager userDAO = new Dao_manager();
 			int result = userDAO.join(user);
 			if (result == -1) {
 				PrintWriter script = response.getWriter();
