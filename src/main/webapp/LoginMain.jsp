@@ -6,6 +6,7 @@
 <%@ page import="dao.Tour"%>
 <%@ page import="dao.TourImgDao"%>
 <%@ page import="dto.TourImg"%>
+<%@ page import="dao.UserDAO"%>
 <%@ page import="java.util.*"%>
 <%
 request.setCharacterEncoding("UTF-8");
@@ -31,7 +32,12 @@ request.setCharacterEncoding("UTF-8");
 </head>
 
 <body>
+<% 
+// String hAddress = request.getParameter("location");
+// String hType = request.getParameter("lodgingType");
 
+UserDAO userDAO = new UserDAO();
+%>
 	<!-- header 및 nav 영역-->
 	<header>
 		<%@ include file="navBarLogined.jsp"%>

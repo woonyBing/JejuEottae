@@ -345,7 +345,7 @@ request.setCharacterEncoding("UTF-8");
 			Date checkin = Date.valueOf("2022-11-01");
 			Date checkout = Date.valueOf("2022-11-02");
 			booking.all_setter(1, 2, "그랜드", 50000, checkin, checkout, "honeybye@naver.com");
-			booking.add_booking();
+// 			booking.add_booking();
 			%>
 			console.log('??');
 		}
