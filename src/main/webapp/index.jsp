@@ -6,6 +6,9 @@
 <%@ page import="dao.Tour"%>
 <%@ page import="dao.TourImgDao"%>
 <%@ page import="dto.TourImg"%>
+<%@ page import="dao.Booking"%>
+<%@ page import="dao.Dao_manager"%>
+<%@ page import="java.sql.Date"%>
 <%@ page import="java.util.*"%>
 <%
 request.setCharacterEncoding("UTF-8");
@@ -37,6 +40,8 @@ request.setCharacterEncoding("UTF-8");
 	// Tour tour = new Tour();
 	// tour.create_data_table();
 	// tour.all_data_to_table();
+// 	Dao_manager manager = new Dao_manager();
+// 	manager.create_Booking();
 	%>
 
 
@@ -173,6 +178,8 @@ request.setCharacterEncoding("UTF-8");
 														class="d-block w-100" alt="룸이미지3">
 												</div>
 											</div>
+											<!--분명 디자인 전체가 for문 도는데 슬라이드 넘어가는 버튼이 두번째 아코디언부터 안 먹힘
+애들하고 얘기해보기 -->
 											<!-- 											<button class="carousel-control-prev" type="button" -->
 											<!-- 												data-bs-target="#carouselExampleControls" -->
 											<!-- 												data-bs-slide="prev"> -->
@@ -254,7 +261,7 @@ request.setCharacterEncoding("UTF-8");
 
 
 										<button type="button" class="btn btn-primary"
-											data-bs-toggle="modal" data-bs-target="#exampleModal">예약하기</button>
+											data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="booking()">예약하기</button>
 										<div class="modal fade" id="exampleModal" tabindex="-1"
 											aria-labelledby="exampleModalLabel" aria-hidden="true">
 											<div class="modal-dialog">
@@ -317,50 +324,63 @@ request.setCharacterEncoding("UTF-8");
 
 
 	<script>
-	let mapBox = document.getElementById('mapBox');
-	let resultsLodging = document.getElementById('resultsLodging');
-	let resultsTour = document.getElementById('resultsTour');
-	<%if (searchHotelInfoList != null && searchHotelInfoList.size() > 0) {%>
-
-	mapBox.style.display = 'block';
-	resultsLodging.style.display = 'block';
-	resultsTour.style.display = 'block';
-	<%}%>
-	function initMap() {
-		const myLatLng = { //기본 좌표 값: 한라산
-			lat : 33.360139,
-			lng : 126.534247
-		};
-
-		var map = new google.maps.Map(document
-				.getElementById('map'), {
-			zoom : 11,
-			center : myLatLng,
-		});
-
-		var infowindow = new google.maps.InfoWindow();
-
-		var marker, i;
-
-		for (i = 0; i < locations.length; i++) {
-			marker = new google.maps.Marker({
-				position : new google.maps.LatLng(
-						locations[i][1],
-						locations[i][2]
-						),
-				map : map
+		//검색 버튼 클릭 시 지도, 숙소결과, 추천관광지 style 변경
+		let mapBox = document.getElementById('mapBox');
+		let resultsLodging = document.getElementById('resultsLodging');
+		let resultsTour = document.getElementById('resultsTour');
+		<%if (searchHotelInfoList != null && searchHotelInfoList.size() > 0) {%>
+			mapBox.style.display = 'block';
+			resultsLodging.style.display = 'block';
+			resultsTour.style.display = 'block';
+		<%}%>
+		
+		//예약 버튼 클릭 시 
+		function booking(){
+			<%
+			Booking booking = new Booking();
+			Date checkin = Date.valueOf("2022-11-01");
+			Date checkout = Date.valueOf("2022-11-02");
+			booking.all_setter(1, 2, "스탠다드", "그랜드", 50000, checkin, checkout, "honeybye@naver.com");
+			booking.add_booking();
+			%>
+			console.log('??');
+		}
+		 
+		function initMap() {
+			const myLatLng = { //기본 좌표 값: 한라산
+				lat : 33.360139,
+				lng : 126.534247
+			};
+	
+			var map = new google.maps.Map(document
+					.getElementById('map'), {
+				zoom : 11,
+				center : myLatLng,
 			});
-
-			google.maps.event.addListener(marker, 'click',
-					(function(marker, i) {
-						return function() {
-							infowindow.setContent(locations[i][0]);
-							infowindow.open(map, marker);
-						}
-					})(marker, i));
-				}
+	
+			var infowindow = new google.maps.InfoWindow();
+	
+			var marker, i;
+	
+			for (i = 0; i < locations.length; i++) {
+				marker = new google.maps.Marker({
+					position : new google.maps.LatLng(
+							locations[i][1],
+							locations[i][2]
+							),
+					map : map
+				});
+	
+				google.maps.event.addListener(marker, 'click',
+						(function(marker, i) {
+							return function() {
+								infowindow.setContent(locations[i][0]);
+								infowindow.open(map, marker);
+							}
+						})(marker, i));
 			}
-		</script>
+		}
+	</script>
 
 
 	<script

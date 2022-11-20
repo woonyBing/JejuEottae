@@ -307,41 +307,51 @@ html, body {
 		</div>
 	</section>
 	<script>
-				function initMap() {
-					const myLatLng = { //기본 좌표 값: 한라산
-						lat : 33.360139,
-						lng : 126.534247
-					};
-
-					var map = new google.maps.Map(document
-							.getElementById('map'), {
-						zoom : 11,
-						center : myLatLng,
-					});
-
-					var infowindow = new google.maps.InfoWindow();
-
-					var marker, i;
-
-					for (i = 0; i < locations.length; i++) {
-						marker = new google.maps.Marker({
-							position : new google.maps.LatLng(
-									locations[i][1],
-									locations[i][2]
-									),
-							map : map
-						});
-
-						google.maps.event.addListener(marker, 'click',
-								(function(marker, i) {
-									return function() {
-										infowindow.setContent(locations[i][0]);
-										infowindow.open(map, marker);
-									}
-								})(marker, i));
-					}
-				}
-			</script>
+		let mapBox = document.getElementById('mapBox');
+		let resultsLodging = document.getElementById('resultsLodging');
+		let resultsTour = document.getElementById('resultsTour');
+		<%if (searchHotelInfoList != null && searchHotelInfoList.size() > 0) {%>
+	
+		mapBox.style.display = 'block';
+		resultsLodging.style.display = 'block';
+		resultsTour.style.display = 'block';
+		<%}%>
+		
+		function initMap() {
+			const myLatLng = { //기본 좌표 값: 한라산
+				lat : 33.360139,
+				lng : 126.534247
+			};
+	
+			var map = new google.maps.Map(document
+					.getElementById('map'), {
+				zoom : 11,
+				center : myLatLng,
+			});
+	
+			var infowindow = new google.maps.InfoWindow();
+	
+			var marker, i;
+	
+			for (i = 0; i < locations.length; i++) {
+				marker = new google.maps.Marker({
+					position : new google.maps.LatLng(
+							locations[i][1],
+							locations[i][2]
+							),
+					map : map
+				});
+	
+				google.maps.event.addListener(marker, 'click',
+						(function(marker, i) {
+							return function() {
+								infowindow.setContent(locations[i][0]);
+								infowindow.open(map, marker);
+							}
+						})(marker, i));
+			}
+		}
+	</script>
 
 
 	<script

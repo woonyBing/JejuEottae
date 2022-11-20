@@ -1,6 +1,5 @@
 package dao;
 import java.util.Calendar;
-import java.util.Date;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -87,7 +86,7 @@ public class Dao_manager {
 		try {
 			// 연결하는 메소드
 			connect();
-			String sqlQuery = "CREATE TABLE Booking(bo_num NUMBER(2),ro_num NUMBER(2),ro_name VARCHAR2(60),hotel_namero_name VARCHAR2(60),payment NUMBER(8),checkin DATE,checkout DATE,user_email ro_name VARCHAR2(60))";
+			String sqlQuery = "CREATE TABLE Booking(bo_num NUMBER(2),ro_num NUMBER(2),ro_name VARCHAR2(60),hotel_namero_name VARCHAR2(60),payment NUMBER(8),checkin DATE,checkout DATE,user_email VARCHAR2(60))";
 
 			psmt = conn.prepareStatement(sqlQuery);
 			int resultCnt = psmt.executeUpdate();
@@ -120,10 +119,12 @@ public class Dao_manager {
 			psmt.setString(3,target.ro_name);
 			psmt.setString(4,target.hotel_name);
 			psmt.setInt(5,target.payment);
-			psmt.setString(6,target.checkin);
-			psmt.setString(7,target.checkout);
+			psmt.setDate(6, target.checkin);
+			psmt.setDate(7,target.checkout);
 			psmt.setString(8,target.user_email);
+			
 			resultCnt = psmt.executeUpdate();
+			System.out.println(resultCnt);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
