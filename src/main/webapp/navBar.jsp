@@ -23,8 +23,8 @@
 	        </button>
 	        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 	        <div class="navbar-nav">
-	            <a class="nav-link" href="./login.jsp" >Login</a>
-	            <a class="nav-link" href="./join.jsp">Join</a>
+	            <a class="nav-link" href="./userLogin.jsp" >Login</a>
+	            <a class="nav-link" href="./userJoin.jsp">Join</a>
 	        </div>
 	        </div>
 	    </div>

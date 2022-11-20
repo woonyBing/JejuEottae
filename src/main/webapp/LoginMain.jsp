@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="testDAO.hotelDAO"%>
-<%@ page import="testDAO.hotelInfo"%>
-<%@ page import="testDAO.imgPath"%>
+<%@ page import="dao.HotelDAO"%>
+<%@ page import="dto.HotelInfo"%>
+<%@ page import="dto.ImgPath"%>
 <%@ page import="java.util.*"%>
 <%-- <%@ page import="dao.Tour"%> --%>
 <%
@@ -57,9 +57,9 @@ tour.all_data_to_table();
 			<div class="mapBox">
 				<div class="mapBox">
 					<%
-					hotelDAO hotelDao = new hotelDAO();
-					List<hotelInfo> hotelInfoList = hotelDao.selectHotelInfoList();
-					List<imgPath> imgPathList = hotelDao.selectImgPath();
+					HotelDAO hotelDao = new HotelDAO();
+								List<HotelInfo> hotelInfoList = hotelDao.selectHotelInfoList();
+								List<ImgPath> imgPathList = hotelDao.selectImgPath();
 					%>
 					<style type="text/css">
 #bound {
@@ -93,7 +93,7 @@ html, body {
 
 					<%
 					if (hotelInfoList != null && hotelInfoList.size() > 0) {
-						for (hotelInfo info : hotelInfoList) {
+						for (HotelInfo info : hotelInfoList) {
 					%>
 
 

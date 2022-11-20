@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="dao.hotelDAO"%>
+<%@ page import="dao.HotelDAO"%>
 <%@ page import="dto.HotelInfo"%>
 <%@ page import="dto.ImgPath"%>
 <%@ page import="dao.Tour"%>
@@ -65,7 +65,7 @@ request.setCharacterEncoding("UTF-8");
 						String hAddress = request.getParameter("location");
 						String hType = request.getParameter("lodgingType");
 						
-						hotelDAO hotelDao = new hotelDAO();
+						HotelDAO hotelDao = new HotelDAO();
 						List<HotelInfo> searchHotelInfoList = hotelDao.selectHotelInfoListByaddNtype(hAddress, hType);
 // 						List<ImgPath> imgPathList = hotelDao.selectImgPath();
 						

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dto.Review;
+import dto.User;
 import dto.ImgPath;
 import dto.HotelInfo;
 
