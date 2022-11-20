@@ -108,7 +108,7 @@ request.setCharacterEncoding("UTF-8");
 					%>
 
 					<script>
-					locations = [...locations, ['<div><h3>'+'<%=hotelInfo.getNAME()%>'+'</h3><p><%=hotelInfo.getRATING()%> 성</p><p>주소: <%=hotelInfo.getADDRESS()%></p><p>전화번호: <%=hotelInfo.getTEL()%></p><p><button id= "mapBtn" class="btn btn-secondary" type="button" onClick="showLodging(<%=hotelInfo.getID()%>)">자세히 알아보기</button></p></div>', <%=hotelInfo.getX()%>, <%=hotelInfo.getY()%>]];
+					locations = [...locations, ['<div><h3>'+'<%=hotelInfo.getNAME()%>'+'</h3><p><%=hotelInfo.getRATING()%> 성</p><p>주소: <%=hotelInfo.getADDRESS()%></p><p>전화번호: <%=hotelInfo.getTEL()%></p><p><button id= "mapBtn" class="btn btn-secondary" type="button" onclick="showLodging(<%=hotelInfo.getID()%>)">자세히 알아보기</button></p></div>', <%=hotelInfo.getX()%>, <%=hotelInfo.getY()%>]];
 
 					
 					
@@ -340,7 +340,7 @@ request.setCharacterEncoding("UTF-8");
 			Booking booking = new Booking();
 			Date checkin = Date.valueOf("2022-11-01");
 			Date checkout = Date.valueOf("2022-11-02");
-			booking.all_setter(1, 2, "스탠다드", "그랜드", 50000, checkin, checkout, "honeybye@naver.com");
+			booking.all_setter(1, 2, "스탠다드", 50000, checkin, checkout, "honeybye@naver.com");
 			booking.add_booking();
 			%>
 			console.log('??');

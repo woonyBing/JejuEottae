@@ -1,5 +1,4 @@
 package dao;
-import java.util.Calendar;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -109,19 +108,19 @@ public class Dao_manager {
 		try {
 			// 연결하는 메소드
 			connect();
-			String sqlQuery = "INSERT INTO Booking VALUES(?,?,?,?,?,?,?,?)";
+			String sqlQuery = "INSERT INTO Booking VALUES(?,?,?,?,?,?,?)";
 
 			int resultCnt =0;
 			
 			psmt = conn.prepareStatement(sqlQuery);
 			psmt.setInt(1,target.bo_num);
 			psmt.setInt(2,target.ro_num);
-			psmt.setString(3,target.ro_name);
-			psmt.setString(4,target.hotel_name);
-			psmt.setInt(5,target.payment);
-			psmt.setDate(6, target.checkin);
-			psmt.setDate(7,target.checkout);
-			psmt.setString(8,target.user_email);
+//			psmt.setString(3,target.ro_name);
+			psmt.setString(3,target.hotel_name);
+			psmt.setInt(4,target.payment);
+			psmt.setDate(5, target.checkin);
+			psmt.setDate(6,target.checkout);
+			psmt.setString(7,target.user_email);
 			
 			resultCnt = psmt.executeUpdate();
 			System.out.println(resultCnt);
