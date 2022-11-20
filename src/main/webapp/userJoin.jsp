@@ -20,7 +20,7 @@
     <section>
         <div id="login-form-wrap" >
             <h2>Sign up</h2>
-            <form id="login-form" action="joinAction.jsp">
+            <form id="login-form" action="userJoinAction.jsp">
                 <p>
                     <input type="text" class="form-control" placeholder="아이디"
 							name="userID" maxlength='20'>
@@ -49,7 +49,7 @@
                 
             </form>
             <div id="create-account-wrap">
-                <p>이미 회원이신가요? <a href="login.jsp">로그인하러 가기</a></p>
+                <p>이미 회원이신가요? <a href="userLogin.jsp">로그인하러 가기</a></p>
                 <p><a href="index.jsp">메인화면 가기</a></p>
             </div>
         </div>

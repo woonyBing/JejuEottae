@@ -12,7 +12,7 @@ import dto.HotelInfo;
 import dto.ImgPath;
 
 
-public class hotelDAO {
+public class HotelDAO {
 	Connection conn = null;
 	PreparedStatement psmt = null;
 	ResultSet rs = null;

@@ -20,7 +20,7 @@
     <section>
         <div id="login-form-wrap" >
             <h2>Login</h2>
-            <form id="login-form" action="loginAction.jsp">
+            <form id="login-form" action="userLoginAction.jsp">
                 <p>
                     <input type="text" id="userID" name="userID" placeholder="id" required><i class="validation"><span></span><span></span></i>
                 </p>
@@ -32,7 +32,7 @@
                 </p>
             </form>
             <div id="create-account-wrap">
-                <p>회원이 아니신가요? <a href="join.jsp">회원가입하러 가기</a></p>
+                <p>회원이 아니신가요? <a href="userJoin.jsp">회원가입하러 가기</a></p>
                  <p><a href="index.jsp">메인화면 가기</a></p>
             </div>
         </div>

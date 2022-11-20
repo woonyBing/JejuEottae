@@ -15,7 +15,7 @@ request.setCharacterEncoding("UTF-8");
 
 <head>
 <meta charset="UTF-8">
-<title>JejuEottae</title>
+<title>제주어때🍊</title>
 
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
@@ -32,18 +32,9 @@ request.setCharacterEncoding("UTF-8");
 
 <body>
 
-
-	<%
-	// Tour tour = new Tour();
-	// tour.create_data_table();
-	// tour.all_data_to_table();
-	%>
-
-
-
 	<!-- header 및 nav 영역-->
 	<header>
-		<%@ include file="navBar.jsp"%>
+		<%@ include file="navBarLogined.jsp"%>
 
 		<div class="mainImg">
 			<p class="mainStr">JejuEottae</p>
@@ -64,7 +55,7 @@ request.setCharacterEncoding("UTF-8");
 					//action으로 주소, 숙소타입 받아서 리스트에 저장하는 부분
 					String hAddress = request.getParameter("location");
 					String hType = request.getParameter("lodgingType");
-					
+
 					HotelDAO hotelDao = new HotelDAO();
 					List<HotelInfo> searchHotelInfoList = hotelDao.selectHotelInfoListByaddNtype(hAddress, hType);
 					%>
@@ -74,17 +65,17 @@ request.setCharacterEncoding("UTF-8");
 	width: 100%;
 }
 /* Always set the map height explicitly to define the size of the div
-						       * element that contains the map. */
+       * element that contains the map. */
 #map {
 	height: 100%;
 }
 
 /* Optional: Makes the sample page fill the window. */
-/* html, body { */
-/* 	height: 100%; */
-/* 	margin: 0; */
-/* 	padding: 0; */
-/* } */
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
 </style>
 					<script
 						src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
@@ -94,7 +85,8 @@ request.setCharacterEncoding("UTF-8");
 
 					<script>							
 						var locations = [];
-					</script>
+				</script>
+
 					<%
 					//submit 받은 정보들이 제대로 List에 저장 되었는지 확인하고 실행
 					if (searchHotelInfoList != null && searchHotelInfoList.size() > 0) {
@@ -102,31 +94,31 @@ request.setCharacterEncoding("UTF-8");
 						for (HotelInfo hotelInfo : searchHotelInfoList) {
 					%>
 
-					<script>
-					locations = [...locations, ['<div><h3>'+'<%=hotelInfo.getNAME()%>'+'</h3><p><%=hotelInfo.getRATING()%> 성</p><p>주소: <%=hotelInfo.getADDRESS()%></p><p>전화번호: <%=hotelInfo.getTEL()%></p><p><button id= "mapBtn" class="btn btn-secondary" type="button" onClick="showLodging(<%=hotelInfo.getID()%>)">자세히 알아보기</button></p></div>', <%=hotelInfo.getX()%>, <%=hotelInfo.getY()%>]];
 
+					<script>
+					//배열로 그려지는? 지도 영역
+					locations = [...locations, ['<div><h3>'+'<%=hotelInfo.getNAME()%>'+'</h3><p><%=hotelInfo.getRATING()%> 성</p><p>주소: <%=hotelInfo.getADDRESS()%></p><p>전화번호: <%=hotelInfo.getTEL()%></p><p><button id= "mapBtn" class="btn btn-secondary" type="button" onClick="showLodging(<%=hotelInfo.getID()%>)">자세히 알아보기</button></p></div>', <%=hotelInfo.getX()%>, <%=hotelInfo.getY()%>]];
 					
-					
+					//지도에서 '자세히 보기' 눌렀을 때 실행되는 함수
+					//hotelInfo객체의 id값을 매개변수로 받아
+					//그에 해당하는 숙소 결과로 스크롤이 이동함
 					function showLodging(hotelInfoId){
 						var access = document.getElementById(hotelInfoId);
 						access.scrollIntoView(); 
 					}
 					</script>
 
-					<!-- map 그려지는 부분 -->
-					<div id="bound">
-						<div id="map"></div>
-					</div>
-
 
 					<%
 					}
 					}
 					%>
+					<div id="bound">
+						<div id="map"></div>
+					</div>
 				</div>
-			</div>
-
-			<div id="resultsLodging" class="gridItemHotelList">
+				
+				<div id="resultsLodging" class="gridItemHotelList">
 				<h2 id="titleHotel">숙소 검색 결과</h2>
 				<%
 				for (HotelInfo hotelInfo : searchHotelInfoList) {
@@ -173,18 +165,20 @@ request.setCharacterEncoding("UTF-8");
 														class="d-block w-100" alt="룸이미지3">
 												</div>
 											</div>
-											<!-- 											<button class="carousel-control-prev" type="button" -->
-											<!-- 												data-bs-target="#carouselExampleControls" -->
-											<!-- 												data-bs-slide="prev"> -->
-											<!-- 												<span class="carousel-control-prev-icon" aria-hidden="true"></span> -->
-											<!-- 												<span class="visually-hidden">Previous</span> -->
-											<!-- 											</button> -->
-											<!-- 											<button class="carousel-control-next" type="button" -->
-											<!-- 												data-bs-target="#carouselExampleControls" -->
-											<!-- 												data-bs-slide="next"> -->
-											<!-- 												<span class="carousel-control-next-icon" aria-hidden="true"></span> -->
-											<!-- 												<span class="visually-hidden">Next</span> -->
-											<!-- 											</button> -->
+<!--분명 디자인 전체가 for문 도는데 슬라이드 넘어가는 버튼이 두번째 아코디언부터 안 먹힘
+애들하고 얘기해보기 -->
+<!-- 											<button class="carousel-control-prev" type="button" -->
+<!-- 												data-bs-target="#carouselExampleControls" -->
+<!-- 												data-bs-slide="prev"> -->
+<!-- 												<span class="carousel-control-prev-icon" aria-hidden="true"></span> -->
+<!-- 												<span class="visually-hidden">Previous</span> -->
+<!-- 											</button> -->
+<!-- 											<button class="carousel-control-next" type="button" -->
+<!-- 												data-bs-target="#carouselExampleControls" -->
+<!-- 												data-bs-slide="next"> -->
+<!-- 												<span class="carousel-control-next-icon" aria-hidden="true"></span> -->
+<!-- 												<span class="visually-hidden">Next</span> -->
+<!-- 											</button> -->
 										</div>
 										<table class="table" style="margin-bottom: 100px;">
 											<thead>
@@ -312,55 +306,42 @@ request.setCharacterEncoding("UTF-8");
 			</div>
 		</div>
 	</section>
-
-
-
-
 	<script>
-	let mapBox = document.getElementById('mapBox');
-	let resultsLodging = document.getElementById('resultsLodging');
-	let resultsTour = document.getElementById('resultsTour');
-	<%if (searchHotelInfoList != null && searchHotelInfoList.size() > 0) {%>
+				function initMap() {
+					const myLatLng = { //기본 좌표 값: 한라산
+						lat : 33.360139,
+						lng : 126.534247
+					};
 
-	mapBox.style.display = 'block';
-	resultsLodging.style.display = 'block';
-	resultsTour.style.display = 'block';
-	<%}%>
-	function initMap() {
-		const myLatLng = { //기본 좌표 값: 한라산
-			lat : 33.360139,
-			lng : 126.534247
-		};
+					var map = new google.maps.Map(document
+							.getElementById('map'), {
+						zoom : 11,
+						center : myLatLng,
+					});
 
-		var map = new google.maps.Map(document
-				.getElementById('map'), {
-			zoom : 11,
-			center : myLatLng,
-		});
+					var infowindow = new google.maps.InfoWindow();
 
-		var infowindow = new google.maps.InfoWindow();
+					var marker, i;
 
-		var marker, i;
+					for (i = 0; i < locations.length; i++) {
+						marker = new google.maps.Marker({
+							position : new google.maps.LatLng(
+									locations[i][1],
+									locations[i][2]
+									),
+							map : map
+						});
 
-		for (i = 0; i < locations.length; i++) {
-			marker = new google.maps.Marker({
-				position : new google.maps.LatLng(
-						locations[i][1],
-						locations[i][2]
-						),
-				map : map
-			});
-
-			google.maps.event.addListener(marker, 'click',
-					(function(marker, i) {
-						return function() {
-							infowindow.setContent(locations[i][0]);
-							infowindow.open(map, marker);
-						}
-					})(marker, i));
+						google.maps.event.addListener(marker, 'click',
+								(function(marker, i) {
+									return function() {
+										infowindow.setContent(locations[i][0]);
+										infowindow.open(map, marker);
+									}
+								})(marker, i));
+					}
 				}
-			}
-		</script>
+			</script>
 
 
 	<script
