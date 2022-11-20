@@ -54,4 +54,4 @@ public class Booking {
 		}		
 		dao_manager.insert_Booking(this);
 	}
-} 
+}
