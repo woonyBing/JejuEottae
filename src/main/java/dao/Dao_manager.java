@@ -85,7 +85,7 @@ public class Dao_manager {
 		try {
 			// 연결하는 메소드
 			connect();
-			String sqlQuery = "CREATE TABLE Booking(bo_num NUMBER(2),ro_num NUMBER(2),ro_name VARCHAR2(60),hotel_namero_name VARCHAR2(60),payment NUMBER(8),checkin DATE,checkout DATE,user_email VARCHAR2(60))";
+			String sqlQuery = "CREATE TABLE Booking(bo_num NUMBER(2),ro_num NUMBER(2),hotel_name VARCHAR2(60),payment NUMBER(8),checkin DATE,checkout DATE,user_email VARCHAR2(60))";
 
 			psmt = conn.prepareStatement(sqlQuery);
 			int resultCnt = psmt.executeUpdate();

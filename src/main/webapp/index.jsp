@@ -261,7 +261,7 @@ request.setCharacterEncoding("UTF-8");
 
 
 										<button type="button" class="btn btn-primary"
-											data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="booking()">예약하기</button>
+											data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="booking(<%=hotelInfo.getID()%>)">예약하기</button>
 										<div class="modal fade" id="exampleModal" tabindex="-1"
 											aria-labelledby="exampleModalLabel" aria-hidden="true">
 											<div class="modal-dialog">
@@ -335,12 +335,13 @@ request.setCharacterEncoding("UTF-8");
 		<%}%>
 		
 		//예약 버튼 클릭 시 
-		function booking(){
+		//가격이,, 호텔인포에 있어야,, id값 받아서 찾을 때,,, 맞지 않을까,,,
+		function booking(hotelId){
 			<%
 			Booking booking = new Booking();
 			Date checkin = Date.valueOf("2022-11-01");
 			Date checkout = Date.valueOf("2022-11-02");
-			booking.all_setter(1, 2, "스탠다드", 50000, checkin, checkout, "honeybye@naver.com");
+			booking.all_setter(1, 2, "그랜드", 50000, checkin, checkout, "honeybye@naver.com");
 			booking.add_booking();
 			%>
 			console.log('??');
