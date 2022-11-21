@@ -40,8 +40,8 @@ request.setCharacterEncoding("UTF-8");
 	// Tour tour = new Tour();
 	// tour.create_data_table();
 	// tour.all_data_to_table();
-	// Dao_manager manager = new Dao_manager();
-	// manager.create_Booking();
+// 	Dao_manager manager = new Dao_manager();
+// 	manager.create_Booking();
 	%>
 
 

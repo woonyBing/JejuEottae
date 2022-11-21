@@ -97,7 +97,7 @@ public class RoomsDao {
 			connect();
 			
 			psmt = conn.prepareStatement(sql);
-			psmt.getI
+			psmt.setInt(1, hotelId);
 			rs = psmt.executeQuery();
 			
 			roomList = new ArrayList<Rooms>();

@@ -62,7 +62,7 @@ public class Booking {
 	public String toString() {
 		return "Booking [bo_num=" + bo_num + ", ro_num=" + ro_num + ", hotel_name=" + hotel_name + ", payment="
 				+ payment + ", checkin=" + checkin + ", checkout=" + checkout + ", user_id=" + user_id
-				+ ", person_cnt=" + person_cnt + ", dao_manager=" + dao_manager + "]";
+				+ ", person_cnt=" + person_cnt +  "]";
 	}
 
 	

@@ -24,7 +24,7 @@ request.setCharacterEncoding("UTF-8");
 	crossorigin="anonymous">
 </head>
 <body>
-<% 
+	<% 
 	String userID = (String)session.getAttribute("userID");
 	String checkinStr = request.getParameter("checkInDate");
 	String checkoutStr = request.getParameter("checkOutDate");
@@ -38,30 +38,30 @@ request.setCharacterEncoding("UTF-8");
 	RoomsDao roomsDao = new RoomsDao();
 	
 	List<HotelInfo> hotelList = hotelDao.selectHotelInfoListById(numHotelId);
-	List<Rooms> roomList = roomsDao.
-	%>
-	<%
+	List<Rooms> roomList = roomsDao.selectRoomsByRoNumPay(numHotelId);
+	
 	if (checkinStr == null || checkinStr == "" || checkoutStr == null || checkinStr == "") {
 	%>	
 		<script>
 			alert('날짜를 선택해주세요');
-			location.href="./LoginMain.jsp?<%=qryStrN%>";
+			location.href="./LoginMain.jsp?<%=qryStrN%>";dkdk
 		</script>
 	<% } else {
 		Booking booking = new Booking();
 		int personCnt = Integer.parseInt(personCntStr);
 		Date checkin = Date.valueOf(checkinStr);
 		Date checkout = Date.valueOf(checkoutStr);
-		booking.all_setter(2, "그랜드", 50000, checkin, checkout, personCnt, userID);
+		
+		booking.all_setter(roomList.get(0).getRo_num(), hotelList.get(0).getNAME(), roomList.get(0).getRo_price(), checkin, checkout, personCnt, userID);
  		booking.add_booking();
  		
  		Cookie revCk = new Cookie("revModal","Y");
  		response.addCookie(revCk);
  	%>
- 		<script>
+ 	<script>
  		location.href="./LoginMain.jsp?<%=qryStrN%>";
- 		</script>
- 	<%
+	</script>
+	<%
 	}
 	%>
 <script>
