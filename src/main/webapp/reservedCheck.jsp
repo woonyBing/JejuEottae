@@ -58,14 +58,14 @@ String userID = (String)session.getAttribute("userID");
                       rs = dm.get_booking_datas(id);// 카테고리랑 기간으로 필터링 기간 부등호 카테고리는 =
 
                   }
-                  //
+                  
                   %>
 
     <header style="margin:0px">
         <!-- NavBar -->
        <nav class="navbar navbar-expand-lg bg-light">
           <div class="container-fluid">
-              <a class="navbar-brand" href="/JejuEottae/index.jsp">제주어때🍊</a>
+              <a class="navbar-brand" href="LoginMain.jsp">제주어때🍊</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
               </button>
