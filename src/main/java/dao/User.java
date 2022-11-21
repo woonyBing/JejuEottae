@@ -38,7 +38,6 @@ public class User {
 	public void setUserTel(String userTel) {
 		this.userTel = userTel;
 	}
-
 	
 
 }

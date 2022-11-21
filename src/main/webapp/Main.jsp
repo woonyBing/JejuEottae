@@ -30,13 +30,6 @@ request.setCharacterEncoding("UTF-8");
 
 <body>
 
-	<%--
-tour_list 테이블 만들고 insert 하는 dao
-<% Tour tour = new Tour();
-tour.create_data_table();
-tour.all_data_to_table();
-%>
---%>
 	<!-- header 및 nav 영역-->
 	<header style="margin:0px">
 		<%String id = request.getParameter("id");%>

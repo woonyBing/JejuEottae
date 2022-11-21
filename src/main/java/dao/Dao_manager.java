@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dto.Review;
+import dao.Review;
 
 
 public class Dao_manager {
@@ -20,6 +20,7 @@ public class Dao_manager {
 
 	
 
+	//연결부분
 	public void connect() throws Exception
 	{
 		String db_url = "jdbc:oracle:thin:@localhost:1521:orcl"; // 접속 DB정보
@@ -58,6 +59,8 @@ public class Dao_manager {
 
 
 
+
+	//관광 테이블 생성
 	public void create_tour_list() {
 		try {
 			// 연결하는 메소드
@@ -80,6 +83,8 @@ public class Dao_manager {
 
 	}
 	
+	
+	//예약 테이블 생성
 	public void create_Booking() {
 		try {
 			// 연결하는 메소드
@@ -102,6 +107,7 @@ public class Dao_manager {
 
 	}
 	
+	//예약 테이블 추가
 	public void insert_Booking(Booking target)
 	{
 		try {
@@ -185,7 +191,7 @@ public class Dao_manager {
 			disconnect();
 		}
 	}
-	
+	//이미지 테이블 불러오기
 	public String find_match_IMGlink(String img_table,int val)
 	{
 		String return_val = "";
@@ -214,8 +220,30 @@ public class Dao_manager {
 	}
 	
 	
+	//로그인 서비스
+	public int login(String userID, String userPassword) { // 어떤 계정에 대한 실제로 로그인을 시도하는 함수, 인자값으로 ID와 Password를 받아 login을 판단함.
+		String SQL = "SELECT passworld FROM user_info WHERE ID = ?"; // 실제로 DB에 입력될 명령어를 SQL 문장으로 만듬.
+		try {
+			psmt = conn.prepareStatement(SQL);
+			psmt.setString(1,  userID);
+			rs = psmt.executeQuery(); // 어떠한 결과를 받아오는 ResultSet 타입의 rs 변수에 쿼리문을 실행한 결과를 넣어줌 
+			if (rs.next()) {
+				if (rs.getString(1).contentEquals(userPassword)) {
+					return 1; // 로그인 성공
+				}
+				else {
+					return 0; // 비밀번호 불일치
+				}
+			}
+			return -1; // 아이디가 없음
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -2; // DB 오류 
+	}
 	
 	
+	//리뷰 가져오기
 	public int user_review_count(String id)
 	{
 		int return_val =0;
@@ -243,6 +271,7 @@ public class Dao_manager {
 		return return_val;
 	}
 	
+	//유저 예약 확인
 	public int user_booking_size(String id)
 	{
 		int return_val =0;
@@ -271,8 +300,7 @@ public class Dao_manager {
 	}
 	
 	
-	
-	
+	//호텔에 대한 평점 평균구하기
 	public int score_avg_by_hotelname(String hotelname)
 	{
 		int return_val = 0;
@@ -301,6 +329,7 @@ public class Dao_manager {
 		return return_val;
 	}
 	
+	//예약 테이블 정보 가져오기
 	public ResultSet get_booking_datas(String id)
 	{
 		//
@@ -404,6 +433,7 @@ public class Dao_manager {
 	//booking datas
 	//ResultSet
 	
+	//호텔에 리뷰남기기
 	public List<String> comments_by_hotelname(String hotelname)
 	{
 		List<String> return_val = new ArrayList<String>();
@@ -433,6 +463,8 @@ public class Dao_manager {
 		return null;
 	}
 	
+	
+	//리뷰 저장
 	public void save_review(String user_id,int bo_num,String content,int score)
 	{
 		try {
@@ -461,6 +493,7 @@ public class Dao_manager {
 		}
 	}
 	
+	//리뷰보기
 	public List<Review> selectReviewList(){
 		String sql = "select * from review order by rev_num";
 		List<Review> reviewList=null;
@@ -496,21 +529,20 @@ public class Dao_manager {
 	}
 	
 	//날짜별 분류
-	public Review selectReviewInfoListByDate(String revDate){
-		String sql = "select * from Review Order by id";
-		Review rv=null;
+	public List<Review> selectReviewInfoListByUserEmail(String userEmail){
+		String sql = "select * from Review Order by id"
+				+ " where user_email=?";
+		List<Review> rvList=null;
 		
 		try {
 			connect();
 			
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, revDate);
 			rs = psmt.executeQuery();
 			
-			//수정필요
-			rv = new Review();
-			if(rs.next()) {
-				
+			rvList = new ArrayList<Review>();
+			while(rs.next()) {
+				Review rv = new Review();
 				rv.setRevNum(rs.getInt("rev_num"));
 				rv.setContent(rs.getString("content"));
 				rv.setRevDate(rs.getDate("rev_date"));
@@ -518,7 +550,7 @@ public class Dao_manager {
 				rv.setBoNum(rs.getInt("bo_num"));
 				rv.setScore(rs.getInt("score"));
 				
-				
+				rvList.add(rv);
 				
 			}
 			
@@ -528,11 +560,12 @@ public class Dao_manager {
 		}finally {
 			disconnect();
 		}
-		return rv;
+		return rvList;
 		
 	}
-
 	
+
+	//리뷰 수정
 	public int updateReview(Review rv) {
 		String sql = "update review "
 				+ " set content= ? , score =?"
@@ -547,7 +580,7 @@ public class Dao_manager {
 		psmt.setString(3, rv.userEmail);
 		
 		result = psmt.executeUpdate();
-		
+		System.out.println(result);
 	}catch(Exception e) {
 		e.printStackTrace();
 	}finally {
@@ -557,15 +590,16 @@ public class Dao_manager {
 	
 	}
 	
-	
+	//리뷰 삭제
 	public int deleteReview(int revNum) {
-		String sql = "delete from review where rev_num=?";
+		String sql = "delete from review "
+				+ "where rev_num=?";
 	int result = 0;
 	
 	try {
 		connect();
 		psmt = conn.prepareStatement(sql);
-		
+		psmt.setInt(1,revNum);
 		
 		result = psmt.executeUpdate();
 		
@@ -643,6 +677,7 @@ public class Dao_manager {
 		
 		return imgPathList;
 	}
+	
 	
 	public int login(String userID, String userPassword) { // 어떤 계정에 대한 실제로 로그인을 시도하는 함수, 인자값으로 ID와 Password를 받아 login을 판단함.
 		String SQL = "SELECT passworld FROM user_info WHERE ID = ?"; // 실제로 DB에 입력될 명령어를 SQL 문장으로 만듬.

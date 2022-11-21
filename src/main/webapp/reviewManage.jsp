@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <% request.setCharacterEncoding("UTF-8"); %>
 <%@page import="dao.Dao_manager"%>
- <%@ page import="dto.Review" %>
+ <%@ page import="dao.Review" %>
  <%@ page import="java.util.*" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,12 +18,10 @@
 
 <body>
 <%
-		Dao_manager rvDao = new Dao_manager();
+		reviewDao rvDao = new reviewDao();
 		List<Review> reviewList = rvDao.selectReviewList();
 		%>
 		
-              
-
 	<header style="margin:0px">
         <!-- NavBar -->
         <nav class="navbar navbar-expand-lg bg-light">
@@ -46,7 +44,7 @@
           <span class="navbar-brand mb-0 h1">REVIEW</span>
         </div>
       </nav>
-
+<!-- 
       <div class="choice"> 
         <div class="container text-center">
           <div class="row">
@@ -70,11 +68,11 @@
             </div>
         </div>
             
-      </div> 
+      </div>  -->
 		
         <!-- for문 필요 혹시 없으면 안뜨게도 가능한지... -->
-		
-        <table class="reviewTable">
+		<div class="reviewTable">
+        <table class="table">
           <thead>
             <tr>
               <th scope="col" style="width: 10%">#</th>
@@ -82,6 +80,7 @@
               <th scope="col" style="width: 10%">예약 번호</th>
               <th scope="col" style="width: 30%">리뷰 내용</th>
               <th scope="col" style="width: 10%">평점</th>
+              <th scope="col" style="width: 20%"></th>
             </tr>
           </thead>
 
@@ -90,7 +89,10 @@
             
 <%
 				if (reviewList != null && reviewList.size()>0) {					
+					int i=0;
 					for (Review rv : reviewList) {
+						i++;
+						
 	%>
 	<tbody>
           <tr>
@@ -101,29 +103,124 @@
               <td> <%=rv.getScore()%></td>
               
               <td>
+             
+
+<!--              <form name="reviewDeleteButton" id='reviewDeleteForm'> -->
+               <div class="review_button">
+<!--                 <button id="deleteBtn" type="submit" class="btn btn-danger" -->
+<%--                  name="rev_num" value=<%=rv.getRevNum()%>>삭제</button> --%>
+                 <button name="deleteBtn" class="btn btn-danger"
+                 	onclick="actionDeleteReview(<%=rv.getRevNum()%>)">삭제</button>
+<%--                   	value=<%=rv.getRevNum()%>>삭제</button> --%>
+  				</div>
               <div class="review_button">
-                <button type="button" class="btn btn-danger">삭제</button>
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#reviewModal">수정</button>
               </div>
-              <div class="review_button">
-                <button type="button" class="btn btn-warning">수정</button>
-              </div>
-              </td>
-             </tr>  
-              </tbody> 
-              
+<!--               </form> -->
           <%
 					}
 				}
 			%>
-          
+              
+              
+              
+              <!--1번만 수정되는 오류 수정 필요  -->
+               <!-- Modal -->
+     <div class="modal fade" id="reviewModal"+1 tabindex="-1"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">숙소는 어떠셨나요?</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" 
+              aria-label="Close"></button>
+            </div>
+          <div class="modal-body">
+        <!-- 코멘트 -->
            
-          
+
+            <form name="myform" id="myform" method="post" >
+              <legend>후기를 남겨주세요</legend>
+              <textarea class="form-control" 
+              placeholder="무분별한 비방, 폭력적인 욕설 사용은 통보없이 삭제될 수 있습니다." 
+              id="floatingTextarea" name="comment"
+              style="height: 100px;"></textarea>
+              <fieldset>
+               
+                  <legend>별점</legend>
+                  <input type="radio" name="rating" value="5" id="rate1"><label for="rate1">⭐</label>
+                  <input type="radio" name="rating" value="4" id="rate2"><label for="rate2">⭐</label>
+                  <input type="radio" name="rating" value="3" id="rate3"><label for="rate3">⭐</label>
+                  <input type="radio" name="rating" value="2" id="rate4"><label for="rate4">⭐</label>
+                  <input type="radio" name="rating" value="1" id="rate5"><label for="rate5">⭐</label>
+                 <%--  <input type="hidden" name="userEmail" value=<%=rv.getUserEmail() %>>
+                   <input type="hidden" name="boNum" value=<%=rv.getBoNum() %>>
+--%>
+              </fieldset>
+              <div>솔직한 평가 부탁드립니다.</div>
+          </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="updateBtn" class="btn btn-primary" >평가하기</button>
+          <button type="button"  class="btn btn-secondary" data-bs-dismiss="modal">다음에 평가하기</button>
+        </div>
+      </div>
+      </div>
+      </div>
+              </td>
+             </tr>  
+              </tbody> 
+              
+
         </table>
+            </div>  
         
         
+        
+	<script>
+		document.getElementById('updateBtn').addEventListener('click', (e)=>{
+			e.preventDefault();
+			let form = document.myform;
+			if(form.comment.value == ""){ //이름이 없는 경우
+				alert('내용은 필수입니다.');
+				form.comment.focus();
+				return false;
+			}
+			else { //이름이 있는 경우
+				if(confirm('수정하시겠습니까?')){
+					form.action = "updateReview.jsp";
+					form.submit();
+				}
+			}
+		});
+	</script>
+	<script>
+		function actionDeleteReview(rev_num){
+			if(confirm('정말로 삭제하시겠습니까?')){
+				location.href = 'deleteReview.jsp?rev_num='+rev_num;
+			}
+		}
+// 		document.getElementById('deleteBtn').addEventListener('click', (e)=>{
+// 			e.preventDefault();
+// 			let form = document.getElementById('reviewDeleteForm'); 
+// 				//document.reviewDeleteButton;
+// 			alert(document.getElementById('deleteBtn').value);
+// 			if(confirm('정말로 삭제하시겠습니까?')){
+// 				form.action = "deleteReview.jsp";
+// 				form.submit();
+// 			}
+// 		});
+	</script>
+	
+	
+         <!-- footer 부분 -->
+         <%@ include file="footer.jsp" %>
         
       <!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" 
+integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" 
+crossorigin="anonymous"></script>
     </body>
 </html>
               

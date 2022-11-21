@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <%@ page import="dao.Dao_manager"%>
 <%@ page import="dao.HotelInfo"%>
 <%@ page import="dao.ImgPath"%>
@@ -31,13 +30,7 @@ request.setCharacterEncoding("UTF-8");
 
 <body>
 
-	<%--
-tour_list 테이블 만들고 insert 하는 dao
-<% Tour tour = new Tour();
-tour.create_data_table();
-tour.all_data_to_table();
-%>
---%>
+	
 
 	<!-- header 및 nav 영역-->
 	<header>
@@ -57,7 +50,8 @@ tour.all_data_to_table();
 
 			<!--지도 API 들어갈 자리-->
 			<div class="mapBox">
-				<div class="mapBox">
+				
+				
 					<%
 					Dao_manager hotelDao = new Dao_manager();
 					List<HotelInfo> hotelInfoList = hotelDao.selectHotelInfoList();

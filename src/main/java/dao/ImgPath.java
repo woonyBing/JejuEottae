@@ -6,6 +6,7 @@ public class ImgPath {
 	private int Img_no;
 	private int Hotel_id;
 	private String Img_url;
+	
 	public int getImg_no() {
 		return Img_no;
 	}
