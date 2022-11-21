@@ -6,7 +6,6 @@
 <%@ page import="dao.Tour"%>
 <%@ page import="dao.TourImgDao"%>
 <%@ page import="dto.TourImg"%>
-<%@ page import="dao.Booking"%>
 <%@ page import="dao.Dao_manager"%>
 <%@ page import="java.sql.Date"%>
 <%@ page import="java.util.*"%>
@@ -40,8 +39,8 @@ request.setCharacterEncoding("UTF-8");
 	// Tour tour = new Tour();
 	// tour.create_data_table();
 	// tour.all_data_to_table();
-// 	Dao_manager manager = new Dao_manager();
-// 	manager.create_Booking();
+	// Dao_manager manager = new Dao_manager();
+	// manager.create_Booking();
 	%>
 
 
@@ -58,8 +57,29 @@ request.setCharacterEncoding("UTF-8");
 	<!-- section 영역 -->
 	<section>
 		<!-- 검색 영역 -->
-		<%@ include file="formSearch.jsp"%>
-
+		<div class="formgrid">
+			<!--지역 선택 자리-->
+			<div class="gridItemLocation">
+				<label for="location">지역</label>
+				<select class="form-select"
+					aria-label="Default select example" name="location">
+					<option value="제주시" selected>제주시</option>
+					<option value="서귀포시">서귀포시</option>
+				</select>
+			</div>
+			<!--숙소선택-->
+			<div class="gridItemCheckBerth">
+				<label for="lodgingType">숙소 유형</label>
+				<select class="form-select"
+					aria-label="Default select example" name="lodgingType">
+					<option value="Hotel">호텔</option>
+					<option value="Resort">리조트</option>
+				</select>
+			</div>
+			
+			<!--검색버튼-->
+			<button id="Search" type="submit" class="btn btn-primary gridItemBtn" name="search">검색</button>
+		</div>
 		<div class="container">
 
 			<!--지도 API 들어갈 자리-->
@@ -178,20 +198,6 @@ request.setCharacterEncoding("UTF-8");
 														class="d-block w-100" alt="룸이미지3">
 												</div>
 											</div>
-											<!--분명 디자인 전체가 for문 도는데 슬라이드 넘어가는 버튼이 두번째 아코디언부터 안 먹힘
-애들하고 얘기해보기 -->
-											<!-- 											<button class="carousel-control-prev" type="button" -->
-											<!-- 												data-bs-target="#carouselExampleControls" -->
-											<!-- 												data-bs-slide="prev"> -->
-											<!-- 												<span class="carousel-control-prev-icon" aria-hidden="true"></span> -->
-											<!-- 												<span class="visually-hidden">Previous</span> -->
-											<!-- 											</button> -->
-											<!-- 											<button class="carousel-control-next" type="button" -->
-											<!-- 												data-bs-target="#carouselExampleControls" -->
-											<!-- 												data-bs-slide="next"> -->
-											<!-- 												<span class="carousel-control-next-icon" aria-hidden="true"></span> -->
-											<!-- 												<span class="visually-hidden">Next</span> -->
-											<!-- 											</button> -->
 										</div>
 										<table class="table" style="margin-bottom: 100px;">
 											<thead>
@@ -260,8 +266,8 @@ request.setCharacterEncoding("UTF-8");
 										</div>
 
 
-<!-- 										<button type="button" class="btn btn-primary" -->
-<%-- 											data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="booking(<%=hotelInfo.getID()%>)">예약하기</button> --%>
+										<button type="button" class="btn btn-primary"
+											data-bs-toggle="modal" data-bs-target="#exampleModal">예약하기</button>
 										<button type="submit" class="btn btn-primary"
 										data-bs-toggle="modal" data-bs-target="#exampleModal">예약하기</button>
 										<div class="modal fade" id="exampleModal" tabindex="-1"
@@ -269,15 +275,14 @@ request.setCharacterEncoding("UTF-8");
 											<div class="modal-dialog">
 												<div class="modal-content">
 													<div class="modal-header">
-														<h1 class="modal-title fs-5" id="exampleModalLabel">예약
-															완료!</h1>
+														<h1 class="modal-title fs-5" id="exampleModalLabel">회원 전용 서비스</h1>
 														<button type="button" class="btn-close"
 															data-bs-dismiss="modal" aria-label="Close"></button>
 													</div>
-													<div class="modal-body">자세한 내역은 my page에서 확인해주세요 :)</div>
+													<div class="modal-body">로그인 후 이용해주세요 :)</div>
 													<div class="modal-footer">
 														<button type="button" class="btn btn-primary"
-															onclick="location.href='./mypage.jsp'">My page</button>
+															onclick="location.href='./userLogin.jsp'">Login</button>
 														<button type="button" class="btn btn-secondary"
 															data-bs-dismiss="modal">Close</button>
 													</div>
@@ -336,20 +341,6 @@ request.setCharacterEncoding("UTF-8");
 			resultsTour.style.display = 'block';
 		<%}%>
 		
-		//예약 버튼 클릭 시 
-		//가격이,, 호텔인포에 있어야,, id값 받아서 찾을 때,,, 맞지 않을까,,,
-		//근데 왜 클릭 안 했는데 실행이 되는가,,?
-		function booking(hotelId){
-			<%
-			Booking booking = new Booking();
-			Date checkin = Date.valueOf("2022-11-01");
-			Date checkout = Date.valueOf("2022-11-02");
-			booking.all_setter(1, 2, "그랜드", 50000, checkin, checkout, "honeybye@naver.com");
-// 			booking.add_booking();
-			%>
-			console.log('??');
-		}
-		 
 		function initMap() {
 			const myLatLng = { //기본 좌표 값: 한라산
 				lat : 33.360139,

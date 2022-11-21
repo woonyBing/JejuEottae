@@ -5,14 +5,12 @@ import java.sql.Date;
 public class Booking {
 	int bo_num;
 	int ro_num;
-//	String ro_name;
 	String hotel_name;
 	int payment;
 	Date checkin;
 	Date checkout;
-//	String checkin;
-//	String checkout;
 	String user_email;
+	int person_cnt;
 	Dao_manager dao_manager =null;
 	
 	public Booking()
@@ -24,15 +22,15 @@ public class Booking {
 		}
 	}
 	
-	public void all_setter(int bo_num,int ro_num,String hotel_name,int payment,Date checkin,Date checkout,String user_email)
+	public void all_setter(int ro_num,String hotel_name,int payment,Date checkin,Date checkout, int personCnt, String user_email)
 	{
-		 this.bo_num=bo_num;
+//		 this.bo_num=bo_num;
 		 this.ro_num=ro_num;
-//		 this.ro_name=ro_name;
 		 this.hotel_name=hotel_name;
 		 this.payment=payment;
 		 this.checkin=checkin;
 		 this.checkout=checkout;
+		 this.person_cnt=personCnt;
 		 this.user_email=user_email;
 		System.out.println(this.toString());
 	}
@@ -62,9 +60,11 @@ public class Booking {
 
 	@Override
 	public String toString() {
-		return "Booking [bo_num=" + bo_num + ", ro_num=" + ro_num + ", hotel_name="
-				+ hotel_name + ", payment=" + payment + ", checkin=" + checkin + ", checkout=" + checkout
-				+ ", user_email=" + user_email + "]";
+		return "Booking [bo_num=" + bo_num + ", ro_num=" + ro_num + ", hotel_name=" + hotel_name + ", payment="
+				+ payment + ", checkin=" + checkin + ", checkout=" + checkout + ", user_email=" + user_email
+				+ ", person_cnt=" + person_cnt + ", dao_manager=" + dao_manager + "]";
 	}
+
+	
 	
 }

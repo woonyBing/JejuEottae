@@ -7,6 +7,8 @@
 <%@ page import="dao.TourImgDao"%>
 <%@ page import="dto.TourImg"%>
 <%@ page import="dao.UserDAO"%>
+<%@ page import="dao.Booking"%>
+<%@ page import="java.sql.Date"%>
 <%@ page import="java.util.*"%>
 <%
 request.setCharacterEncoding("UTF-8");
@@ -32,12 +34,6 @@ request.setCharacterEncoding("UTF-8");
 </head>
 
 <body>
-<% 
-// String hAddress = request.getParameter("location");
-// String hType = request.getParameter("lodgingType");
-
-UserDAO userDAO = new UserDAO();
-%>
 	<!-- header 및 nav 영역-->
 	<header>
 		<%@ include file="navBarLogined.jsp"%>
@@ -50,7 +46,33 @@ UserDAO userDAO = new UserDAO();
 	<!-- section 영역 -->
 	<section>
 		<!-- 검색 영역 -->
-		<%@ include file="formSearch.jsp"%>
+<form name="searchForm" action="LoginMain.jsp">
+		<div class="formgrid">
+			<!--지역 선택 자리-->
+			<div class="gridItemLocation">
+				<label for="location">지역</label>
+				<select class="form-select"
+					aria-label="Default select example" name="location">
+					<option value="제주시" selected>제주시</option>
+					<option value="서귀포시">서귀포시</option>
+				</select>
+			</div>
+			<!--숙소선택-->
+			<div class="gridItemCheckBerth">
+				<label for="lodgingType">숙소 유형</label>
+				<select class="form-select"
+					aria-label="Default select example" name="lodgingType">
+					<option value="Hotel">호텔</option>
+					<option value="Resort">리조트</option>
+				</select>
+			</div>
+			
+			<!--검색버튼-->
+			<button id="Search" type="submit" class="btn btn-primary gridItemBtn" name="search">검색</button>
+		</div>
+	</form>			
+			
+			
 
 		<div class="container">
 
@@ -171,20 +193,6 @@ html, body {
 														class="d-block w-100" alt="룸이미지3">
 												</div>
 											</div>
-<!--분명 디자인 전체가 for문 도는데 슬라이드 넘어가는 버튼이 두번째 아코디언부터 안 먹힘
-애들하고 얘기해보기 -->
-<!-- 											<button class="carousel-control-prev" type="button" -->
-<!-- 												data-bs-target="#carouselExampleControls" -->
-<!-- 												data-bs-slide="prev"> -->
-<!-- 												<span class="carousel-control-prev-icon" aria-hidden="true"></span> -->
-<!-- 												<span class="visually-hidden">Previous</span> -->
-<!-- 											</button> -->
-<!-- 											<button class="carousel-control-next" type="button" -->
-<!-- 												data-bs-target="#carouselExampleControls" -->
-<!-- 												data-bs-slide="next"> -->
-<!-- 												<span class="carousel-control-next-icon" aria-hidden="true"></span> -->
-<!-- 												<span class="visually-hidden">Next</span> -->
-<!-- 											</button> -->
 										</div>
 										<table class="table" style="margin-bottom: 100px;">
 											<thead>
@@ -225,56 +233,41 @@ html, body {
 
 
 										<!--날짜선택-->
-										<div class="inputGrid">
-											<div class="inputDate">
-												<label for="reservationDate">체크인</label> <input
-													id="startDate" type="date" class="form-control"
-													name="startDate">
-											</div>
-											<div class="inputDate">
-												<label for="reservationDate">체크아웃</label> <input
-													id="endDate" type="date" class="form-control"
-													name="endDate">
-											</div>
-										</div>
-
-										<!--인원선택-->
-										<div class="gridItemPersonCnt" style="margin-bottom: 100px;">
-											<label for="personCnt">인원</label> <select class="form-select"
-												aria-label="Default select example" name="personCnt">
-												<%
-												for (int i = 1; i < 11; i++) {
-												%>
-												<option id="<%=i%>" value="<%=i%>"><%=i%></option>
-												<%
-												}
-												%>
-											</select>
-										</div>
-
-
-										<button type="button" class="btn btn-primary"
-											data-bs-toggle="modal" data-bs-target="#exampleModal">예약하기</button>
-										<div class="modal fade" id="exampleModal" tabindex="-1"
-											aria-labelledby="exampleModalLabel" aria-hidden="true">
-											<div class="modal-dialog">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h1 class="modal-title fs-5" id="exampleModalLabel">예약
-															완료!</h1>
-														<button type="button" class="btn-close"
-															data-bs-dismiss="modal" aria-label="Close"></button>
-													</div>
-													<div class="modal-body">자세한 내역은 my page에서 확인해주세요 :)</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-primary"
-															onclick="location.href='./mypage.jsp'">My page</button>
-														<button type="button" class="btn btn-secondary"
-															data-bs-dismiss="modal">Close</button>
-													</div>
+										<form id="bookingDateForm" action="bookingAction.jsp" method="post">
+											<div class="inputGrid">
+												<div class="inputDate">
+													<label for="checkInDate">체크인</label>
+													<input
+														id="checkInDate" type="date" class="form-control"
+														name="checkInDate" required>
+												</div>
+												<div class="inputDate">
+													<label for="checkOutDate">체크아웃</label>
+													<input
+														id="checkOutDate" type="date" class="form-control"
+														name="checkOutDate" required>
 												</div>
 											</div>
-										</div>
+	
+											<!--인원선택-->
+											<div class="gridItemPersonCnt" style="margin-bottom: 100px;">
+												<label for="personCnt">인원</label> <select class="form-select"
+													aria-label="Default select example" name="personCnt" required>
+													<%
+													for (int i = 1; i < 11; i++) {
+													%>
+													<option id="<%=i%>" value="<%=i%>"><%=i%></option>
+													<%
+													}
+													%>
+												</select>
+											</div>
+	
+	
+											<button type="submit" class="btn btn-primary"
+												data-bs-toggle="modal" data-bs-target="#exampleModal">예약하기</button>
+												
+										</form>
 									</div>
 								</div>
 							</div>
@@ -312,6 +305,7 @@ html, body {
 			</div>
 		</div>
 	</section>
+	
 	<script>
 		let mapBox = document.getElementById('mapBox');
 		let resultsLodging = document.getElementById('resultsLodging');
@@ -322,6 +316,7 @@ html, body {
 		resultsLodging.style.display = 'block';
 		resultsTour.style.display = 'block';
 		<%}%>
+		
 		
 		function initMap() {
 			const myLatLng = { //기본 좌표 값: 한라산

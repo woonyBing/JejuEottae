@@ -85,7 +85,7 @@ public class Dao_manager {
 		try {
 			// 연결하는 메소드
 			connect();
-			String sqlQuery = "CREATE TABLE Booking(bo_num NUMBER(2),ro_num NUMBER(2),hotel_name VARCHAR2(60),payment NUMBER(8),checkin DATE,checkout DATE,user_email VARCHAR2(60))";
+			String sqlQuery = "CREATE TABLE Booking(bo_num NUMBER(2),ro_num NUMBER(2),hotel_name VARCHAR2(60),payment NUMBER(8),checkin DATE,checkout DATE,person_cnt NUMBER(4),user_email VARCHAR2(60))";
 
 			psmt = conn.prepareStatement(sqlQuery);
 			int resultCnt = psmt.executeUpdate();
@@ -108,18 +108,18 @@ public class Dao_manager {
 		try {
 			// 연결하는 메소드
 			connect();
-			String sqlQuery = "INSERT INTO Booking VALUES(?,?,?,?,?,?,?)";
+			String sqlQuery = "INSERT INTO Booking VALUES((SELECT NVL(max(bo_num),0)+1 FROM booking),?,?,?,?,?,?,?)";
 
 			int resultCnt =0;
 			
 			psmt = conn.prepareStatement(sqlQuery);
-			psmt.setInt(1,target.bo_num);
-			psmt.setInt(2,target.ro_num);
-//			psmt.setString(3,target.ro_name);
-			psmt.setString(3,target.hotel_name);
-			psmt.setInt(4,target.payment);
-			psmt.setDate(5, target.checkin);
-			psmt.setDate(6,target.checkout);
+//			psmt.setInt(1,target.bo_num);
+			psmt.setInt(1,target.ro_num);
+			psmt.setString(2,target.hotel_name);
+			psmt.setInt(3,target.payment);
+			psmt.setDate(4, target.checkin);
+			psmt.setDate(5,target.checkout);
+			psmt.setInt(6,target.person_cnt);
 			psmt.setString(7,target.user_email);
 			
 			resultCnt = psmt.executeUpdate();

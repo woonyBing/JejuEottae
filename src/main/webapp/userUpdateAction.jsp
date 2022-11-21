@@ -26,9 +26,9 @@
 	UserDAO userDao = new UserDAO();
 	int result = userDao.update(user);
 	
-	out.println(id+password+email+tel);
+// 	out.println(id+password+email+tel);
 // 	out.println(user);
-	out.println(user.getUserID());
+// 	out.println(user.getUserID());
 
 	if (result > 0) {
 	%>
