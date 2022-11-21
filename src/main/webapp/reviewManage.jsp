@@ -18,7 +18,28 @@
 
 <body>
 <%
-		reviewDao rvDao = new reviewDao();
+
+		String cpi = request.getParameter("CPI");
+		String[] cpi_divide = null;
+
+		if(cpi != null)
+		{
+		     cpi_divide = cpi.split("/");
+		}
+		String id = "test"; 
+		if(request.getParameter("id")!=null)
+		{
+
+			  id = request.getParameter("id");
+		}
+		else if(cpi!=null)
+		{
+
+      		 id =cpi_divide[2];
+
+		}
+
+		Dao_manager rvDao = new Dao_manager();
 		List<Review> reviewList = rvDao.selectReviewList();
 		%>
 		
@@ -97,26 +118,19 @@
 	<tbody>
           <tr>
               <td><%=rv.getRevNum()%></td>
-              <td ><%=rv.getRevDate() %></td>
+              <td><%=rv.getRevDate() %></td>
               <td><%=rv.getBoNum() %></td>
               <td><%=rv.getContent() %></td>
-              <td> <%=rv.getScore()%></td>
-              
+              <td> <%=rv.getScore()%></td> 
               <td>
              
-
-<!--              <form name="reviewDeleteButton" id='reviewDeleteForm'> -->
                <div class="review_button">
-<!--                 <button id="deleteBtn" type="submit" class="btn btn-danger" -->
-<%--                  name="rev_num" value=<%=rv.getRevNum()%>>삭제</button> --%>
                  <button name="deleteBtn" class="btn btn-danger"
                  	onclick="actionDeleteReview(<%=rv.getRevNum()%>)">삭제</button>
-<%--                   	value=<%=rv.getRevNum()%>>삭제</button> --%>
   				</div>
               <div class="review_button">
                 <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#reviewModal">수정</button>
               </div>
-<!--               </form> -->
           <%
 					}
 				}
@@ -126,7 +140,7 @@
               
               <!--1번만 수정되는 오류 수정 필요  -->
                <!-- Modal -->
-     <div class="modal fade" id="reviewModal"+1 tabindex="-1"
+     <div class="modal fade" id="reviewModal" tabindex="-1"
       aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
