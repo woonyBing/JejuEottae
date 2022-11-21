@@ -87,7 +87,40 @@ public class RoomsDao {
 			disConnect();
 		}
 		return roomList;
+	}
+	
+	public List<Rooms> selectRoomsByRoNumPay(int hotelId){
+		String sql = "select * from Rooms where hotel_id = ?";
+		List<Rooms> roomList=null;
 		
+		try {
+			connect();
+			
+			psmt = conn.prepareStatement(sql);
+			psmt.getI
+			rs = psmt.executeQuery();
+			
+			roomList = new ArrayList<Rooms>();
+			while(rs.next()) {
+				Rooms room = new Rooms();
+				room.setCheckin(rs.getInt("CHECKIN"));
+				room.setCheckout(rs.getInt("CHECKOUT"));
+				room.setHotel_id(rs.getInt("HOTEL_ID"));
+				room.setRo_count(rs.getInt("RO_COUNT"));
+				room.setRo_num(rs.getInt("RO_NUM"));
+				room.setRo_price(rs.getInt("RO_PRICE"));
+				room.setRo_type(rs.getString("RO_TYPE"));
+				
+				roomList.add(room);
+				
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			disConnect();
+		}
+		return roomList;	
 	}
 	
 }

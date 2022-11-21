@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+
+<%@ page import="dto.HotelInfo"%>
+<%@ page import="dto.Rooms"%>
 <%@ page import="dao.Booking"%>
+<%@ page import="dao.HotelDAO"%>
+<%@ page import="dao.RoomsDao"%>
 <%@ page import="java.sql.Date"%>
+<%@ page import="java.util.*"%>
 <%
 request.setCharacterEncoding("UTF-8");
 %>
@@ -20,24 +25,26 @@ request.setCharacterEncoding("UTF-8");
 </head>
 <body>
 <% 
-
 	String userID = (String)session.getAttribute("userID");
 	String checkinStr = request.getParameter("checkInDate");
 	String checkoutStr = request.getParameter("checkOutDate");
 	String personCntStr = request.getParameter("personCnt");
 	String hotelId = request.getParameter("hotelId");
-	
-// 	String qryStr = request.getParameter("qryStr");
 	String qryStrN = request.getParameter("qryStrN");
 	
+	//호텔 이름 가져오기
+	int numHotelId = Integer.parseInt(hotelId);
+	HotelDAO hotelDao = new HotelDAO();
+	RoomsDao roomsDao = new RoomsDao();
+	
+	List<HotelInfo> hotelList = hotelDao.selectHotelInfoListById(numHotelId);
+	List<Rooms> roomList = roomsDao.
 	%>
 	<%
 	if (checkinStr == null || checkinStr == "" || checkoutStr == null || checkinStr == "") {
 	%>	
 		<script>
-// 			e.preventDefault();
 			alert('날짜를 선택해주세요');
-// 			location.href='./LoginMain.jsp';
 			location.href="./LoginMain.jsp?<%=qryStrN%>";
 		</script>
 	<% } else {
@@ -45,7 +52,7 @@ request.setCharacterEncoding("UTF-8");
 		int personCnt = Integer.parseInt(personCntStr);
 		Date checkin = Date.valueOf(checkinStr);
 		Date checkout = Date.valueOf(checkoutStr);
-		booking.all_setter(2, "그랜드", 50000, checkin, checkout, personCnt, "honeybye@naver.com");
+		booking.all_setter(2, "그랜드", 50000, checkin, checkout, personCnt, userID);
  		booking.add_booking();
  		
  		Cookie revCk = new Cookie("revModal","Y");
@@ -54,26 +61,6 @@ request.setCharacterEncoding("UTF-8");
  		<script>
  		location.href="./LoginMain.jsp?<%=qryStrN%>";
  		</script>
-<!--  	<div class="modal fade" id="exampleModal" tabindex="-1" -->
-<!-- 		aria-labelledby="exampleModalLabel" aria-hidden="true" > -->
-<!-- 		<div class="modal-dialog"> -->
-<!-- 			<div class="modal-content"> -->
-<!-- 				<div class="modal-header"> -->
-<!-- 					<h1 class="modal-title fs-5" id="exampleModalLabel">예약 -->
-<!-- 						완료!</h1> -->
-<!-- 					<button type="button" class="btn-close" -->
-<!-- 						data-bs-dismiss="modal" aria-label="Close"></button> -->
-<!-- 				</div> -->
-<!-- 				<div class="modal-body">자세한 내역은 my page에서 확인해주세요 :)</div> -->
-<!-- 				<div class="modal-footer"> -->
-<!-- 					<button type="button" class="btn btn-primary" -->
-<!-- 						onclick="location.href='./mypage.jsp'">My page</button> -->
-<!-- 					<button type="button" class="btn btn-secondary" -->
-<!-- 						data-bs-dismiss="modal">Close</button> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 	</div> -->
  	<%
 	}
 	%>

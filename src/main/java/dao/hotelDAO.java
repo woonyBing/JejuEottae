@@ -48,7 +48,7 @@ public class HotelDAO {
 	}
 	
 	
-	public List<HotelInfo> selectHotelInfoList(){
+	public List<HotelInfo> selectHotelInfoListJoinImg(){
 		String sql = "select *"
 				+ " from hotel_info i, hotel_img ig"
 				+ " where i.id =ig.hotel_id";
@@ -83,6 +83,44 @@ public class HotelDAO {
 		
 		return hotelInfoList;
 	}
+	
+	public List<HotelInfo> selectHotelInfoListById(int hotelId){
+		String sql = "select *"
+				+ " from hotel_info"
+				+ " where id = ?";
+		List<HotelInfo> hotelInfoList = null;
+		
+		try {
+			connect();
+			
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, hotelId);
+			rs = psmt.executeQuery();
+			
+			hotelInfoList = new ArrayList<HotelInfo>();
+			while(rs.next()) {
+				HotelInfo hotelInfo = new HotelInfo();
+				hotelInfo.setID(rs.getInt("id"));
+				hotelInfo.setNAME(rs.getString("name"));
+				hotelInfo.setADDRESS(rs.getString("address"));
+				hotelInfo.setTYPE(rs.getString("type"));
+				hotelInfo.setTEL(rs.getString("tel"));
+				hotelInfo.setX(rs.getString("x"));
+				hotelInfo.setY(rs.getString("y"));
+				hotelInfo.setRATING(rs.getInt("rating"));
+				
+				hotelInfoList.add(hotelInfo);
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+		
+		return hotelInfoList;
+	}
+	
 	
 	
 	public List<ImgPath> selectImgPath(){

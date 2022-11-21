@@ -85,7 +85,7 @@ public class Dao_manager {
 		try {
 			// 연결하는 메소드
 			connect();
-			String sqlQuery = "CREATE TABLE Booking(bo_num NUMBER(2),ro_num NUMBER(2),hotel_name VARCHAR2(60),payment NUMBER(8),checkin DATE,checkout DATE,person_cnt NUMBER(4),user_email VARCHAR2(60))";
+			String sqlQuery = "CREATE TABLE Booking(bo_num NUMBER(2),ro_num NUMBER(2),hotel_name VARCHAR2(60),payment NUMBER(8),checkin DATE,checkout DATE,person_cnt NUMBER(4),user_id VARCHAR2(60))";
 
 			psmt = conn.prepareStatement(sqlQuery);
 			int resultCnt = psmt.executeUpdate();
@@ -120,7 +120,7 @@ public class Dao_manager {
 			psmt.setDate(4, target.checkin);
 			psmt.setDate(5,target.checkout);
 			psmt.setInt(6,target.person_cnt);
-			psmt.setString(7,target.user_email);
+			psmt.setString(7,target.user_id);
 			
 			resultCnt = psmt.executeUpdate();
 			System.out.println(resultCnt);

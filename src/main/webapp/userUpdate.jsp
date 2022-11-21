@@ -25,12 +25,22 @@
 	User user = new User();
 	UserDAO userDao = new UserDAO();
 	%>
+	
+	<script>
+	function check() {
+		if (document.updatefr.userPassword.value == "" || document.updatefr.userEmail.value == "" || document.updatefr.userTel.value == "") {
+			alert("입력 안 된 사항이 있습니다.")
+			document.updatefr.userPassword.focus();
+			return false;
+		}
+	}
+</script>
 
 <body>
     <section>
         <div id="login-form-wrap" >
             <h2>회원정보 수정</h2>
-            <form id="login-form" action="userUpdateAction.jsp">
+            <form id="login-form" action="userUpdateAction.jsp" name="updatefr" onsubmit="return check();">
                 <p>
                     <input type="text" id="userID" name="userID" value="<%=userID%>" readonly="readonly"><i class="validation"><span></span><span></span></i>
                 </p>

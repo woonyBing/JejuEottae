@@ -35,6 +35,7 @@ request.setCharacterEncoding("UTF-8");
 <body>
 
 
+
 	<%
 	// Tour tour = new Tour();
 	// tour.create_data_table();
@@ -78,7 +79,7 @@ request.setCharacterEncoding("UTF-8");
 			</div>
 			
 			<!--검색버튼-->
-			<button id="Search" type="submit" class="btn btn-primary gridItemBtn" name="search">검색</button>
+			<button id="Search" type="submit" class="btn btn-primary gridItemBtn" onclick= "alert('로그인 후 이용해주세요.') ">검색</button>
 		</div>
 		<div class="container">
 
@@ -238,6 +239,7 @@ request.setCharacterEncoding("UTF-8");
 
 
 										<!--날짜선택-->
+										<form>
 										<div class="inputGrid">
 											<div class="inputDate">
 												<label for="reservationDate">체크인</label> <input
@@ -263,11 +265,11 @@ request.setCharacterEncoding("UTF-8");
 												}
 												%>
 											</select>
-										</div>
-
-
 										<button type="button" class="btn btn-primary"
 											data-bs-toggle="modal" data-bs-target="#exampleModal">예약하기</button>
+										</div>
+									   </form>
+
 										<button type="submit" class="btn btn-primary"
 										data-bs-toggle="modal" data-bs-target="#exampleModal">예약하기</button>
 										<div class="modal fade" id="exampleModal" tabindex="-1"
