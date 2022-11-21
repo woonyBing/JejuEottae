@@ -22,34 +22,9 @@ request.setCharacterEncoding("UTF-8");
 </head>
 
 <body>
-<<<<<<< HEAD
-<% String id = "test"; 
-if(request.getParameter("id")!=null)
-{
 
-	  id = request.getParameter("id");
-}
-%>
-    <header style="margin:0px">
-        <!-- NavBar -->
-       <nav class="navbar navbar-expand-lg bg-light">
-          <div class="container-fluid">
-              <a class="navbar-brand" href="/JejuEottae/index.jsp">제주어때🍊</a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-              <div class="navbar-nav">
-                  <a class="nav-link active" aria-current="page" href="./Main.jsp?id=<%=id%>">Home</a>
-                  <a class="nav-link" href="./mypage.jsp?id=<%=id%>">My page</a>
-              </div>
-              </div>
-          </div>
-      </nav>
-=======
 	<%
 	String userID = (String) session.getAttribute("userID");
->>>>>>> ft-rsv-bing
 
 	User user = new User();
 	UserDAO userDao = new UserDAO();	
@@ -66,7 +41,7 @@ if(request.getParameter("id")!=null)
 		<!-- NavBar -->
 		<nav class="navbar navbar-expand-lg bg-light">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="Main.jsp">제주어때🍊</a>
+				<a class="navbar-brand" href="./LoginMain.jsp">제주어때🍊</a>
 				<button class="navbar-toggler" type="button"
 					data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
 					aria-controls="navbarNavAltMarkup" aria-expanded="false"
@@ -75,7 +50,7 @@ if(request.getParameter("id")!=null)
 				</button>
 				<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 					<div class="navbar-nav">
-						<a class="nav-link active" aria-current="page" href="./index.jsp">Home</a>
+						<a class="nav-link active" aria-current="page" href="./LoginMain.jsp">Home</a>
 						<a class="nav-link" href="./mypage.jsp">My page</a>
 					</div>
 				</div>
@@ -87,35 +62,37 @@ if(request.getParameter("id")!=null)
 				<span class="navbar-brand mb-0 h1">MYINFO</span>
 			</div>
 		</nav>
+	</header>
 
-		<form class="info">
-			<div class="col-auto">
-				<label class="visually-hidden"></label><input
-					type="text" readonly class="form-control-plaintext"
-					id="staticEmail2" value="아이디: <%=userID%>">
-			</div>
-	
-
-			<a type="button" class="btn btn-primary"  href="userUpdate.jsp">개인정보
-				수정하기</a>	
-		    <button >
-				<a href="userDelete.jsp">회원 탈퇴하기</a></button>			
-		
-		</form>
-		 
-			
+	<form class="info">
+		<div class="col-auto">
+			<label class="visually-hidden"></label><input type="text" readonly
+				class="form-control-plaintext" id="staticEmail2"
+				value="아이디: <%=userID%>">
+		</div>
 
 
+		<a type="button" class="btn btn-primary" href="userUpdate.jsp">개인정보
+			수정하기</a>
+		<button>
+			<a href="userDelete.jsp">회원 탈퇴하기</a>
+		</button>
+
+	</form>
 
 
 
 
 
-		<!-- JavaScript Bundle with Popper -->
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-			integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-			crossorigin="anonymous"></script>
+
+
+
+
+	<!-- JavaScript Bundle with Popper -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+		crossorigin="anonymous"></script>
 </body>
 
 </html>

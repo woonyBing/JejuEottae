@@ -1,11 +1,6 @@
 package dto;
 
 public class ImgPath {
-<<<<<<<< HEAD:src/main/java/dao/ImgPath.java
-	
-	
-========
->>>>>>>> ft-rsv-bing:src/main/java/dto/ImgPath.java
 	private int Img_no;
 	private int Hotel_id;
 	private String Img_url;

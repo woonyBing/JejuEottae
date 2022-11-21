@@ -13,15 +13,16 @@
 <body>
 	<%
 		String content = request.getParameter("comment");
+		int rev_num = Integer.parseInt(request.getParameter("rev_num"));
 		int score = Integer.parseInt(request.getParameter("rating"));
-		String email = request.getParameter("userEmail");
+		String userID = (String)session.getAttribute("userID");
 		Review review = new Review();
 		review.setContent(content);
 		review.setScore(score);
-		review.setUserEmail(email);
+		review.setUserId(userID);
 		
 		Dao_manager dao = new Dao_manager();
-		int result = dao.updateReview(review);
+		int result = dao.updateReview(rev_num, score, content);
 		
 		if(result > 0 ){
 	%>

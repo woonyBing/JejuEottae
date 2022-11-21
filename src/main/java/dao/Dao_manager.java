@@ -620,65 +620,6 @@ public class Dao_manager {
 		return return_val;
 	}
 	
-	//booking datas
-	//ResultSet
-	
-	public List<String> comments_by_hotelname(String hotelname)
-	{
-		List<String> return_val = new ArrayList<String>();
-		try {
-			connect();
-			String sqlQuery = "select CONTENT from review where bo_num in"+"("+"Select bo_num from booking where hotel_name ="+"\'"+hotelname+"\'"+")";
-			
-			psmt = conn.prepareStatement(sqlQuery);
-			
-			rs = psmt.executeQuery();
-			while (rs.next()) 
-			{	
-				return_val.add(rs.getString("CONTENT"));
-			}
-			return return_val;
-
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			// 연결 종료 메소드
-			disconnect();
-		}
-		return null;
-	}
-	
-	public void save_review(String user_id,int bo_num,String content,int score)
-	{
-		try {
-			// 연결하는 메소드
-			connect();
-			String sqlQuery = "insert into review values((select NVL(max(rev_num),0)+1 from review),?,?,?,sysdate,?)";
-
-			int resultCnt =0;
-			
-			psmt = conn.prepareStatement(sqlQuery);
-			psmt.setString(1,user_id);
-			psmt.setInt(2,bo_num);
-			psmt.setString(3,content);
-			psmt.setInt(4,score);
-
-			resultCnt = psmt.executeUpdate();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			// 연결 종료 메소드
-			disconnect();
-		}
-	}
 	
 	public List<Review> selectReviewList(){
 		String sql = "select * from review order by rev_num";
@@ -696,7 +637,7 @@ public class Dao_manager {
 				rv.setRevNum(rs.getInt("rev_num"));
 				rv.setContent(rs.getString("content"));
 				rv.setRevDate(rs.getDate("rev_date"));
-				rv.setUserEmail(rs.getString("user_email"));
+				rv.setUserId(rs.getString("user_id"));
 				rv.setBoNum(rs.getInt("bo_num"));
 				rv.setScore(rs.getInt("score"));
 				
@@ -752,7 +693,7 @@ public class Dao_manager {
 	}
 
 	
-	public void updateReview(int rev_num,int score,String content ) {
+	public int updateReview(int rev_num,int score,String content ) {
 		String sql = "update review "
 				+ " set content= ? , score =?"
 				+ " where rev_num = ?"; //앞에 띄어쓰기**
@@ -771,7 +712,8 @@ public class Dao_manager {
 		e.printStackTrace();
 	}finally {
 		disconnect();
-	}	
+	}
+	return result;
 	}
 	
 	
@@ -862,13 +804,13 @@ public class Dao_manager {
 	}
 	
 	public int login(String userID, String userPassword) { // 어떤 계정에 대한 실제로 로그인을 시도하는 함수, 인자값으로 ID와 Password를 받아 login을 판단함.
-		String SQL = "SELECT passworld FROM user_info WHERE ID = ?"; // 실제로 DB에 입력될 명령어를 SQL 문장으로 만듬.
+		String SQL = "SELECT password FROM user_info WHERE ID = ?"; // 실제로 DB에 입력될 명령어를 SQL 문장으로 만듬.
 		int val=-2;
 
 		try {
 			connect();
 			psmt = conn.prepareStatement(SQL);
-			psmt.setString(1,  userID);
+			psmt.setString(1, userID);
 			rs = psmt.executeQuery(); // 어떠한 결과를 받아오는 ResultSet 타입의 rs 변수에 쿼리문을 실행한 결과를 넣어줌 
 			if (rs.next()) {
 				System.out.println(userPassword);

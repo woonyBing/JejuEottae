@@ -10,7 +10,8 @@ public class Review {
 	public int boNum; //예약번호
 	public String content; //리뷰 본문
 	public Date revDate; // 리뷰작성날짜
-	public int score; //별점, 평점 
+	public int score; //별점, 평점
+	
 	
 	
 	public int getRevNum() {

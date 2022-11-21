@@ -1,8 +1,5 @@
-<<<<<<<< HEAD:src/main/java/dao/HotelInfo.java
-package dao;
-========
 package dto;
->>>>>>>> ft-rsv-bing:src/main/java/dto/HotelInfo.java
+
 public class HotelInfo {
 	
 	private int ID; 
