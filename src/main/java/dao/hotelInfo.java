@@ -1,6 +1,6 @@
 package dao;
-
 public class HotelInfo {
+	
 	private int ID; 
 	private String NAME; 
 	private String ADDRESS;
@@ -8,6 +8,10 @@ public class HotelInfo {
 	private String TEL;
 	private String EMAIL;
 	private int RATING;
+
+	
+	
+	
 	private String X;
 	private String Y;
 	
@@ -66,6 +70,7 @@ public class HotelInfo {
 	public void setRATING(int rATING) {
 		RATING = rATING;
 	}
-
 	
+	
+
 }
