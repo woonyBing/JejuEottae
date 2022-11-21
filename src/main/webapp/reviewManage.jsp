@@ -84,7 +84,7 @@ else
           <span class="navbar-brand mb-0 h1">REVIEW</span>
         </div>
       </nav>
-
+<!-- 
       <div class="choice"> 
         <div class="container text-center">
               <form name="serch_review_form">
@@ -124,8 +124,8 @@ else
                     
 		
         <!-- for문 필요 혹시 없으면 안뜨게도 가능한지... -->
-		
-        <table class="reviewTable">
+		<div class="reviewTable">
+        <table class="table">
           <thead>
             <tr>
               <th scope="col" style="width: 10%">#</th>
@@ -133,6 +133,7 @@ else
               <th scope="col" style="width: 10%">예약 번호</th>
               <th scope="col" style="width: 20%">리뷰 내용</th>
               <th scope="col" style="width: 10%">평점</th>
+              <th scope="col" style="width: 20%"></th>
             </tr>
           </thead>
 
@@ -236,7 +237,27 @@ else
            
           
         
-        
+	<script>
+		document.getElementById('updateBtn').addEventListener('click', (e)=>{
+			e.preventDefault();
+			let form = document.myform;
+			if(form.comment.value == ""){ //이름이 없는 경우
+				alert('내용은 필수입니다.');
+				form.comment.focus();
+				return false;
+			}
+			else { //이름이 있는 경우
+				if(confirm('수정하시겠습니까?')){
+					form.action = "updateReview.jsp";
+					form.submit();
+				}
+			}
+		});
+	</script>
+	
+	
+         <!-- footer 부분 -->
+         <%@ include file="footer.jsp" %>
         
       <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
@@ -253,5 +274,3 @@ else
     </script>
     </body>
 </html>
-              
-              

@@ -17,14 +17,14 @@
 	<!-- NavBar -->
 	<nav class="navbar navbar-expand-lg bg-light">
 	    <div class="container-fluid">
-	        <a class="navbar-brand" href="#">제주어때🍊</a>
+	        <a class="navbar-brand" href="./index.jsp">제주어때🍊</a>
 	        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="navbar-toggler-icon"></span>
 	        </button>
 	        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 	        <div class="navbar-nav">
-	            <a class="nav-link" href="./login.jsp" >Login</a>
-	            <a class="nav-link" href="./join.jsp">Join</a>
+	            <a class="nav-link" href="./userLogin.jsp" >Login</a>
+	            <a class="nav-link" href="./userJoin.jsp">Join</a>
 	        </div>
 	        </div>
 	    </div>

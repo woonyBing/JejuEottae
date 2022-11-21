@@ -3,7 +3,7 @@
 <%@ page import="dao.Dao_manager" %> <!-- login 함수를 사용하여 로그인 처리를 하기 위해 user패키지의 UserDAO를 불러온다 -->
 <%@ page import="java.io.PrintWriter" %> <!-- 자바 스크립트 문장을 작성하기 위해 사용-->
 <% request.setCharacterEncoding("UTF-8"); %> <!-- 건너오는 모든 데이터를 UTF-8으로 받을 수 있도록 함 -->
-<jsp:useBean id="user" class="dao.User" scope="page"/> <!-- 한명의 회원 정보를 담는 User클래스를 자바 빈즈로 사용하며 현재 page안에서만 빈즈를 사용 -->
+<jsp:useBean id="user" class="dto.User" scope="page"/> <!-- 한명의 회원 정보를 담는 User클래스를 자바 빈즈로 사용하며 현재 page안에서만 빈즈를 사용 -->
 <jsp:setProperty name="user" property="userID" />
 <jsp:setProperty name="user" property="userPassword" />
 <!DOCTYPE html>
@@ -18,8 +18,10 @@
 		int result = userDAO.login(user.getUserID(), user.getUserPassword());
 		if (result == 1){ // 로그인 정보가 맞으면 자바스크립트를 실행하여 페이지를 이동시킴
 			PrintWriter script = response.getWriter();
+			session.setAttribute("userID", user.getUserID());	
+			session.setAttribute("userPW",user.getUserPassword());
 			script.println("<script>");
-			script.println("location.href ='Main.jsp?id="+user.getUserID()+"'"); // main 페이지로 사용자를 보냄 
+			script.println("location.href ='LoginMain.jsp?id="+user.getUserID()+"'"); // main 페이지로 사용자를 보냄 
 			script.println("</script>");
 		}
 		else if (result == 0){ 

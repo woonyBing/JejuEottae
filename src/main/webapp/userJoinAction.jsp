@@ -3,7 +3,7 @@
 <%@ page import="dao.Dao_manager" %>
 <%@ page import="java.io.PrintWriter" %>
 <% request.setCharacterEncoding("UTF-8"); %>
-<jsp:useBean id="user" class="dao.User" scope="page" />
+<jsp:useBean id="user" class="dto.User" scope="page" />
 <jsp:setProperty name="user" property="userID" />
 <jsp:setProperty name="user" property="userPassword" />	
 <jsp:setProperty name="user" property="userEmail" /> 
@@ -37,7 +37,8 @@
 			else  {
 				PrintWriter script = response.getWriter();
 				script.println("<script>");
-				script.println("location.href = 'login.jsp'");
+				script.println("alert('환영합니다.')");
+				script.println("location.href = 'userLogin.jsp'");
 				script.println("</script>");
 			}	
 		}

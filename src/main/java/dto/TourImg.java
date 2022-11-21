@@ -1,12 +1,10 @@
 package dto;
 
-public class TourImgItem {
+public class TourImg {
 	private int img_no;
 	private String tour_name;
 	private String address;
 	private String img_url;
-	
-	
 	public int getImg_no() {
 		return img_no;
 	}
@@ -31,10 +29,11 @@ public class TourImgItem {
 	public void setImg_url(String img_url) {
 		this.img_url = img_url;
 	}
-	
 	@Override
 	public String toString() {
-		return "TourImgItem [img_no=" + img_no + ", tour_name=" + tour_name + ", address=" + address + ", img_url="
+		return "TourImg [img_no=" + img_no + ", tour_name=" + tour_name + ", address=" + address + ", img_url="
 				+ img_url + "]";
 	}
+	
+	
 }

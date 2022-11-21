@@ -1,6 +1,4 @@
 package dao;
-import java.util.Calendar;
-import java.util.Date;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dto.Review;
+import dto.User;
+import dto.ImgPath;
+import dto.HotelInfo;
 
 
 public class Dao_manager {
@@ -84,7 +85,7 @@ public class Dao_manager {
 		try {
 			// 연결하는 메소드
 			connect();
-			String sqlQuery = "CREATE TABLE Booking(bo_num NUMBER(2),ro_num NUMBER(2),ro_name VARCHAR2(60),hotel_namero_name VARCHAR2(60),payment NUMBER(8),checkin DATE,checkout DATE,user_email ro_name VARCHAR2(60),person number)";
+			String sqlQuery = "CREATE TABLE Booking(bo_num NUMBER(2),ro_num NUMBER(2),hotel_name VARCHAR2(60),payment NUMBER(8),checkin DATE,checkout DATE,person_cnt NUMBER(4),user_id VARCHAR2(60))";
 
 			psmt = conn.prepareStatement(sqlQuery);
 			int resultCnt = psmt.executeUpdate();
@@ -107,22 +108,22 @@ public class Dao_manager {
 		try {
 			// 연결하는 메소드
 			connect();
-			String sqlQuery = "INSERT INTO Booking VALUES(?,?,?,?,?,?,?,?,?)";
+			String sqlQuery = "INSERT INTO Booking VALUES((SELECT NVL(max(bo_num),0)+1 FROM booking),?,?,?,?,?,?,?)";
 
 			int resultCnt =0;
 			
 			psmt = conn.prepareStatement(sqlQuery);
-			psmt.setInt(1,target.bo_num);
-			psmt.setInt(2,target.ro_num);
-			psmt.setString(3,target.ro_name);
-			psmt.setString(4,target.hotel_name);
-			psmt.setInt(5,target.payment);
-			psmt.setString(6,target.checkin);
-			psmt.setString(7,target.checkout);
-			psmt.setString(8,target.user_email);
-			psmt.setInt(9,target.person);
-
+//			psmt.setInt(1,target.bo_num);
+			psmt.setInt(1,target.ro_num);
+			psmt.setString(2,target.hotel_name);
+			psmt.setInt(3,target.payment);
+			psmt.setDate(4, target.checkin);
+			psmt.setDate(5,target.checkout);
+			psmt.setInt(6,target.person_cnt);
+			psmt.setString(7,target.user_id);
+			
 			resultCnt = psmt.executeUpdate();
+			System.out.println(resultCnt);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -617,6 +618,99 @@ public class Dao_manager {
 			// 연결 종료 메소드
 		}
 		return return_val;
+	}
+	
+	//booking datas
+	//ResultSet
+	
+	public List<String> comments_by_hotelname(String hotelname)
+	{
+		List<String> return_val = new ArrayList<String>();
+		try {
+			connect();
+			String sqlQuery = "select CONTENT from review where bo_num in"+"("+"Select bo_num from booking where hotel_name ="+"\'"+hotelname+"\'"+")";
+			
+			psmt = conn.prepareStatement(sqlQuery);
+			
+			rs = psmt.executeQuery();
+			while (rs.next()) 
+			{	
+				return_val.add(rs.getString("CONTENT"));
+			}
+			return return_val;
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			// 연결 종료 메소드
+			disconnect();
+		}
+		return null;
+	}
+	
+	public void save_review(String user_id,int bo_num,String content,int score)
+	{
+		try {
+			// 연결하는 메소드
+			connect();
+			String sqlQuery = "insert into review values((select NVL(max(rev_num),0)+1 from review),?,?,?,sysdate,?)";
+
+			int resultCnt =0;
+			
+			psmt = conn.prepareStatement(sqlQuery);
+			psmt.setString(1,user_id);
+			psmt.setInt(2,bo_num);
+			psmt.setString(3,content);
+			psmt.setInt(4,score);
+
+			resultCnt = psmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			// 연결 종료 메소드
+			disconnect();
+		}
+	}
+	
+	public List<Review> selectReviewList(){
+		String sql = "select * from review order by rev_num";
+		List<Review> reviewList=null;
+		
+		try {
+			connect();
+			
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			
+			reviewList = new ArrayList<Review>();
+			while(rs.next()) {
+				Review rv = new Review();
+				rv.setRevNum(rs.getInt("rev_num"));
+				rv.setContent(rs.getString("content"));
+				rv.setRevDate(rs.getDate("rev_date"));
+				rv.setUserEmail(rs.getString("user_email"));
+				rv.setBoNum(rs.getInt("bo_num"));
+				rv.setScore(rs.getInt("score"));
+				
+				reviewList.add(rv);
+				
+			}
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			disconnect();
+		}
+		return reviewList;
 		
 	}
 	
