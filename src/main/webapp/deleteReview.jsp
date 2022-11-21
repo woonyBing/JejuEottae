@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="dao.Dao_manager" %>
+<<<<<<< HEAD
 <%@ page import="dao.Review" %>
+=======
+<%@ page import="dto.Review" %>
+>>>>>>> ce01169da4b3b20dec374aad45335b12e60e802f
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +15,11 @@
 <body>
 <%
 	int revNum = Integer.parseInt(request.getParameter("rev_num"));
+<<<<<<< HEAD
+=======
+Dao_manager dao = new Dao_manager();
+	int result = dao.deleteReview(revNum);
+>>>>>>> ce01169da4b3b20dec374aad45335b12e60e802f
 	
 	Dao_manager dao = new Dao_manager();
 	int result = dao.deleteReview(revNum);

@@ -15,6 +15,7 @@ public class Booking {
 	String checkout;
 	String user_email;
 	Dao_manager dao_manager =null;
+	int person;
 	
 	public Booking()
 	{

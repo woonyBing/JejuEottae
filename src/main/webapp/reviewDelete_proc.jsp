@@ -11,13 +11,14 @@
 </head>
 <body>
 <% 
- String id = request.getParameter("id");
- Dao_manager dm  = new Dao_manager();
+ String[] ri = request.getParameter("ri").split("/");
 
- dm.save_review(id,Integer.parseInt(request.getParameter("bo_num")),request.getParameter("comment"),Integer.parseInt(request.getParameter("rating")));// 쿼리스트링 자체에 sysdate 하기
+ Dao_manager dm  = new Dao_manager();
+ dm.delete_review(Integer.parseInt(ri[0])); 
+
 %>
 <script>
-location.href='reservedCheck.jsp?id=<%=id%>'; 
+location.href='reviewManage.jsp?id=<%=ri[1]%>'; 
 </script> 
 
 </body>

@@ -8,6 +8,7 @@ public class HotelInfo {
 	private String TEL;
 	private String EMAIL;
 	private int RATING;
+	
 
 	
 	

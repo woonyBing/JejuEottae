@@ -68,8 +68,8 @@
               </button>
               <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
-                  <a class="nav-link active" aria-current="page" href="./index.jsp">Home</a>
-                  <a class="nav-link" href="./mypage.jsp">My page</a>
+                  <a class="nav-link active" aria-current="page" href="./Main.jsp?id=<%=id%>">Home</a>
+                  <a class="nav-link" href="./mypage.jsp?id=<%=id%>">My page</a>
               </div>
               </div>
           </div>
@@ -199,8 +199,10 @@
                     				+ "              <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>\r\n"
                     				+ "            </div>\r\n"
                     				+ "          <div class=\"modal-body\">\r\n"
-                    				+ "            <form name=\"myform\" id=\"myform\" method=\"post\" >\r\n"
-                    				+ "              <legend>후기를 남겨주세요</legend>\r\n"
+                    				+ "            <form name=\"myform"+count+"\" id=\"myform\" method=\"post\" >\r\n"
+                    				+ Integer.parseInt(bo_num)
+                    				+ "test_val:"+dm.search_review_count_by_bo_num(Integer.parseInt(bo_num)) 
+                    				+				"<legend>후기를 남겨주세요</legend>\r\n"
                     				+ "              <textarea class=\"form-control\" placeholder=\"무분별한 비방, 폭력적인 욕설 사용은 통보없이 삭제될 수 있습니다.\" id=\"floatingTextarea\" name=\"comment\"\r\n"
                     				+ "              style=\"height: 100px;\"></textarea>\r\n"
                     				+ "              <fieldset>\r\n"
@@ -217,17 +219,26 @@
                     				+ "          </form>\r\n"
                     				+ "        </div>\r\n"
                     				+ "        <div class=\"modal-footer\">\r\n"
-                    				+ "          <button type=\"button\" id=\"reserve_up\" class=\"btn btn-primary\" >평가하기</button>\r\n"
+                    				+ "          <button type=\"button\" id=\"reserve_up"+count+"\" class=\"btn btn-primary\" >평가하기</button>\r\n"
                     				+ "          <button type=\"button\"  class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">다음에 평가하기</button>\r\n"
                     				+ "        </div>\r\n"
                     				+ "      </div>\r\n"
                     				+ "      </div>\r\n"
-                    				+ "      </div>"); 
+                    				+ "      </div></div>"); 
                     	  out.println("<script>\r\n"
                     				+ "document.getElementById('cancel"+count+"').addEventListener('click', (e)=>{"
                     				+ "	e.preventDefault();"
                     				+ "	location.href='reservedDelete_proc.jsp?BI="+bo_num+"/"+id+"';"
                     				+ "});"
+                    				+"document.getElementById('reserve_up"+count+"').addEventListener('click', (e)=>{\r\n"
+                    				+ "e.preventDefault();\r\n"
+                    				+ "if("+dm.search_review_count_by_bo_num(Integer.parseInt(bo_num))+"==0){"
+                    				+ "	let form = document.myform"+count+";\r\n"
+                    				+ "	form.action=\"review_proc.jsp\"\r\n"
+                    				+ "	form.submit();\r\n"
+                    				+ "	\r\n"
+                    				+ "}"
+                    				+"else{alert('이미 리뷰가 작성 되어 있습니다 리뷰 관리창을 이용해 주세요');}});"
                     				+ "</script>");
                       }
                     
@@ -254,13 +265,7 @@
     <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <script>
-document.getElementById('reserve_up').addEventListener('click', (e)=>{
-	e.preventDefault();
-	let form = document.myform;
-	form.action="review_proc.jsp"
-	form.submit();
-	
-});
+
 document.getElementById('serch_reserved').addEventListener('click', (e)=>{
 	e.preventDefault();
 	let form = document.serch_reserved_form;
