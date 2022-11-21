@@ -45,6 +45,7 @@ request.setCharacterEncoding("UTF-8");
 
 	<!-- section 영역 -->
 	<section>
+		
 		<!-- 검색 영역 -->
 <form name="searchForm" action="LoginMain.jsp">
 		<div class="formgrid">
@@ -231,20 +232,25 @@ html, body {
 
 
 
-
+										<%
+											String qryStr = "location="+hAddress+"&lodgingType="+hType;
+										%>
 										<!--날짜선택-->
-										<form id="bookingDateForm" action="bookingAction.jsp" method="post">
+										<form id="bookingDateForm" action="bookingAction.jsp" method="post" class="revForms">
 											<div class="inputGrid">
 												<div class="inputDate">
 													<label for="checkInDate">체크인</label>
+													<input type="hidden" name="hotelId" value=<%=hotelInfo.getID()%>>
+<%-- 													<input type="hidden" name="qryStr" value=<%=qryStr%>> --%>
+													<input type="hidden" name="qryStrN" value=<%=request.getQueryString()%>>
 													<input
-														id="checkInDate" type="date" class="form-control"
+														id="checkInDate" type="date" class="form-control checkInDates"
 														name="checkInDate" required>
 												</div>
 												<div class="inputDate">
 													<label for="checkOutDate">체크아웃</label>
 													<input
-														id="checkOutDate" type="date" class="form-control"
+														id="checkOutDate" type="date" class="form-control checkOutDates" 
 														name="checkOutDate" required>
 												</div>
 											</div>
@@ -263,10 +269,8 @@ html, body {
 												</select>
 											</div>
 	
-	
-											<button type="submit" class="btn btn-primary"
-												data-bs-toggle="modal" data-bs-target="#exampleModal">예약하기</button>
-												
+											<button type="submit"  class="btn btn-primary" name="reserveBtn"
+												data-bs-toggle="" data-bs-target="">예약하기</button>
 										</form>
 									</div>
 								</div>
@@ -305,6 +309,27 @@ html, body {
 			</div>
 		</div>
 	</section>
+	
+	<div class="modal fade" id="exampleModal" tabindex="-1"
+	aria-labelledby="exampleModalLabel" aria-hidden="true" >
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="exampleModalLabel">예약
+					완료!</h1>
+				<button type="button" class="btn-close"
+					data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">자세한 내역은 my page에서 확인해주세요 :)</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary"
+					onclick="location.href='./mypage.jsp'">My page</button>
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	
 	<script>
 		let mapBox = document.getElementById('mapBox');
@@ -354,6 +379,38 @@ html, body {
 		}
 	</script>
 
+	<script>
+		let reserveBtns = document.querySelectorAll('[name="reserveBtn"]');
+		let checkInDates = document.querySelectorAll('.checkInDates');
+		let checkOutDates = document.querySelectorAll('.checkOutDates');
+		let revForms = document.querySelectorAll('.revForms');
+		console.log(reserveBtns);
+
+		for(let revBtnIdx=0; revBtnIdx < reserveBtns.length; revBtnIdx++){
+			reserveBtns[revBtnIdx].addEventListener('click', (e)=>{
+				console.log('예약버튼 click');
+				e.preventDefault();
+				let checkInDate = checkInDates[revBtnIdx].value;
+				let checkOutDate = checkOutDates[revBtnIdx].value;
+				console.log(checkInDate);
+				console.log(checkOutDate);
+				if(checkInDate != null && checkInDate != '' && checkOutDate != null && checkOutDate != ''){
+					console.log('data-bs-target click');
+					reserveBtns[revBtnIdx].setAttribute('data-bs-target', '#exampleModal');
+					reserveBtns[revBtnIdx].setAttribute('data-bs-toggle', 'modal');
+					console.log('data-bs-target end');
+					revForms[revBtnIdx].submit();
+				} else {
+					alert('체크인, 체크아웃 날짜를 확인하세요.');	
+				}
+			});
+		}
+		
+		//쿠키삭제
+		function deleteCookie(name) {
+			document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+		}
+	</script>
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
@@ -361,6 +418,36 @@ html, body {
 		crossorigin="anonymous">
 		
 	</script>
+	
+	
+	<%
+	    Cookie cookie = null;
+	    Cookie[] cookies = null;
+	    
+	    // Get an array of Cookies associated with the this domain
+	    cookies = request.getCookies();
+	    
+	    if( cookies != null ) {
+// 	       out.println("<h2> Found Cookies Name and Value</h2>");
+	       
+	       for (int i = 0; i < cookies.length; i++) {
+	          cookie = cookies[i];
+	          if(cookie.getName().equals("revModal") && cookie.getValue().equals("Y")){
+				%>
+				<script>
+// 					document.getElementById('showModalBtn').click();
+					var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
+						  keyboard: false
+						})
+					myModal.show();
+					deleteCookie('revModal');
+				</script>
+				<%	        	  
+	          }
+	       }
+	    } 
+	%>
+	
 </body>
 
 </html>

@@ -3,6 +3,9 @@
     
 <%@ page import="dao.Booking"%>
 <%@ page import="java.sql.Date"%>
+<%
+request.setCharacterEncoding("UTF-8");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,12 +25,20 @@
 	String checkinStr = request.getParameter("checkInDate");
 	String checkoutStr = request.getParameter("checkOutDate");
 	String personCntStr = request.getParameter("personCnt");
+	String hotelId = request.getParameter("hotelId");
+	
+// 	String qryStr = request.getParameter("qryStr");
+	String qryStrN = request.getParameter("qryStrN");
+	
+	%>
+	<%
 	if (checkinStr == null || checkinStr == "" || checkoutStr == null || checkinStr == "") {
-%>
+	%>	
 		<script>
 // 			e.preventDefault();
 			alert('날짜를 선택해주세요');
-			location.href='./LoginMain.jsp';
+// 			location.href='./LoginMain.jsp';
+			location.href="./LoginMain.jsp?<%=qryStrN%>";
 		</script>
 	<% } else {
 		Booking booking = new Booking();
@@ -36,35 +47,40 @@
 		Date checkout = Date.valueOf(checkoutStr);
 		booking.all_setter(2, "그랜드", 50000, checkin, checkout, personCnt, "honeybye@naver.com");
  		booking.add_booking();
- 		out.println("111");
+ 		
+ 		Cookie revCk = new Cookie("revModal","Y");
+ 		response.addCookie(revCk);
  	%>
- 	
-<div >
-	<div class="modal fade" id="exampleModal" tabindex="-1"
-		aria-labelledby="exampleModalLabel" aria-hidden="true" >
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h1 class="modal-title fs-5" id="exampleModalLabel">예약
-						완료!</h1>
-					<button type="button" class="btn-close"
-						data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">자세한 내역은 my page에서 확인해주세요 :)</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary"
-						onclick="location.href='./mypage.jsp'">My page</button>
-					<button type="button" class="btn btn-secondary"
-						data-bs-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+ 		<script>
+ 		location.href="./LoginMain.jsp?<%=qryStrN%>";
+ 		</script>
+<!--  	<div class="modal fade" id="exampleModal" tabindex="-1" -->
+<!-- 		aria-labelledby="exampleModalLabel" aria-hidden="true" > -->
+<!-- 		<div class="modal-dialog"> -->
+<!-- 			<div class="modal-content"> -->
+<!-- 				<div class="modal-header"> -->
+<!-- 					<h1 class="modal-title fs-5" id="exampleModalLabel">예약 -->
+<!-- 						완료!</h1> -->
+<!-- 					<button type="button" class="btn-close" -->
+<!-- 						data-bs-dismiss="modal" aria-label="Close"></button> -->
+<!-- 				</div> -->
+<!-- 				<div class="modal-body">자세한 내역은 my page에서 확인해주세요 :)</div> -->
+<!-- 				<div class="modal-footer"> -->
+<!-- 					<button type="button" class="btn btn-primary" -->
+<!-- 						onclick="location.href='./mypage.jsp'">My page</button> -->
+<!-- 					<button type="button" class="btn btn-secondary" -->
+<!-- 						data-bs-dismiss="modal">Close</button> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
  	<%
 	}
 	%>
-
+<script>
+document.getElementById("rsv_btn").style.display="none";
+document.getElementById("rsv_btn").click();
+</script>
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
