@@ -6,7 +6,6 @@
 <%@ page import="dao.Tour"%>
 <%@ page import="dao.TourImgDao"%>
 <%@ page import="dto.TourImg"%>
-<%@ page import="dao.Dao_manager"%>
 <%@ page import="java.sql.Date"%>
 <%@ page import="java.util.*"%>
 <%
@@ -157,7 +156,7 @@ request.setCharacterEncoding("UTF-8");
 				<%
 				for (HotelInfo hotelInfo : searchHotelInfoList) {
 					List<ImgPath> imgPathList = hotelDao.selectHotelInfoListByHotelId(hotelInfo.getID());
-									%>
+				%>
 				<!--호텔리스트
 				 	-->
 				<div id="<%=hotelInfo.getID()%>">

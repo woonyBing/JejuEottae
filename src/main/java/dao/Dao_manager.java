@@ -411,7 +411,7 @@ public class Dao_manager {
 		List<String> return_val = new ArrayList<String>();
 		try {
 			connect();
-			String sqlQuery = "select CONTENT from review where bo_num in"+"("+"Select bo_num from booking where hotel_name ="+"\'"+hotelname+"\'"+")";
+			String sqlQuery = "select CONTENT from review where bo_num in "+"("+"Select bo_num from booking where hotel_name ="+"\'"+hotelname+"\'"+")";
 			
 			psmt = conn.prepareStatement(sqlQuery);
 			
@@ -420,9 +420,6 @@ public class Dao_manager {
 			{	
 				return_val.add(rs.getString("CONTENT"));
 			}
-			return return_val;
-
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -432,7 +429,7 @@ public class Dao_manager {
 			// 연결 종료 메소드
 			disconnect();
 		}
-		return null;
+		return return_val;
 	}
 	
 	public List<String> comments_by_bo_num(int bo_num)
@@ -569,8 +566,6 @@ public class Dao_manager {
 
 
 			}
-			
-			///////////////////////////////////////////////////////////////////////
 			psmt = conn.prepareStatement(sqlQuery);
 			psmt.setString(1, id);
 			
