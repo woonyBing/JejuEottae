@@ -193,8 +193,6 @@
                     				+ "            </div>\r\n"
                     				+ "          <div class=\"modal-body\">\r\n"
                     				+ "            <form name=\"myform"+count+"\" id=\"myform\" method=\"post\" >\r\n"
-                    				+ Integer.parseInt(bo_num)
-                    				+ "test_val:"+dm.search_review_count_by_bo_num(Integer.parseInt(bo_num)) 
                     				+				"<legend>후기를 남겨주세요</legend>\r\n"
                     				+ "              <textarea class=\"form-control\" placeholder=\"무분별한 비방, 폭력적인 욕설 사용은 통보없이 삭제될 수 있습니다.\" id=\"floatingTextarea\" name=\"comment\"\r\n"
                     				+ "              style=\"height: 100px;\"></textarea>\r\n"

@@ -6,12 +6,12 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/honey/workspace/java_workspace/java_json_parsing/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/Downloads/json-simple-1.1.1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v8.5">
 		<attributes>
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/oracle_19c/WINDOWS.X64_193000_db_home/jdbc/lib/ojdbc8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/Downloads/ojdbc8.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
