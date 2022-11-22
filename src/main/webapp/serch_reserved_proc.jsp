@@ -8,10 +8,10 @@
 </head>
 <body>
 <%
-String CPI = request.getParameter("category")+"/"+request.getParameter("period")+"/"+request.getParameter("id");
+String CP = request.getParameter("category")+"/"+request.getParameter("period");
 %>
 <script>
-location.href='reservedCheck.jsp?CPI=<%=CPI%>'; 
+location.href='reservedCheck.jsp?CP=<%=CP%>'; 
 
 </script> 
 </body>

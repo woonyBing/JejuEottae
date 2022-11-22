@@ -27,29 +27,20 @@
 <body>
 <%
 
-String cpi = request.getParameter("CPI");
+String id= (String)session.getAttribute("userID");
+
+String cp = request.getParameter("CP");
 String[] cpi_divide = null;
 
-if(cpi != null)
+if(cp != null)
 {
-     cpi_divide = cpi.split("/");
+     cpi_divide = cp.split("/");
 }
-String id = "test"; 
-if(request.getParameter("id")!=null)
-{
 
-	  id = request.getParameter("id");
-}
-else if(cpi!=null)
-{
-
-       id =cpi_divide[2];
-
-}
 
 Dao_manager dm  = new Dao_manager();
 ResultSet rs=null;
-if(cpi!=null)
+if(cp!=null)
 {
 	   rs = dm.selectReviewList_F(cpi_divide[0],cpi_divide[1],id);
 }
@@ -66,14 +57,14 @@ else
         <!-- NavBar -->
         <nav class="navbar navbar-expand-lg bg-light">
           <div class="container-fluid">
-              <a class="navbar-brand" href="LoginMain.jsp">제주어때🍊</a>
+              <a class="navbar-brand" href="/JejuEottae/LoginMain.jsp">제주어때🍊</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
-                  <a class="nav-link active" aria-current="page" href="LoginMain.jsp">Home</a>
-                  <a class="nav-link" href="./mypage.jsp?id=<%=id%>">My page</a>
+                  <a class="nav-link active" aria-current="page" href="./LoginMain.jsp">Home</a>
+                  <a class="nav-link" href="./mypage.jsp">My page</a>
               </div>
               </div>
           </div>
@@ -84,7 +75,7 @@ else
           <span class="navbar-brand mb-0 h1">REVIEW</span>
         </div>
       </nav>
-<!-- 
+
       <div class="choice"> 
         <div class="container text-center">
               <form name="serch_review_form">
@@ -206,7 +197,7 @@ else
 			  out.println("<script>\r\n"
       				+ "document.getElementById('delete_btn"+count+"').addEventListener('click', (e)=>{"
       				+ "	e.preventDefault();"
-      				+ "	location.href='reviewDelete_proc.jsp?ri="+rs.getInt("Rev_Num")+"/"+id+"';"
+      				+ "	location.href='reviewDelete_proc.jsp?rev_num="+rs.getInt("Rev_Num")+"';"
       				+ "});"
       				+ "document.getElementById('Edit_up"+count+"').addEventListener('click', (e)=>{"
       				+ "	e.preventDefault();"

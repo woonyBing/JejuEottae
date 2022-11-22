@@ -107,7 +107,7 @@ public class UserDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return -2; // DB 오류 
+		return -2; // DB 오류
 	}
 	
 	public int join(User user) {

@@ -441,10 +441,10 @@ html, body {
 				<button type="button" class="btn-close"
 					data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
-			<div class="modal-body">자세한 내역은 my page에서 확인해주세요 :)</div>
+			<div class="modal-body">자세한 내역은 예약 내역 페이지에서 확인해주세요 :)</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary"
-					onclick="location.href='./mypage.jsp'">My page</button>
+					onclick="location.href='./reservedCheck.jsp'">예약내역 확인하러 가기</button>
 					<button type="button" class="btn btn-secondary"
 						data-bs-dismiss="modal">Close</button>
 				</div>

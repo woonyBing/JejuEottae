@@ -11,13 +11,13 @@
 </head>
 <body>
 <% 
-String id = request.getParameter("id");
+String id= (String)session.getAttribute("userID");
 Dao_manager dm  = new Dao_manager();
 dm.updateReview(Integer.parseInt(request.getParameter("rev_num")), Integer.parseInt(request.getParameter("rating")), request.getParameter("comment"));
 
 %>
 <script>
-location.href='reviewManage.jsp?id=<%=id%>'; 
+location.href='reviewManage.jsp'; 
 </script> 
 
 </body>

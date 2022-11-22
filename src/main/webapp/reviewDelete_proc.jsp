@@ -11,14 +11,15 @@
 </head>
 <body>
 <% 
- String[] ri = request.getParameter("ri").split("/");
+ 
+String id= (String)session.getAttribute("userID");
 
  Dao_manager dm  = new Dao_manager();
- dm.delete_review(Integer.parseInt(ri[0])); 
+ dm.delete_review(Integer.parseInt(request.getParameter("rev_num"))); 
 
 %>
 <script>
-location.href='reviewManage.jsp?id=<%=ri[1]%>'; 
+location.href='reviewManage.jsp'; 
 </script> 
 
 </body>

@@ -25,31 +25,21 @@
 <body>
 <% 
 //session으로 받아온 userId
-String userID = (String)session.getAttribute("userID");
+				String id= (String)session.getAttribute("userID");
 
-                  String cpi = request.getParameter("CPI");
+                  String cp = request.getParameter("CP");
                   String[] cpi_divide = null;
                   
-                  if(cpi != null)
+                  if(cp != null)
                   {
-                       cpi_divide = cpi.split("/");
+                       cpi_divide = cp.split("/");
                   }
-				  String id = "test"; 
-				  if(request.getParameter("id")!=null)
-				  {
-
-					  id = request.getParameter("id");
-				  }
-				  else if(cpi!=null)
-				  {
-
-		                 id =cpi_divide[2];
-
-				  }
+				 
 
 				  Dao_manager dm  = new Dao_manager();
                   ResultSet rs=null;
-                  if(cpi!=null)
+                  
+                  if(cp!=null)
                   {
                	   rs = dm.get_booking_datas_F(cpi_divide[0],cpi_divide[1],id);
                   }
@@ -58,21 +48,21 @@ String userID = (String)session.getAttribute("userID");
                       rs = dm.get_booking_datas(id);// 카테고리랑 기간으로 필터링 기간 부등호 카테고리는 =
 
                   }
-                  
+                  //
                   %>
 
     <header style="margin:0px">
         <!-- NavBar -->
        <nav class="navbar navbar-expand-lg bg-light">
           <div class="container-fluid">
-              <a class="navbar-brand" href="LoginMain.jsp">제주어때🍊</a>
+              <a class="navbar-brand" href="/JejuEottae/LoginMain.jsp">제주어때🍊</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
                   <a class="nav-link active" aria-current="page" href="./LoginMain.jsp">Home</a>
-                  <a class="nav-link" href="./mypage.jsp?id=<%=id%>">My page</a>
+                  <a class="nav-link" href="./mypage.jsp">My page</a>
               </div>
               </div>
           </div>
@@ -155,7 +145,7 @@ String userID = (String)session.getAttribute("userID");
                     	  out.println("</th>");
                     	  
      					  out.print("<th scope=\"col\" style=\"width: 10%\">");
-                    	  out.print(rs.getInt("PERSON")+"");
+                    	  out.print(rs.getInt("PERSON_CNT")+"");
                     	  out.println("</th>");
                     	  
      					  out.print("<th scope=\"col\" style=\"width: 20%\">");
@@ -192,7 +182,7 @@ String userID = (String)session.getAttribute("userID");
                       			+ "							</div>"
                       			
                                   +"<div class=\"booking_button\" data-bs-toggle=\"modal\" data-bs-target=\"#Modal"+count+"\">"
-                                  +"<button type=\"button\" class=\"btn btn-primary\">숙소평가</button>"
+                                  +"<button id=\"eva_btn\" type=\"button\" class=\"btn btn-primary\">숙소평가</button>"
                                   +"</div></div> </div> </div>");
                     	   out.println("   <div class=\"modal fade\" id=\"Modal"+count+"\" tabindex=\"-1\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\r\n"
                     				+ "        <div class=\"modal-dialog\">\r\n"
@@ -231,7 +221,7 @@ String userID = (String)session.getAttribute("userID");
                     	  out.println("<script>\r\n"
                     				+ "document.getElementById('cancel"+count+"').addEventListener('click', (e)=>{"
                     				+ "	e.preventDefault();"
-                    				+ "	location.href='reservedDelete_proc.jsp?BI="+bo_num+"/"+id+"';"
+                    				+ "	location.href='reservedDelete_proc.jsp?bo_num="+bo_num+"';"
                     				+ "});"
                     				+"document.getElementById('reserve_up"+count+"').addEventListener('click', (e)=>{\r\n"
                     				+ "e.preventDefault();\r\n"

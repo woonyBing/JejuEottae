@@ -11,15 +11,14 @@
 </head>
 <body>
 <% 
-String[] bi =request.getParameter("BI").split("/",2);
 
-int bo_num =Integer.parseInt(bi[0]);
+int bo_num =Integer.parseInt(request.getParameter("bo_num"));
 Dao_manager dm  = new Dao_manager();
 dm.delete_Booking(bo_num);
 %>
 
 <script>
-location.href='reservedCheck.jsp?id=<%=bi[1]%>'; 
+location.href='reservedCheck.jsp'; 
 </script> 
 </body>
 </html>

@@ -27,21 +27,21 @@
 		else if (result == 0){ 
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('비밀번호가 틀립니다.')");	
+			script.println("alert('아이디 또는 패스워드를 다시 확인해주세요.')");	
 			script.println("history.back()"); // 이전 페이지로 사용자를 돌려 보냄.	
 			script.println("</script>");
 		}
 		else if (result == -2){ 
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('존재하지 않는 아이디입니다.')");	
+			script.println("alert('error(서버오류) 다시 시도해주세요.')");	
 			script.println("history.back()");	
 			script.println("</script>");
 		}
 		else if (result == -1){ 
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('아이디 또는 비밀번호가 틀립니다.')");	
+			script.println("alert('등록된 회원이 아닙니다.')");	
 			script.println("history.back()");	
 			script.println("</script>");
 		}

@@ -12,23 +12,21 @@
     <link rel="stylesheet" href="./mypage.css">
 </head>
 <body>
-		<%String id = request.getParameter("id");
-		
-		%>
+	
 
      <!-- header 및 nav 영역-->
 	<header style="margin:0px">
         <!-- NavBar -->
         <nav class="navbar navbar-expand-lg bg-light">
           <div class="container-fluid">
-              <a class="navbar-brand" href="LoginMain.jsp">제주어때🍊</a>
+              <a class="navbar-brand" href="/JejuEottae/index.jsp">제주어때🍊</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
                   <a class="nav-link active" aria-current="page" href="./LoginMain.jsp">Home</a>
-                  <a class="nav-link" href="./mypage.jsp?id=<%=id%>">My page</a>
+                  <a class="nav-link" href="./mypage.jsp">My page</a>
               </div>
               </div>
           </div>
@@ -43,7 +41,7 @@
           <!-- 카드 부분 -->
         <div class="row row-cols-1 row-cols-md-3" >
             <div class="col">
-              <a href="./reservedCheck.jsp?id=<%=id%>">
+              <a href="./reservedCheck.jsp">
               <div class="card" >
                 <!-- 링크작업 필요 -->
                 
@@ -57,7 +55,7 @@
               </div>
             </div>
             <div class="col">
-              <a href="./myInfo.jsp?id=<%=id%>">
+              <a href="./myInfo.jsp">
                 <div class="card">    
                 <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_960_720.png" 
                 class="card-img-top" width="200px" height="300px" >
@@ -68,7 +66,7 @@
               </div>
             </div>
             <div class="col">
-              <a href="./reviewManage.jsp?id=<%=id%>">
+              <a href="./reviewManage.jsp">
               <div class="card">
                 <img src="https://cdn.pixabay.com/photo/2022/01/11/21/48/talk-6931551_960_720.png"
                 class="card-img-top"  width="200px" height="300px">
@@ -83,7 +81,7 @@
 
           <!-- footer 부분 -->
           <div class="footer">
-            <img src="https://cdn.pixabay.com/photo/2017/08/01/01/17/beach-2562563_960_720.jpg" height="300px" style="opacity:50%;">            
+            <h5>footer 부분입니당</h5>
           </div>
 </body>
 </html>
