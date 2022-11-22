@@ -21,7 +21,7 @@ public class TourImgDao {
 	 * 
 	 */
 	public void connect() throws Exception {
-		String db_url = "jdbc:oracle:thin:@localhost:1521:orcl";
+		String db_url = "jdbc:oracle:thin:@192.168.0.62:1521:orcl";
 		String db_id = "scott";
 		String db_pw = "tiger";
 
