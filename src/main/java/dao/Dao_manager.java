@@ -289,7 +289,6 @@ public class Dao_manager {
 			while (rs.next()) 
 			{	
 				return_val = rs.getInt(1);
-				return return_val;
 			}
 
 		} catch (SQLException e) {

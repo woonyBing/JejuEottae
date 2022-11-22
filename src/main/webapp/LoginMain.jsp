@@ -159,6 +159,7 @@ html, body {
 						if (commentsList.size() > 0) {
 							String comment = commentsList.get(idx);
 							idx++;
+							int avgCnt = reviewDao.score_avg_by_hotelname(hotelInfo.getNAME());
 					%>
 
 					<!--호텔리스트
@@ -233,7 +234,12 @@ html, body {
 												<tbody>
 													<tr>
 														<!--여기 들어갈 내용은 db에서 가져와 넣기-->
-														<td scope="row" style="width: 20%"><%=reviewDao.score_avg_by_hotelname(hotelInfo.getNAME()) + "/5"%></td>
+														<td scope="row" style="width: 20%">
+														<%for(int z=1; z<=avgCnt; z++) {
+															out.print("⭐");
+														}%>
+														</td>
+<%-- 														<td scope="row" style="width: 20%"><%=reviewDao.score_avg_by_hotelname(hotelInfo.getNAME()) + "/5"%></td> --%>
 														<td style="width: 70%"><%=comment%></td>
 													</tr>
 												</tbody>
