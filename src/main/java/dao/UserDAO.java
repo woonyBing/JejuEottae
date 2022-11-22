@@ -50,7 +50,7 @@ public class UserDAO {
 	
 	public UserDAO() { // 생성자를 통해 UserDAO의 인스턴스가 생성되었을 때 자동으로 DB 커넥션이 이루어지도록함
 		try {
-			String dbUrl = "jdbc:oracle:thin:@localhost:1521:orcl";// localhost:3306 : 우리 서버에 설치된 mysql을 의미, /BBS : mysql안의 BBS라는 데이터 베이스에 접속할 수 있도록 함.
+			String dbUrl = "jdbc:oracle:thin:@192.168.0.62:1521:orcl";// localhost:3306 : 우리 서버에 설치된 mysql을 의미, /BBS : mysql안의 BBS라는 데이터 베이스에 접속할 수 있도록 함.
 			String dbID = "scott"; // dbID = "root" : root 계정에 접근할 수 있도록 함
 			String dbPassword = "tiger"; // 패스워드나 ID를 다르게 입력하면 정상적으로 DB에 접속할 수 없음
 			Class.forName("oracle.jdbc.driver.OracleDriver"); // Class.forName : mysql driver를 찾을 수 있도록 함 *Driver : mysql에 접속할 수 있도록 매개체 역할을 해주는 하나의 라이브러리 
