@@ -137,7 +137,7 @@
                     	  out.println("</th>");
                    
                     	  out.print("<th scope=\"col\" style=\"width: 30%\">");
-                    	  out.print(rs.getString("CHECKIN")+"~"+rs.getString("CHECKOUT"));
+                    	  out.print(rs.getDate("CHECKIN")+"~"+rs.getDate("CHECKOUT"));
                     	  out.println("</th>");
                     	  
      					  out.print("<th scope=\"col\" style=\"width: 20%\">");
